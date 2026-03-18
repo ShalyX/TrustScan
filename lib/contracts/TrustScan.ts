@@ -9,7 +9,6 @@ const CONTRACT_ADDRESS =
   (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`) ||
   "0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9";
 
-// FIX: Validate a hex address string
 function isValidAddress(addr: string): boolean {
   return /^0x[0-9a-fA-F]{40}$/.test(addr);
 }
@@ -21,7 +20,6 @@ class TrustScan {
 
   constructor(address?: string | null) {
     this.contractAddress = CONTRACT_ADDRESS;
-    // FIX: Track whether a valid account was provided
     this.hasAccount = !!address && isValidAddress(address);
 
     const config: any = {
@@ -38,7 +36,7 @@ class TrustScan {
 
   updateAccount(address: string): void {
     if (!isValidAddress(address)) {
-      console.warn("updateAccount: invalid address provided, skipping.");
+      console.warn("Invalid address provided");
       return;
     }
     this.hasAccount = true;
@@ -49,7 +47,6 @@ class TrustScan {
     } as any);
   }
 
-  // FIX: Guard — returns true only when contract address and client are ready
   private isReady(): boolean {
     return isValidAddress(this.contractAddress);
   }
@@ -57,54 +54,35 @@ class TrustScan {
   // ─── READ METHODS ───────────────────────────────────────
 
   async getRiskScore(target: string): Promise<ScanResult | null> {
-    console.log("=== getRiskScore Debug ===");
-    console.log("Contract Address:", this.contractAddress);
-    console.log("Target:", target);
-    console.log("Is Ready:", this.isReady());
-    console.log("Has Account:", this.hasAccount);
-
-    if (!this.isReady()) {
-      console.log("❌ Not ready - skipping RPC call");
-      return null;
-    }
+    if (!this.isReady()) return null;
 
     try {
-      console.log("📡 Calling readContract...");
       const result: any = await this.client.readContract({
         address: this.contractAddress,
         functionName: "get_risk_score",
         args: [target],
       });
-      console.log("✅ Raw result:", result);
 
       // Convert Map to plain object if needed
       let data: any = result;
       if (result instanceof Map) {
         data = Object.fromEntries(result);
-        console.log("📦 Converted Map to object:", data);
       }
 
-      // Check if not scanned yet
       const score = data.score;
       const label = data.label;
-      
-      console.log("📊 Score:", score, "Label:", label);
 
+      // Return null if not scanned yet
       if (!data || score === -1 || score === -1n || label === "Not Scanned") {
-        console.log("⚠️ Target not scanned yet, returning null");
         return null;
       }
 
-      // Return result with score converted to number
-      const scanResult: ScanResult = {
+      return {
         ...data,
         score: Number(score),
-      };
-      
-      console.log("✅ Returning ScanResult:", scanResult);
-      return scanResult;
+      } as ScanResult;
     } catch (e) {
-      console.error("❌ getRiskScore error:", e);
+      console.error("getRiskScore error:", e);
       return null;
     }
   }
@@ -117,13 +95,12 @@ class TrustScan {
         functionName: "get_flags",
         args: [target],
       });
-      
-      // Convert if Map
+
       let data = result;
       if (result instanceof Map) {
         data = Object.fromEntries(result);
       }
-      
+
       if (!Array.isArray(data)) return [];
       return data as FlagResult[];
     } catch (e) {
@@ -174,17 +151,12 @@ class TrustScan {
       throw new Error("Wallet not connected. Please connect your wallet before scanning.");
     }
     try {
-      console.log("📝 submitTarget called:", { target, targetType, chain });
-      
       const txHash = await this.client.writeContract({
         address: this.contractAddress,
         functionName: "submit_target",
         args: [target, targetType, chain],
         value: BigInt(0),
       });
-
-      console.log("📝 Transaction submitted:", txHash);
-      console.log("⏳ Waiting for transaction receipt...");
 
       const receipt = await this.client.waitForTransactionReceipt({
         hash: txHash,
@@ -193,10 +165,9 @@ class TrustScan {
         interval: 5000,
       });
 
-      console.log("✅ Transaction confirmed:", receipt);
       return receipt as TransactionReceipt;
     } catch (e) {
-      console.error("❌ submitTarget error:", e);
+      console.error("submitTarget error:", e);
       throw new Error("Scan failed. Please try again.");
     }
   }
@@ -209,16 +180,12 @@ class TrustScan {
       throw new Error("Wallet not connected. Please connect your wallet before flagging.");
     }
     try {
-      console.log("🚩 flagTarget called:", { target, evidence });
-      
       const txHash = await this.client.writeContract({
         address: this.contractAddress,
         functionName: "flag_target",
         args: [target, evidence],
         value: BigInt(0),
       });
-
-      console.log("🚩 Transaction submitted:", txHash);
 
       const receipt = await this.client.waitForTransactionReceipt({
         hash: txHash,
@@ -227,12 +194,12 @@ class TrustScan {
         interval: 5000,
       });
 
-      console.log("✅ Flag transaction confirmed:", receipt);
       return receipt as TransactionReceipt;
     } catch (e) {
-      console.error("❌ flagTarget error:", e);
+      console.error("flagTarget error:", e);
       throw new Error("Flag submission failed. Please try again.");
     }
   }
 }
+
 export default TrustScan;
