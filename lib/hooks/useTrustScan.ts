@@ -35,7 +35,7 @@ export function useScan() {
     console.log("=== useScan.scan() START ===");
     console.log("Target:", t, "Type:", type, "Chain:", chain, "Address:", address);
 
-    // FIX: Validate wallet address before doing anything
+    // Validate wallet address
     if (!address || !/^0x[0-9a-fA-F]{40}$/.test(address)) {
       console.log("❌ Wallet not connected or invalid address");
       toast.error("Wallet not connected", {
@@ -64,13 +64,14 @@ export function useScan() {
     }, 18000);
 
     try {
-      // Check cache first
+      // Step 1: Check if already scanned
       console.log("📡 Step 1: Checking existing results...");
       const existing = await contract.getRiskScore(t);
       console.log("📡 Existing result:", existing);
-      
-      if (existing) {
-        console.log("✅ Found existing result, returning");
+
+      // Only return early if we have a valid scanned result
+      if (existing && existing.label !== "Not Scanned") {
+        console.log("✅ Found existing scanned result, returning");
         clearInterval(phaseInterval);
         setResult(existing);
         addScan({ ...existing, target: t, scannedAt: Date.now() });
@@ -78,24 +79,30 @@ export function useScan() {
         return;
       }
 
-      // Submit new scan — use validated address
-      console.log("📡 Step 2: Submitting new scan...");
+      console.log("📡 Step 2: No existing result, submitting new scan...");
       setPhase("Submitting to GenLayer...");
+      
       const scanContract = new TrustScan(address);
       
       console.log("📡 Calling submitTarget...");
       const receipt = await scanContract.submitTarget(t, type, chain);
       console.log("📡 Submit receipt:", receipt);
 
-      // Fetch result with retry
+      // Step 3: Fetch result with retry
       console.log("📡 Step 3: Fetching result with retry...");
       setPhase("Fetching result...");
+      
       let scanResult: ScanResult | null = null;
       for (let i = 0; i < 8; i++) {
         console.log(`📡 Fetch attempt ${i + 1}/8...`);
         scanResult = await contract.getRiskScore(t);
         console.log("📡 Fetch result:", scanResult);
-        if (scanResult) break;
+        
+        if (scanResult && scanResult.label !== "Not Scanned") {
+          console.log("✅ Got valid result!");
+          break;
+        }
+        
         await new Promise(r => setTimeout(r, 3000));
       }
 
@@ -118,7 +125,6 @@ export function useScan() {
       setPhase("");
       setIsScanning(false);
     }
-  // FIX: Added addScan to dependency array to avoid stale closure
   }, [contract, addScan]);
 
   return { scan, isScanning, phase, result, target };
@@ -138,7 +144,6 @@ export function useFlag() {
   const [error, setError] = useState<string>("");
 
   const flag = useCallback(async ({ target, evidence, address }: FlagParams) => {
-    // FIX: Validate wallet address before flagging
     if (!address || !/^0x[0-9a-fA-F]{40}$/.test(address)) {
       toast.error("Wallet not connected", {
         description: "Please connect your wallet before submitting a flag.",
@@ -191,7 +196,6 @@ export function useRecentScans() {
   const [scans, setScans] = useState<ScanRecord[]>(_scans);
   const [selected, setSelected] = useState<ScanRecord | null>(null);
 
-  // FIX: useEffect (not useMemo) for subscriptions so cleanup actually runs
   useEffect(() => {
     const listener = () => setScans([..._scans]);
     _listeners.add(listener);

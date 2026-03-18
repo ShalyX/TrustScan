@@ -1,6 +1,6 @@
 export type ScanType = "wallet" | "url" | "token";
 export type ChainType = "eth" | "bsc" | "base";
-export type RiskLabel = "Safe" | "Suspicious" | "Dangerous";
+export type RiskLabel = "Safe" | "Suspicious" | "Dangerous" | "Not Scanned";
 
 export interface ScanResult {
   type: ScanType | string;

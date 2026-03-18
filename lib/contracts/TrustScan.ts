@@ -57,39 +57,59 @@ class TrustScan {
   // ─── READ METHODS ───────────────────────────────────────
 
   async getRiskScore(target: string): Promise<ScanResult | null> {
-  console.log("=== getRiskScore Debug ===");
-  console.log("Contract Address:", this.contractAddress);
-  console.log("Target:", target);
-  console.log("Is Ready:", this.isReady());
-  console.log("Has Account:", this.hasAccount);
-  
-  if (!this.isReady()) {
-    console.log("❌ Not ready - skipping RPC call");
-    return null;
-  }
-  
-  try {
-    console.log("📡 Calling readContract...");
-    const result: any = await this.client.readContract({
-      address: this.contractAddress,
-      functionName: "get_risk_score",
-      args: [target],
-    });
-    console.log("✅ Raw result:", result);
-    
-    if (!result || result.score === -1 || result.label === "Not Scanned") {
-      console.log("⚠️ No valid result (not scanned yet)");
+    console.log("=== getRiskScore Debug ===");
+    console.log("Contract Address:", this.contractAddress);
+    console.log("Target:", target);
+    console.log("Is Ready:", this.isReady());
+    console.log("Has Account:", this.hasAccount);
+
+    if (!this.isReady()) {
+      console.log("❌ Not ready - skipping RPC call");
       return null;
     }
-    return result as ScanResult;
-  } catch (e) {
-    console.error("❌ getRiskScore error:", e);
-    return null;
+
+    try {
+      console.log("📡 Calling readContract...");
+      const result: any = await this.client.readContract({
+        address: this.contractAddress,
+        functionName: "get_risk_score",
+        args: [target],
+      });
+      console.log("✅ Raw result:", result);
+
+      // Convert Map to plain object if needed
+      let data: any = result;
+      if (result instanceof Map) {
+        data = Object.fromEntries(result);
+        console.log("📦 Converted Map to object:", data);
+      }
+
+      // Check if not scanned yet
+      const score = data.score;
+      const label = data.label;
+      
+      console.log("📊 Score:", score, "Label:", label);
+
+      if (!data || score === -1 || score === -1n || label === "Not Scanned") {
+        console.log("⚠️ Target not scanned yet, returning null");
+        return null;
+      }
+
+      // Return result with score converted to number
+      const scanResult: ScanResult = {
+        ...data,
+        score: Number(score),
+      };
+      
+      console.log("✅ Returning ScanResult:", scanResult);
+      return scanResult;
+    } catch (e) {
+      console.error("❌ getRiskScore error:", e);
+      return null;
+    }
   }
-}
 
   async getFlags(target: string): Promise<FlagResult[]> {
-    // FIX: Skip RPC call if client isn't ready
     if (!this.isReady()) return [];
     try {
       const result: any = await this.client.readContract({
@@ -97,8 +117,15 @@ class TrustScan {
         functionName: "get_flags",
         args: [target],
       });
-      if (!Array.isArray(result)) return [];
-      return result as FlagResult[];
+      
+      // Convert if Map
+      let data = result;
+      if (result instanceof Map) {
+        data = Object.fromEntries(result);
+      }
+      
+      if (!Array.isArray(data)) return [];
+      return data as FlagResult[];
     } catch (e) {
       console.error("getFlags error:", e);
       return [];
@@ -106,7 +133,6 @@ class TrustScan {
   }
 
   async getFlagCount(target: string): Promise<number> {
-    // FIX: Skip RPC call if client isn't ready
     if (!this.isReady()) return 0;
     try {
       const result: any = await this.client.readContract({
@@ -122,7 +148,6 @@ class TrustScan {
   }
 
   async getAllScanned(): Promise<string[]> {
-    // FIX: Skip RPC call if client isn't ready
     if (!this.isReady()) return [];
     try {
       const result: any = await this.client.readContract({
@@ -145,17 +170,21 @@ class TrustScan {
     targetType: ScanType,
     chain: ChainType = "eth"
   ): Promise<TransactionReceipt> {
-    // FIX: Require a connected wallet for write operations
     if (!this.hasAccount) {
       throw new Error("Wallet not connected. Please connect your wallet before scanning.");
     }
     try {
+      console.log("📝 submitTarget called:", { target, targetType, chain });
+      
       const txHash = await this.client.writeContract({
         address: this.contractAddress,
         functionName: "submit_target",
         args: [target, targetType, chain],
         value: BigInt(0),
       });
+
+      console.log("📝 Transaction submitted:", txHash);
+      console.log("⏳ Waiting for transaction receipt...");
 
       const receipt = await this.client.waitForTransactionReceipt({
         hash: txHash,
@@ -164,9 +193,10 @@ class TrustScan {
         interval: 5000,
       });
 
+      console.log("✅ Transaction confirmed:", receipt);
       return receipt as TransactionReceipt;
     } catch (e) {
-      console.error("submitTarget error:", e);
+      console.error("❌ submitTarget error:", e);
       throw new Error("Scan failed. Please try again.");
     }
   }
@@ -175,17 +205,20 @@ class TrustScan {
     target: string,
     evidence: string
   ): Promise<TransactionReceipt> {
-    // FIX: Require a connected wallet for write operations
     if (!this.hasAccount) {
       throw new Error("Wallet not connected. Please connect your wallet before flagging.");
     }
     try {
+      console.log("🚩 flagTarget called:", { target, evidence });
+      
       const txHash = await this.client.writeContract({
         address: this.contractAddress,
         functionName: "flag_target",
         args: [target, evidence],
         value: BigInt(0),
       });
+
+      console.log("🚩 Transaction submitted:", txHash);
 
       const receipt = await this.client.waitForTransactionReceipt({
         hash: txHash,
@@ -194,12 +227,12 @@ class TrustScan {
         interval: 5000,
       });
 
+      console.log("✅ Flag transaction confirmed:", receipt);
       return receipt as TransactionReceipt;
     } catch (e) {
-      console.error("flagTarget error:", e);
+      console.error("❌ flagTarget error:", e);
       throw new Error("Flag submission failed. Please try again.");
     }
   }
 }
-
 export default TrustScan;
