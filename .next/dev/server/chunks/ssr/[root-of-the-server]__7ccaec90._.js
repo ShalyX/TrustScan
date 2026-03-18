@@ -60,7 +60,7 @@ function getStudioUrl() {
     return ("TURBOPACK compile-time value", "https://studio.genlayer.com/api") || "https://studio.genlayer.com/api";
 }
 function getContractAddress() {
-    return ("TURBOPACK compile-time value", "your_contract_address") || "0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9";
+    return ("TURBOPACK compile-time value", "0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9") || "0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9";
 }
 function isMetaMaskInstalled() {
     if ("TURBOPACK compile-time truthy", 1) return false;

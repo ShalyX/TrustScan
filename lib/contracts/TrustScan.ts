@@ -57,23 +57,36 @@ class TrustScan {
   // ─── READ METHODS ───────────────────────────────────────
 
   async getRiskScore(target: string): Promise<ScanResult | null> {
-    // FIX: Skip RPC call if client isn't ready — prevents gen_call errors
-    if (!this.isReady()) return null;
-    try {
-      const result: any = await this.client.readContract({
-        address: this.contractAddress,
-        functionName: "get_risk_score",
-        args: [target],
-      });
-      if (!result || result.score === -1 || result.label === "Not Scanned") {
-        return null;
-      }
-      return result as ScanResult;
-    } catch (e) {
-      console.error("getRiskScore error:", e);
+  console.log("=== getRiskScore Debug ===");
+  console.log("Contract Address:", this.contractAddress);
+  console.log("Target:", target);
+  console.log("Is Ready:", this.isReady());
+  console.log("Has Account:", this.hasAccount);
+  
+  if (!this.isReady()) {
+    console.log("❌ Not ready - skipping RPC call");
+    return null;
+  }
+  
+  try {
+    console.log("📡 Calling readContract...");
+    const result: any = await this.client.readContract({
+      address: this.contractAddress,
+      functionName: "get_risk_score",
+      args: [target],
+    });
+    console.log("✅ Raw result:", result);
+    
+    if (!result || result.score === -1 || result.label === "Not Scanned") {
+      console.log("⚠️ No valid result (not scanned yet)");
       return null;
     }
+    return result as ScanResult;
+  } catch (e) {
+    console.error("❌ getRiskScore error:", e);
+    return null;
   }
+}
 
   async getFlags(target: string): Promise<FlagResult[]> {
     // FIX: Skip RPC call if client isn't ready

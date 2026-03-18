@@ -32,8 +32,12 @@ export function useScan() {
   const [target, setTarget] = useState<string>("");
 
   const scan = useCallback(async ({ target: t, type, chain, address }: ScanParams) => {
+    console.log("=== useScan.scan() START ===");
+    console.log("Target:", t, "Type:", type, "Chain:", chain, "Address:", address);
+
     // FIX: Validate wallet address before doing anything
     if (!address || !/^0x[0-9a-fA-F]{40}$/.test(address)) {
+      console.log("❌ Wallet not connected or invalid address");
       toast.error("Wallet not connected", {
         description: "Please connect your wallet before scanning.",
       });
@@ -61,8 +65,12 @@ export function useScan() {
 
     try {
       // Check cache first
+      console.log("📡 Step 1: Checking existing results...");
       const existing = await contract.getRiskScore(t);
+      console.log("📡 Existing result:", existing);
+      
       if (existing) {
+        console.log("✅ Found existing result, returning");
         clearInterval(phaseInterval);
         setResult(existing);
         addScan({ ...existing, target: t, scannedAt: Date.now() });
@@ -71,29 +79,38 @@ export function useScan() {
       }
 
       // Submit new scan — use validated address
+      console.log("📡 Step 2: Submitting new scan...");
       setPhase("Submitting to GenLayer...");
       const scanContract = new TrustScan(address);
-      await scanContract.submitTarget(t, type, chain);
+      
+      console.log("📡 Calling submitTarget...");
+      const receipt = await scanContract.submitTarget(t, type, chain);
+      console.log("📡 Submit receipt:", receipt);
 
       // Fetch result with retry
+      console.log("📡 Step 3: Fetching result with retry...");
       setPhase("Fetching result...");
       let scanResult: ScanResult | null = null;
       for (let i = 0; i < 8; i++) {
+        console.log(`📡 Fetch attempt ${i + 1}/8...`);
         scanResult = await contract.getRiskScore(t);
+        console.log("📡 Fetch result:", scanResult);
         if (scanResult) break;
         await new Promise(r => setTimeout(r, 3000));
       }
 
       if (!scanResult) {
+        console.log("❌ No result after all retries");
         throw new Error("Result not ready. Transaction may still be processing.");
       }
 
+      console.log("✅ Scan complete:", scanResult);
       setResult(scanResult);
       addScan({ ...scanResult, target: t, scannedAt: Date.now() });
       toast.success("Scan complete.");
 
     } catch (e: any) {
-      console.error("Scan error:", e);
+      console.error("❌ Scan error:", e);
       toast.error("Scan failed", { description: e.message || "Please try again." });
       setResult(null);
     } finally {
