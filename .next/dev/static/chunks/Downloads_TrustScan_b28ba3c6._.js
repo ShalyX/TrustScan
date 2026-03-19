@@ -1273,10 +1273,12 @@ function useScan() {
                     phaseIdx = Math.min(phaseIdx + 1, phases.length - 1);
                     setPhase(phases[phaseIdx]);
                 }
-            }["useScan.useCallback[scan].phaseInterval"], 18000);
+            }["useScan.useCallback[scan].phaseInterval"], 20000);
             try {
                 // Check if already scanned
+                console.log("Checking for existing scan...");
                 const existing = await contract.getRiskScore(t);
+                console.log("Existing result:", existing);
                 if (existing && existing.label !== "Not Scanned") {
                     clearInterval(phaseInterval);
                     setResult(existing);
@@ -1289,22 +1291,34 @@ function useScan() {
                     return;
                 }
                 // Submit new scan
+                console.log("Submitting new scan...");
                 setPhase("Submitting to GenLayer...");
                 const scanContract = new __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$lib$2f$contracts$2f$TrustScan$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"](address);
-                await scanContract.submitTarget(t, type, chain);
+                const receipt = await scanContract.submitTarget(t, type, chain);
+                console.log("Transaction receipt:", receipt);
+                console.log("Transaction hash:", receipt?.hash);
                 // Fetch result with retry
+                console.log("Starting fetch retry loop...");
                 setPhase("Fetching result...");
                 let scanResult = null;
-                for(let i = 0; i < 8; i++){
+                for(let i = 0; i < 20; i++){
+                    console.log(`Fetch attempt ${i + 1}/20...`);
                     scanResult = await contract.getRiskScore(t);
-                    if (scanResult && scanResult.label !== "Not Scanned") break;
+                    console.log(`Attempt ${i + 1} result:`, scanResult);
+                    if (scanResult && scanResult.label !== "Not Scanned") {
+                        console.log("Got valid result!");
+                        break;
+                    }
+                    console.log("No result yet, waiting 5 seconds...");
                     await new Promise({
-                        "useScan.useCallback[scan]": (r)=>setTimeout(r, 3000)
+                        "useScan.useCallback[scan]": (r)=>setTimeout(r, 5000)
                     }["useScan.useCallback[scan]"]);
                 }
                 if (!scanResult) {
-                    throw new Error("Result not ready. Transaction may still be processing.");
+                    console.error("No result after all retries");
+                    throw new Error("Result not ready. GenLayer AI is still processing. Please try checking again in a minute.");
                 }
+                console.log("Scan complete:", scanResult);
                 setResult(scanResult);
                 addScan({
                     ...scanResult,
@@ -1313,6 +1327,7 @@ function useScan() {
                 });
                 __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("Scan complete.");
             } catch (e) {
+                console.error("Scan error:", e);
                 __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("Scan failed", {
                     description: e.message || "Please try again."
                 });

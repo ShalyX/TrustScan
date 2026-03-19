@@ -56,11 +56,13 @@ export function useScan() {
   const phaseInterval = setInterval(() => {
     phaseIdx = Math.min(phaseIdx + 1, phases.length - 1);
     setPhase(phases[phaseIdx]);
-  }, 20000);  // Changed from 18000 to 20000
+  }, 20000);
 
   try {
     // Check if already scanned
+    console.log("Checking for existing scan...");
     const existing = await contract.getRiskScore(t);
+    console.log("Existing result:", existing);
 
     if (existing && existing.label !== "Not Scanned") {
       clearInterval(phaseInterval);
@@ -71,28 +73,45 @@ export function useScan() {
     }
 
     // Submit new scan
+    console.log("Submitting new scan...");
     setPhase("Submitting to GenLayer...");
     const scanContract = new TrustScan(address);
-    await scanContract.submitTarget(t, type, chain);
+    
+    const receipt = await scanContract.submitTarget(t, type, chain);
+    console.log("Transaction receipt:", receipt);
+    console.log("Transaction hash:", receipt?.hash);
 
-    // Fetch result with retry (increased timeout)
+    // Fetch result with retry
+    console.log("Starting fetch retry loop...");
     setPhase("Fetching result...");
     let scanResult: ScanResult | null = null;
-    for (let i = 0; i < 20; i++) {  // Increased from 8 to 20
+    
+    for (let i = 0; i < 20; i++) {
+      console.log(`Fetch attempt ${i + 1}/20...`);
       scanResult = await contract.getRiskScore(t);
-      if (scanResult && scanResult.label !== "Not Scanned") break;
-      await new Promise(r => setTimeout(r, 5000));  // Increased from 3000 to 5000
+      console.log(`Attempt ${i + 1} result:`, scanResult);
+      
+      if (scanResult && scanResult.label !== "Not Scanned") {
+        console.log("Got valid result!");
+        break;
+      }
+      
+      console.log("No result yet, waiting 5 seconds...");
+      await new Promise(r => setTimeout(r, 5000));
     }
 
     if (!scanResult) {
+      console.error("No result after all retries");
       throw new Error("Result not ready. GenLayer AI is still processing. Please try checking again in a minute.");
     }
 
+    console.log("Scan complete:", scanResult);
     setResult(scanResult);
     addScan({ ...scanResult, target: t, scannedAt: Date.now() });
     toast.success("Scan complete.");
 
   } catch (e: any) {
+    console.error("Scan error:", e);
     toast.error("Scan failed", { description: e.message || "Please try again." });
     setResult(null);
   } finally {
