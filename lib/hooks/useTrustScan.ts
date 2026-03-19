@@ -173,8 +173,28 @@ export function useFlag() {
   return { flag, isFlagging, isSuccess, error };
 }
 
-// ─── Recent scans (in-memory store) ──────────────────────────────────────────
+// ─── Recent scans (persisted to localStorage) ─────────────────────────────
 
+const LS_SCANS_KEY = "ts_recent_scans";
+const MAX_SCANS = 10;
+
+function loadScans(): ScanRecord[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(LS_SCANS_KEY);
+    if (!raw) return [];
+    return JSON.parse(raw) as ScanRecord[];
+  } catch { return []; }
+}
+
+function saveScans(scans: ScanRecord[]): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(LS_SCANS_KEY, JSON.stringify(scans));
+  } catch {}
+}
+
+// In-memory cache — always synced with localStorage
 let _scans: ScanRecord[] = [];
 const _listeners = new Set<() => void>();
 
@@ -184,17 +204,25 @@ function notifyListeners() {
 
 function useRecentScansStore() {
   const addScan = useCallback((scan: ScanRecord) => {
-    _scans = [scan, ..._scans.filter(s => s.target !== scan.target)].slice(0, 10);
+    const current = loadScans();
+    const updated = [scan, ...current.filter(s => s.target !== scan.target)].slice(0, MAX_SCANS);
+    _scans = updated;
+    saveScans(updated);
     notifyListeners();
   }, []);
   return { addScan };
 }
 
 export function useRecentScans() {
-  const [scans, setScans] = useState<ScanRecord[]>(_scans);
+  const [scans, setScans] = useState<ScanRecord[]>([]);
   const [selected, setSelected] = useState<ScanRecord | null>(null);
 
   useEffect(() => {
+    // Always load fresh from localStorage on mount
+    const stored = loadScans();
+    _scans = stored;
+    setScans(stored);
+
     const listener = () => setScans([..._scans]);
     _listeners.add(listener);
     return () => { _listeners.delete(listener); };

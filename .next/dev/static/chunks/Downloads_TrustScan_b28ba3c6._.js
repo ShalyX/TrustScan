@@ -1413,7 +1413,28 @@ function useFlag() {
     };
 }
 _s2(useFlag, "8F7GoWepGTomK6b9TbO63J0muH8=");
-// ─── Recent scans (in-memory store) ──────────────────────────────────────────
+// ─── Recent scans (persisted to localStorage) ─────────────────────────────
+const LS_SCANS_KEY = "ts_recent_scans";
+const MAX_SCANS = 10;
+function loadScans() {
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    try {
+        const raw = localStorage.getItem(LS_SCANS_KEY);
+        if (!raw) return [];
+        return JSON.parse(raw);
+    } catch  {
+        return [];
+    }
+}
+function saveScans(scans) {
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    try {
+        localStorage.setItem(LS_SCANS_KEY, JSON.stringify(scans));
+    } catch  {}
+}
+// In-memory cache — always synced with localStorage
 let _scans = [];
 const _listeners = new Set();
 function notifyListeners() {
@@ -1423,12 +1444,15 @@ function useRecentScansStore() {
     _s3();
     const addScan = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "useRecentScansStore.useCallback[addScan]": (scan)=>{
-            _scans = [
+            const current = loadScans();
+            const updated = [
                 scan,
-                ..._scans.filter({
-                    "useRecentScansStore.useCallback[addScan]": (s)=>s.target !== scan.target
-                }["useRecentScansStore.useCallback[addScan]"])
-            ].slice(0, 10);
+                ...current.filter({
+                    "useRecentScansStore.useCallback[addScan].updated": (s)=>s.target !== scan.target
+                }["useRecentScansStore.useCallback[addScan].updated"])
+            ].slice(0, MAX_SCANS);
+            _scans = updated;
+            saveScans(updated);
             notifyListeners();
         }
     }["useRecentScansStore.useCallback[addScan]"], []);
@@ -1439,10 +1463,14 @@ function useRecentScansStore() {
 _s3(useRecentScansStore, "aDxkt8XpMNb109f+5gjJaV/LdDY=");
 function useRecentScans() {
     _s4();
-    const [scans, setScans] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(_scans);
+    const [scans, setScans] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [selected, setSelected] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "useRecentScans.useEffect": ()=>{
+            // Always load fresh from localStorage on mount
+            const stored = loadScans();
+            _scans = stored;
+            setScans(stored);
             const listener = {
                 "useRecentScans.useEffect.listener": ()=>setScans([
                         ..._scans
@@ -1474,7 +1502,7 @@ function useRecentScans() {
         selectScan
     };
 }
-_s4(useRecentScans, "25VtypgWspP2U39LqBIxMDbl4Ds=");
+_s4(useRecentScans, "2ngwUjx7W2JZWzWAedn2ARGX6B4=");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
@@ -2180,19 +2208,31 @@ const SCAN_TYPES = [
         value: "wallet",
         label: "Wallet",
         placeholder: "0x742d35Cc6634C0532925...",
-        hint: "Ethereum wallet address"
+        hint: "Ethereum wallet address",
+        examples: [
+            "0x742d35Cc6634C0532925dA2B6F3ab4B6F4e3E1Aa",
+            "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+        ]
     },
     {
         value: "url",
         label: "URL",
         placeholder: "suspicious-airdrop.com",
-        hint: "Website or domain to check"
+        hint: "Website or domain to check",
+        examples: [
+            "cysicfinance.com",
+            "uniswap-airdrop.net"
+        ]
     },
     {
         value: "token",
         label: "Token",
         placeholder: "0xdAC17F958D2ee523a2206...",
-        hint: "Token contract address"
+        hint: "Token contract address",
+        examples: [
+            "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+        ]
     }
 ];
 const CHAINS = [
@@ -2214,46 +2254,52 @@ const LABEL_CONFIG = {
         color: "text-primary",
         bg: "bg-primary/8",
         border: "border-primary/25",
-        glow: "shadow-[0_0_24px_oklch(0.82_0.18_155/0.12)]",
+        glow: "shadow-[0_0_40px_oklch(0.82_0.18_155/0.20)]",
+        cardGlow: "rgba(0,255,136,0.06)",
         icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"], {
             className: "w-5 h-5"
         }, void 0, false, {
             fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-            lineNumber: 31,
+            lineNumber: 32,
             columnNumber: 11
         }, ("TURBOPACK compile-time value", void 0)),
         scoreColor: "text-primary",
-        severityDot: "bg-primary"
+        wowLine: "This target looks clean. Safe to interact.",
+        wowColor: "text-primary"
     },
     Suspicious: {
         color: "text-yellow-400",
         bg: "bg-yellow-400/8",
         border: "border-yellow-400/25",
-        glow: "shadow-[0_0_24px_oklch(0.80_0.18_80/0.12)]",
+        glow: "shadow-[0_0_40px_oklch(0.80_0.18_80/0.20)]",
+        cardGlow: "rgba(255,184,0,0.06)",
         icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$triangle$2d$alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertTriangle$3e$__["AlertTriangle"], {
             className: "w-5 h-5"
         }, void 0, false, {
             fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-            lineNumber: 40,
+            lineNumber: 43,
             columnNumber: 11
         }, ("TURBOPACK compile-time value", void 0)),
         scoreColor: "text-yellow-400",
-        severityDot: "bg-yellow-400"
+        wowLine: "Proceed with caution. Something doesn't add up.",
+        wowColor: "text-yellow-400"
     },
     Dangerous: {
         color: "text-destructive",
         bg: "bg-destructive/8",
         border: "border-destructive/25",
-        glow: "shadow-[0_0_24px_oklch(0.65_0.22_25/0.15)]",
+        glow: "shadow-[0_0_40px_oklch(0.65_0.22_25/0.25)]",
+        cardGlow: "rgba(255,61,90,0.08)",
         icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__["XCircle"], {
             className: "w-5 h-5"
         }, void 0, false, {
             fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-            lineNumber: 49,
+            lineNumber: 54,
             columnNumber: 11
         }, ("TURBOPACK compile-time value", void 0)),
         scoreColor: "text-destructive",
-        severityDot: "bg-destructive"
+        wowLine: "High risk detected. Do not interact with this target.",
+        wowColor: "text-destructive"
     }
 };
 const SEVERITY_CONFIG = {
@@ -2276,6 +2322,39 @@ const SEVERITY_CONFIG = {
         border: "border-border"
     }
 };
+// ─── Scan limit (persisted to localStorage) ──────────────────────────────────
+const LIMIT = 10;
+const LS_KEY = "ts_scan_data";
+function getTodayKey() {
+    return new Date().toISOString().split("T")[0];
+}
+function getRemaining() {
+    try {
+        const raw = localStorage.getItem(LS_KEY);
+        if (!raw) return LIMIT;
+        const data = JSON.parse(raw);
+        if (data.date !== getTodayKey()) return LIMIT;
+        return Math.max(0, LIMIT - (data.count || 0));
+    } catch  {
+        return LIMIT;
+    }
+}
+function consumeScan() {
+    try {
+        const today = getTodayKey();
+        const raw = localStorage.getItem(LS_KEY);
+        let data = raw ? JSON.parse(raw) : {};
+        if (data.date !== today) data = {
+            date: today,
+            count: 0
+        };
+        data.count = (data.count || 0) + 1;
+        localStorage.setItem(LS_KEY, JSON.stringify(data));
+        return Math.max(0, LIMIT - data.count);
+    } catch  {
+        return LIMIT;
+    }
+}
 function ScanPanel() {
     _s();
     const { address, isConnected } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$lib$2f$genlayer$2f$WalletProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useWallet"])();
@@ -2285,6 +2364,7 @@ function ScanPanel() {
     const [chain, setChain] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("eth");
     const [copied, setCopied] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [sharing, setSharing] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [remaining, setRemaining] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(LIMIT);
     const [flagOpen, setFlagOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [showFlags, setShowFlags] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [flags, setFlags] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
@@ -2292,6 +2372,13 @@ function ScanPanel() {
     const [loadingFlags, setLoadingFlags] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const shareRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const cfg = result ? LABEL_CONFIG[result.label] : null;
+    const currentType = SCAN_TYPES.find((t)=>t.value === type);
+    // Load remaining scans from localStorage on mount
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "ScanPanel.useEffect": ()=>{
+            setRemaining(getRemaining());
+        }
+    }["ScanPanel.useEffect"], []);
     // Fetch flags whenever scannedTarget changes
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ScanPanel.useEffect": ()=>{
@@ -2321,9 +2408,12 @@ function ScanPanel() {
     ]);
     const handleScan = ()=>{
         if (!target.trim() || !isConnected || !address) return;
+        if (remaining <= 0) return;
         setFlags([]);
         setFlagCount(0);
         setShowFlags(false);
+        const newRemaining = consumeScan();
+        setRemaining(newRemaining);
         scan({
             target: target.trim(),
             type,
@@ -2370,7 +2460,6 @@ function ScanPanel() {
     };
     const handleFlagSuccess = async ()=>{
         setFlagOpen(false);
-        // Refresh flags after successful submission
         if (!scannedTarget) return;
         try {
             const contract = new __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$lib$2f$contracts$2f$TrustScan$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]();
@@ -2401,7 +2490,7 @@ function ScanPanel() {
                                     children: t.label
                                 }, t.value, false, {
                                     fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                    lineNumber: 173,
+                                    lineNumber: 218,
                                     columnNumber: 13
                                 }, this)),
                             type === "token" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2413,18 +2502,18 @@ function ScanPanel() {
                                         children: c.label
                                     }, c.value, false, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 189,
+                                        lineNumber: 234,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 187,
+                                lineNumber: 232,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                        lineNumber: 171,
+                        lineNumber: 216,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2435,46 +2524,73 @@ function ScanPanel() {
                                 value: target,
                                 onChange: (e)=>setTarget(e.target.value),
                                 onKeyDown: (e)=>e.key === "Enter" && !isScanning && handleScan(),
-                                placeholder: SCAN_TYPES.find((t)=>t.value === type)?.placeholder,
+                                placeholder: currentType.placeholder,
                                 disabled: isScanning,
                                 spellCheck: false,
                                 autoComplete: "off",
                                 className: "ts-input flex-1 px-4 py-3 text-sm font-mono min-w-0"
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 207,
+                                lineNumber: 253,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: handleScan,
-                                disabled: isScanning || !target.trim() || !isConnected,
+                                disabled: isScanning || !target.trim() || !isConnected || remaining <= 0,
                                 className: "btn-primary w-11 h-11 flex items-center justify-center flex-shrink-0 disabled:opacity-40 disabled:cursor-not-allowed rounded-lg",
                                 children: isScanning ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__["Loader2"], {
                                     className: "w-4 h-4 animate-spin"
                                 }, void 0, false, {
                                     fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                    lineNumber: 224,
+                                    lineNumber: 270,
                                     columnNumber: 17
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
                                     className: "w-4 h-4"
                                 }, void 0, false, {
                                     fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                    lineNumber: 225,
+                                    lineNumber: 271,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 218,
+                                lineNumber: 264,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                        lineNumber: 206,
+                        lineNumber: 252,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center justify-between mt-3",
+                        className: "flex items-center gap-2 mt-3 flex-wrap",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-xs text-muted-foreground font-mono",
+                                children: "Try:"
+                            }, void 0, false, {
+                                fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
+                                lineNumber: 278,
+                                columnNumber: 11
+                            }, this),
+                            currentType.examples.map((ex, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setTarget(ex),
+                                    disabled: isScanning,
+                                    className: "text-xs font-mono text-muted-foreground hover:text-primary transition-colors truncate max-w-[140px]",
+                                    children: ex.length > 18 ? `${ex.slice(0, 8)}...${ex.slice(-6)}` : ex
+                                }, i, false, {
+                                    fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
+                                    lineNumber: 280,
+                                    columnNumber: 13
+                                }, this))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
+                        lineNumber: 277,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center justify-between mt-2",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 className: "text-xs text-muted-foreground font-mono",
@@ -2483,32 +2599,37 @@ function ScanPanel() {
                                     children: phase
                                 }, void 0, false, {
                                     fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                    lineNumber: 233,
+                                    lineNumber: 295,
                                     columnNumber: 17
-                                }, this) : SCAN_TYPES.find((t)=>t.value === type)?.hint
+                                }, this) : currentType.hint
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 231,
+                                lineNumber: 293,
                                 columnNumber: 11
                             }, this),
-                            !isConnected && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "text-xs text-muted-foreground font-mono",
-                                children: "Connect wallet to scan"
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: `text-xs font-mono ${remaining <= 3 ? "text-destructive" : "text-muted-foreground"}`,
+                                children: [
+                                    remaining,
+                                    "/",
+                                    LIMIT,
+                                    " scans today"
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 238,
-                                columnNumber: 13
+                                lineNumber: 299,
+                                columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                        lineNumber: 230,
+                        lineNumber: 292,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                lineNumber: 170,
+                lineNumber: 214,
                 columnNumber: 7
             }, this),
             isScanning && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2521,20 +2642,20 @@ function ScanPanel() {
                                 className: "absolute inset-0 rounded-full border-2 border-primary/20 border-t-primary animate-spin"
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 249,
+                                lineNumber: 309,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"], {
                                 className: "w-5 h-5 text-primary/60"
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 250,
+                                lineNumber: 310,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                        lineNumber: 248,
+                        lineNumber: 308,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2545,7 +2666,7 @@ function ScanPanel() {
                                 children: "Analyzing target..."
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 253,
+                                lineNumber: 313,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2553,41 +2674,44 @@ function ScanPanel() {
                                 children: "GenLayer AI validators are cross-referencing Etherscan, GoPlus, and Chainabuse"
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 254,
+                                lineNumber: 314,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                        lineNumber: 252,
+                        lineNumber: 312,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                lineNumber: 247,
+                lineNumber: 307,
                 columnNumber: 9
             }, this),
             !isScanning && result && scannedTarget && cfg && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: `ts-card overflow-hidden ${cfg.glow}`,
                 id: "scan-result",
+                style: {
+                    background: `linear-gradient(135deg, ${cfg.cardGlow} 0%, transparent 60%)`
+                },
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         ref: shareRef,
                         className: "p-6",
                         style: {
-                            background: "#080b0f"
+                            background: `linear-gradient(135deg, ${cfg.cardGlow} 0%, #080b0f 60%)`
                         },
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex items-center gap-5 mb-5",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "relative flex-shrink-0 w-24 h-24",
+                                        className: "relative flex-shrink-0 w-28 h-28",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                                 viewBox: "0 0 80 80",
-                                                className: "w-24 h-24 -rotate-90",
+                                                className: "w-28 h-28 -rotate-90",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
                                                         cx: "40",
@@ -2599,7 +2723,7 @@ function ScanPanel() {
                                                         className: "text-border"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                        lineNumber: 271,
+                                                        lineNumber: 335,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -2613,29 +2737,29 @@ function ScanPanel() {
                                                         className: cfg.scoreColor,
                                                         stroke: "currentColor",
                                                         style: {
-                                                            filter: `drop-shadow(0 0 8px currentColor)`,
+                                                            filter: `drop-shadow(0 0 10px currentColor)`,
                                                             transition: "stroke-dasharray 1s ease"
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                        lineNumber: 272,
+                                                        lineNumber: 336,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                lineNumber: 270,
+                                                lineNumber: 334,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute inset-0 flex flex-col items-center justify-center",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: `text-2xl font-bold leading-none ${cfg.scoreColor}`,
+                                                        className: `text-3xl font-bold leading-none ${cfg.scoreColor}`,
                                                         children: result.score
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                        lineNumber: 284,
+                                                        lineNumber: 348,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2643,33 +2767,36 @@ function ScanPanel() {
                                                         children: "/100"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                        lineNumber: 285,
+                                                        lineNumber: 349,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                lineNumber: 283,
+                                                lineNumber: 347,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 269,
+                                        lineNumber: 333,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex-1 min-w-0 space-y-2",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: `inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-lg font-bold uppercase tracking-wide ${cfg.color} ${cfg.bg} ${cfg.border}`,
+                                                className: `inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border text-xl font-bold uppercase tracking-wider ${cfg.color} ${cfg.bg} ${cfg.border}`,
+                                                style: {
+                                                    boxShadow: `0 0 20px ${cfg.cardGlow}`
+                                                },
                                                 children: [
                                                     cfg.icon,
                                                     result.label
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                lineNumber: 290,
+                                                lineNumber: 355,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2677,7 +2804,7 @@ function ScanPanel() {
                                                 children: scannedTarget
                                             }, void 0, false, {
                                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                lineNumber: 294,
+                                                lineNumber: 361,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2689,7 +2816,7 @@ function ScanPanel() {
                                                         children: result.type
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                        lineNumber: 296,
+                                                        lineNumber: 363,
                                                         columnNumber: 35
                                                     }, this),
                                                     result.chain && result.chain !== "n/a" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -2698,25 +2825,25 @@ function ScanPanel() {
                                                         children: result.chain
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                        lineNumber: 297,
+                                                        lineNumber: 364,
                                                         columnNumber: 62
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                lineNumber: 295,
+                                                lineNumber: 362,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 289,
+                                        lineNumber: 354,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 268,
+                                lineNumber: 331,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2726,48 +2853,87 @@ function ScanPanel() {
                                     children: result.reason
                                 }, void 0, false, {
                                     fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                    lineNumber: 304,
+                                    lineNumber: 371,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 303,
+                                lineNumber: 370,
                                 columnNumber: 13
                             }, this),
                             result.signals_found && result.signals_found.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex flex-wrap gap-1.5 mb-4",
-                                children: result.signals_found.map((s, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: `text-xs px-2.5 py-1 rounded-md border font-mono ${cfg.color} ${cfg.bg} ${cfg.border}`,
-                                        children: s
-                                    }, i, false, {
+                                children: [
+                                    result.signals_found.slice(0, 3).map((s, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: `text-xs px-2.5 py-1 rounded-md border font-mono ${cfg.color} ${cfg.bg} ${cfg.border}`,
+                                            children: s
+                                        }, i, false, {
+                                            fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
+                                            lineNumber: 378,
+                                            columnNumber: 19
+                                        }, this)),
+                                    result.signals_found.length > 3 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-xs px-2.5 py-1 rounded-md border font-mono text-muted-foreground bg-muted/20 border-border",
+                                        children: [
+                                            "+",
+                                            result.signals_found.length - 3,
+                                            " more"
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 311,
+                                        lineNumber: 383,
                                         columnNumber: 19
-                                    }, this))
-                            }, void 0, false, {
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 309,
+                                lineNumber: 376,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-center justify-between pt-3 border-t border-border",
+                                className: `flex items-center gap-2 py-2.5 px-3 rounded-lg ${cfg.bg} border ${cfg.border} mb-3`,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-xs text-muted-foreground font-mono",
-                                    children: "TrustScan · GenLayer AI"
+                                    className: "text-sm font-semibold font-mono",
+                                    children: cfg.wowLine
                                 }, void 0, false, {
                                     fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                    lineNumber: 319,
+                                    lineNumber: 392,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 318,
+                                lineNumber: 391,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center justify-between pt-3 border-t border-border",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-xs text-muted-foreground font-mono",
+                                        children: "TrustScan · GenLayer AI"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
+                                        lineNumber: 396,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-xs text-muted-foreground font-mono",
+                                        children: "Etherscan · GoPlus · Chainabuse"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
+                                        lineNumber: 397,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
+                                lineNumber: 395,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                        lineNumber: 266,
+                        lineNumber: 329,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2782,20 +2948,20 @@ function ScanPanel() {
                                         className: "w-3.5 h-3.5 animate-spin"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 331,
+                                        lineNumber: 409,
                                         columnNumber: 19
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$share$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Share2$3e$__["Share2"], {
                                         className: "w-3.5 h-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 332,
+                                        lineNumber: 410,
                                         columnNumber: 19
                                     }, this),
-                                    "Share"
+                                    "Share Proof"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 325,
+                                lineNumber: 403,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2807,7 +2973,7 @@ function ScanPanel() {
                                             className: "w-3.5 h-3.5 text-primary"
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                            lineNumber: 342,
+                                            lineNumber: 420,
                                             columnNumber: 21
                                         }, this),
                                         " Copied"
@@ -2818,7 +2984,7 @@ function ScanPanel() {
                                             className: "w-3.5 h-3.5"
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                            lineNumber: 343,
+                                            lineNumber: 421,
                                             columnNumber: 21
                                         }, this),
                                         " Copy Result"
@@ -2826,7 +2992,7 @@ function ScanPanel() {
                                 }, void 0, true)
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 337,
+                                lineNumber: 415,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2840,7 +3006,7 @@ function ScanPanel() {
                                         className: "w-3.5 h-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 354,
+                                        lineNumber: 429,
                                         columnNumber: 15
                                     }, this),
                                     "Flag",
@@ -2849,19 +3015,19 @@ function ScanPanel() {
                                         children: flagCount
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 357,
+                                        lineNumber: 432,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 347,
+                                lineNumber: 425,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                        lineNumber: 324,
+                        lineNumber: 402,
                         columnNumber: 11
                     }, this),
                     flagCount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2879,26 +3045,26 @@ function ScanPanel() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 371,
+                                        lineNumber: 446,
                                         columnNumber: 17
                                     }, this),
                                     showFlags ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$up$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronUp$3e$__["ChevronUp"], {
                                         className: "w-3.5 h-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 372,
+                                        lineNumber: 447,
                                         columnNumber: 30
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                         className: "w-3.5 h-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 372,
+                                        lineNumber: 447,
                                         columnNumber: 70
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 367,
+                                lineNumber: 442,
                                 columnNumber: 15
                             }, this),
                             showFlags && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2910,21 +3076,21 @@ function ScanPanel() {
                                             className: "w-3.5 h-3.5 animate-spin"
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                            lineNumber: 379,
+                                            lineNumber: 454,
                                             columnNumber: 23
                                         }, this),
                                         "Loading reports..."
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                    lineNumber: 378,
+                                    lineNumber: 453,
                                     columnNumber: 21
                                 }, this) : flags.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "text-xs text-muted-foreground font-mono py-2",
                                     children: "No reports found."
                                 }, void 0, false, {
                                     fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                    lineNumber: 383,
+                                    lineNumber: 458,
                                     columnNumber: 21
                                 }, this) : flags.map((f, i)=>{
                                     const sev = SEVERITY_CONFIG[f.severity] ?? SEVERITY_CONFIG.low;
@@ -2939,7 +3105,7 @@ function ScanPanel() {
                                                         children: sev.label
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                        lineNumber: 390,
+                                                        lineNumber: 465,
                                                         columnNumber: 29
                                                     }, this),
                                                     f.credible && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2947,21 +3113,21 @@ function ScanPanel() {
                                                         children: "✓ verified"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                        lineNumber: 394,
-                                                        columnNumber: 31
+                                                        lineNumber: 468,
+                                                        columnNumber: 44
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: "text-xs text-muted-foreground font-mono ml-auto",
                                                         children: f.reporter ? `${f.reporter.slice(0, 6)}...${f.reporter.slice(-4)}` : "anon"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                        lineNumber: 396,
+                                                        lineNumber: 469,
                                                         columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                lineNumber: 389,
+                                                lineNumber: 464,
                                                 columnNumber: 27
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2969,31 +3135,31 @@ function ScanPanel() {
                                                 children: f.summary
                                             }, void 0, false, {
                                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                                lineNumber: 402,
+                                                lineNumber: 473,
                                                 columnNumber: 27
                                             }, this)
                                         ]
                                     }, i, true, {
                                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                        lineNumber: 388,
+                                        lineNumber: 463,
                                         columnNumber: 25
                                     }, this);
                                 })
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                                lineNumber: 376,
+                                lineNumber: 451,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                        lineNumber: 366,
+                        lineNumber: 441,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                lineNumber: 263,
+                lineNumber: 323,
                 columnNumber: 9
             }, this),
             flagOpen && scannedTarget && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$components$2f$FlagModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FlagModal"], {
@@ -3002,17 +3168,17 @@ function ScanPanel() {
                 onSuccess: handleFlagSuccess
             }, void 0, false, {
                 fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-                lineNumber: 415,
+                lineNumber: 486,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Downloads/TrustScan/components/ScanPanel.tsx",
-        lineNumber: 168,
+        lineNumber: 212,
         columnNumber: 5
     }, this);
 }
-_s(ScanPanel, "EPkPChWV1Qq+IF4VwcOS8Vf1OXU=", false, function() {
+_s(ScanPanel, "F59+aPEDCGeIKW31VcKN3+WUo8U=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$lib$2f$genlayer$2f$WalletProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useWallet"],
         __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$lib$2f$hooks$2f$useTrustScan$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useScan"]

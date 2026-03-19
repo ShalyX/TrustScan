@@ -10,10 +10,10 @@ import TrustScan from "@/lib/contracts/TrustScan";
 import type { ScanType, ChainType, FlagResult } from "@/lib/contracts/types";
 import * as htmlToImage from "html-to-image";
 
-const SCAN_TYPES: { value: ScanType; label: string; placeholder: string; hint: string }[] = [
-  { value: "wallet", label: "Wallet", placeholder: "0x742d35Cc6634C0532925...", hint: "Ethereum wallet address" },
-  { value: "url",    label: "URL",    placeholder: "suspicious-airdrop.com",   hint: "Website or domain to check" },
-  { value: "token",  label: "Token",  placeholder: "0xdAC17F958D2ee523a2206...", hint: "Token contract address" },
+const SCAN_TYPES: { value: ScanType; label: string; placeholder: string; hint: string; examples: string[] }[] = [
+  { value: "wallet", label: "Wallet", placeholder: "0x742d35Cc6634C0532925...", hint: "Ethereum wallet address", examples: ["0x742d35Cc6634C0532925dA2B6F3ab4B6F4e3E1Aa", "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"] },
+  { value: "url",    label: "URL",    placeholder: "suspicious-airdrop.com",   hint: "Website or domain to check", examples: ["cysicfinance.com", "uniswap-airdrop.net"] },
+  { value: "token",  label: "Token",  placeholder: "0xdAC17F958D2ee523a2206...", hint: "Token contract address", examples: ["0xdAC17F958D2ee523a2206206994597C13D831ec7", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"] },
 ];
 
 const CHAINS: { value: ChainType; label: string }[] = [
@@ -27,28 +27,34 @@ const LABEL_CONFIG = {
     color: "text-primary",
     bg: "bg-primary/8",
     border: "border-primary/25",
-    glow: "shadow-[0_0_24px_oklch(0.82_0.18_155/0.12)]",
+    glow: "shadow-[0_0_40px_oklch(0.82_0.18_155/0.20)]",
+    cardGlow: "rgba(0,255,136,0.06)",
     icon: <Shield className="w-5 h-5" />,
     scoreColor: "text-primary",
-    severityDot: "bg-primary",
+    wowLine: "This target looks clean. Safe to interact.",
+    wowColor: "text-primary",
   },
   Suspicious: {
     color: "text-yellow-400",
     bg: "bg-yellow-400/8",
     border: "border-yellow-400/25",
-    glow: "shadow-[0_0_24px_oklch(0.80_0.18_80/0.12)]",
+    glow: "shadow-[0_0_40px_oklch(0.80_0.18_80/0.20)]",
+    cardGlow: "rgba(255,184,0,0.06)",
     icon: <AlertTriangle className="w-5 h-5" />,
     scoreColor: "text-yellow-400",
-    severityDot: "bg-yellow-400",
+    wowLine: "Proceed with caution. Something doesn't add up.",
+    wowColor: "text-yellow-400",
   },
   Dangerous: {
     color: "text-destructive",
     bg: "bg-destructive/8",
     border: "border-destructive/25",
-    glow: "shadow-[0_0_24px_oklch(0.65_0.22_25/0.15)]",
+    glow: "shadow-[0_0_40px_oklch(0.65_0.22_25/0.25)]",
+    cardGlow: "rgba(255,61,90,0.08)",
     icon: <XCircle className="w-5 h-5" />,
     scoreColor: "text-destructive",
-    severityDot: "bg-destructive",
+    wowLine: "High risk detected. Do not interact with this target.",
+    wowColor: "text-destructive",
   },
 };
 
@@ -57,6 +63,36 @@ const SEVERITY_CONFIG = {
   medium: { label: "Medium", color: "text-yellow-400",  bg: "bg-yellow-400/10",  border: "border-yellow-400/20" },
   low:    { label: "Low",    color: "text-muted-foreground", bg: "bg-muted/20",  border: "border-border" },
 };
+
+// ─── Scan limit (persisted to localStorage) ──────────────────────────────────
+const LIMIT = 10;
+const LS_KEY = "ts_scan_data";
+
+function getTodayKey() {
+  return new Date().toISOString().split("T")[0];
+}
+
+function getRemaining(): number {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return LIMIT;
+    const data = JSON.parse(raw);
+    if (data.date !== getTodayKey()) return LIMIT;
+    return Math.max(0, LIMIT - (data.count || 0));
+  } catch { return LIMIT; }
+}
+
+function consumeScan(): number {
+  try {
+    const today = getTodayKey();
+    const raw = localStorage.getItem(LS_KEY);
+    let data = raw ? JSON.parse(raw) : {};
+    if (data.date !== today) data = { date: today, count: 0 };
+    data.count = (data.count || 0) + 1;
+    localStorage.setItem(LS_KEY, JSON.stringify(data));
+    return Math.max(0, LIMIT - data.count);
+  } catch { return LIMIT; }
+}
 
 export function ScanPanel() {
   const { address, isConnected } = useWallet();
@@ -67,15 +103,21 @@ export function ScanPanel() {
   const [chain, setChain]     = useState<ChainType>("eth");
   const [copied, setCopied]   = useState(false);
   const [sharing, setSharing] = useState(false);
-  const [flagOpen, setFlagOpen]       = useState(false);
-  const [showFlags, setShowFlags]     = useState(false);
-  const [flags, setFlags]             = useState<FlagResult[]>([]);
-  const [flagCount, setFlagCount]     = useState(0);
+  const [remaining, setRemaining] = useState(LIMIT);
+  const [flagOpen, setFlagOpen]         = useState(false);
+  const [showFlags, setShowFlags]       = useState(false);
+  const [flags, setFlags]               = useState<FlagResult[]>([]);
+  const [flagCount, setFlagCount]       = useState(0);
   const [loadingFlags, setLoadingFlags] = useState(false);
 
   const shareRef = useRef<HTMLDivElement>(null);
-
   const cfg = result ? LABEL_CONFIG[result.label as keyof typeof LABEL_CONFIG] : null;
+  const currentType = SCAN_TYPES.find(t => t.value === type)!;
+
+  // Load remaining scans from localStorage on mount
+  useEffect(() => {
+    setRemaining(getRemaining());
+  }, []);
 
   // Fetch flags whenever scannedTarget changes
   useEffect(() => {
@@ -101,9 +143,12 @@ export function ScanPanel() {
 
   const handleScan = () => {
     if (!target.trim() || !isConnected || !address) return;
+    if (remaining <= 0) return;
     setFlags([]);
     setFlagCount(0);
     setShowFlags(false);
+    const newRemaining = consumeScan();
+    setRemaining(newRemaining);
     scan({ target: target.trim(), type, chain, address });
   };
 
@@ -148,7 +193,6 @@ export function ScanPanel() {
 
   const handleFlagSuccess = async () => {
     setFlagOpen(false);
-    // Refresh flags after successful submission
     if (!scannedTarget) return;
     try {
       const contract = new TrustScan();
@@ -168,6 +212,7 @@ export function ScanPanel() {
     <div className="space-y-4">
       {/* Input card */}
       <div className="ts-card p-5">
+        {/* Type tabs */}
         <div className="flex items-center gap-1 mb-4 flex-wrap">
           {SCAN_TYPES.map(t => (
             <button
@@ -203,13 +248,14 @@ export function ScanPanel() {
           )}
         </div>
 
+        {/* Input row */}
         <div className="flex gap-2">
           <input
             type="text"
             value={target}
             onChange={e => setTarget(e.target.value)}
             onKeyDown={e => e.key === "Enter" && !isScanning && handleScan()}
-            placeholder={SCAN_TYPES.find(t => t.value === type)?.placeholder}
+            placeholder={currentType.placeholder}
             disabled={isScanning}
             spellCheck={false}
             autoComplete="off"
@@ -217,7 +263,7 @@ export function ScanPanel() {
           />
           <button
             onClick={handleScan}
-            disabled={isScanning || !target.trim() || !isConnected}
+            disabled={isScanning || !target.trim() || !isConnected || remaining <= 0}
             className="btn-primary w-11 h-11 flex items-center justify-center flex-shrink-0 disabled:opacity-40 disabled:cursor-not-allowed rounded-lg"
           >
             {isScanning
@@ -227,18 +273,32 @@ export function ScanPanel() {
           </button>
         </div>
 
-        <div className="flex items-center justify-between mt-3">
+        {/* Example inputs */}
+        <div className="flex items-center gap-2 mt-3 flex-wrap">
+          <span className="text-xs text-muted-foreground font-mono">Try:</span>
+          {currentType.examples.map((ex, i) => (
+            <button
+              key={i}
+              onClick={() => setTarget(ex)}
+              disabled={isScanning}
+              className="text-xs font-mono text-muted-foreground hover:text-primary transition-colors truncate max-w-[140px]"
+            >
+              {ex.length > 18 ? `${ex.slice(0, 8)}...${ex.slice(-6)}` : ex}
+            </button>
+          ))}
+        </div>
+
+        {/* Footer row */}
+        <div className="flex items-center justify-between mt-2">
           <span className="text-xs text-muted-foreground font-mono">
             {isScanning && phase
               ? <span className="text-primary animate-pulse">{phase}</span>
-              : SCAN_TYPES.find(t => t.value === type)?.hint
+              : currentType.hint
             }
           </span>
-          {!isConnected && (
-            <span className="text-xs text-muted-foreground font-mono">
-              Connect wallet to scan
-            </span>
-          )}
+          <span className={`text-xs font-mono ${remaining <= 3 ? "text-destructive" : "text-muted-foreground"}`}>
+            {remaining}/{LIMIT} scans today
+          </span>
         </div>
       </div>
 
@@ -260,14 +320,18 @@ export function ScanPanel() {
 
       {/* Result card */}
       {!isScanning && result && scannedTarget && cfg && (
-        <div className={`ts-card overflow-hidden ${cfg.glow}`} id="scan-result">
-
-          {/* Shareable snapshot area */}
-          <div ref={shareRef} className="p-6" style={{ background: "#080b0f" }}>
+        <div
+          className={`ts-card overflow-hidden ${cfg.glow}`}
+          id="scan-result"
+          style={{ background: `linear-gradient(135deg, ${cfg.cardGlow} 0%, transparent 60%)` }}
+        >
+          {/* Shareable snapshot */}
+          <div ref={shareRef} className="p-6" style={{ background: `linear-gradient(135deg, ${cfg.cardGlow} 0%, #080b0f 60%)` }}>
             {/* Score + Label */}
             <div className="flex items-center gap-5 mb-5">
-              <div className="relative flex-shrink-0 w-24 h-24">
-                <svg viewBox="0 0 80 80" className="w-24 h-24 -rotate-90">
+              {/* Score ring */}
+              <div className="relative flex-shrink-0 w-28 h-28">
+                <svg viewBox="0 0 80 80" className="w-28 h-28 -rotate-90">
                   <circle cx="40" cy="40" r="32" fill="none" stroke="currentColor" strokeWidth="6" className="text-border" />
                   <circle
                     cx="40" cy="40" r="32"
@@ -277,17 +341,20 @@ export function ScanPanel() {
                     strokeDasharray={`${(result.score / 100) * 201} 201`}
                     className={cfg.scoreColor}
                     stroke="currentColor"
-                    style={{ filter: `drop-shadow(0 0 8px currentColor)`, transition: "stroke-dasharray 1s ease" }}
+                    style={{ filter: `drop-shadow(0 0 10px currentColor)`, transition: "stroke-dasharray 1s ease" }}
                   />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className={`text-2xl font-bold leading-none ${cfg.scoreColor}`}>{result.score}</span>
+                  <span className={`text-3xl font-bold leading-none ${cfg.scoreColor}`}>{result.score}</span>
                   <span className="text-xs text-muted-foreground font-mono">/100</span>
                 </div>
               </div>
 
+              {/* Label + target */}
               <div className="flex-1 min-w-0 space-y-2">
-                <div className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-lg font-bold uppercase tracking-wide ${cfg.color} ${cfg.bg} ${cfg.border}`}>
+                <div className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border text-xl font-bold uppercase tracking-wider ${cfg.color} ${cfg.bg} ${cfg.border}`}
+                  style={{ boxShadow: `0 0 20px ${cfg.cardGlow}` }}
+                >
                   {cfg.icon}
                   {result.label}
                 </div>
@@ -304,19 +371,30 @@ export function ScanPanel() {
               <p className="text-sm leading-relaxed">{result.reason}</p>
             </div>
 
-            {/* Signals */}
+            {/* Signals — max 3 */}
             {result.signals_found && result.signals_found.length > 0 && (
               <div className="flex flex-wrap gap-1.5 mb-4">
-                {result.signals_found.map((s: string, i: number) => (
+                {result.signals_found.slice(0, 3).map((s: string, i: number) => (
                   <span key={i} className={`text-xs px-2.5 py-1 rounded-md border font-mono ${cfg.color} ${cfg.bg} ${cfg.border}`}>
                     {s}
                   </span>
                 ))}
+                {result.signals_found.length > 3 && (
+                  <span className="text-xs px-2.5 py-1 rounded-md border font-mono text-muted-foreground bg-muted/20 border-border">
+                    +{result.signals_found.length - 3} more
+                  </span>
+                )}
               </div>
             )}
 
+            {/* Wow action line */}
+            <div className={`flex items-center gap-2 py-2.5 px-3 rounded-lg ${cfg.bg} border ${cfg.border} mb-3`}>
+              <span className="text-sm font-semibold font-mono">{cfg.wowLine}</span>
+            </div>
+
             <div className="flex items-center justify-between pt-3 border-t border-border">
               <span className="text-xs text-muted-foreground font-mono">TrustScan · GenLayer AI</span>
+              <span className="text-xs text-muted-foreground font-mono">Etherscan · GoPlus · Chainabuse</span>
             </div>
           </div>
 
@@ -331,7 +409,7 @@ export function ScanPanel() {
                 ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
                 : <Share2 className="w-3.5 h-3.5" />
               }
-              Share
+              Share Proof
             </button>
 
             <button
@@ -345,10 +423,7 @@ export function ScanPanel() {
             </button>
 
             <button
-              onClick={() => {
-                if (!isConnected) return;
-                setFlagOpen(true);
-              }}
+              onClick={() => { if (!isConnected) return; setFlagOpen(true); }}
               className="flex-1 flex items-center justify-center gap-2 py-3 text-xs font-mono text-muted-foreground hover:text-destructive hover:bg-destructive/5 transition-colors"
             >
               <Flag className="w-3.5 h-3.5" />
@@ -361,7 +436,7 @@ export function ScanPanel() {
             </button>
           </div>
 
-          {/* Community flags section */}
+          {/* Community flags */}
           {flagCount > 0 && (
             <div className="border-t border-border">
               <button
@@ -390,13 +465,9 @@ export function ScanPanel() {
                             <span className={`text-xs font-bold font-mono px-2 py-0.5 rounded ${sev.color} ${sev.bg} border ${sev.border}`}>
                               {sev.label}
                             </span>
-                            {f.credible && (
-                              <span className="text-xs text-primary font-mono">✓ verified</span>
-                            )}
+                            {f.credible && <span className="text-xs text-primary font-mono">✓ verified</span>}
                             <span className="text-xs text-muted-foreground font-mono ml-auto">
-                              {f.reporter
-                                ? `${f.reporter.slice(0, 6)}...${f.reporter.slice(-4)}`
-                                : "anon"}
+                              {f.reporter ? `${f.reporter.slice(0, 6)}...${f.reporter.slice(-4)}` : "anon"}
                             </span>
                           </div>
                           <p className="text-xs text-foreground/80 leading-relaxed">{f.summary}</p>

@@ -21,3 +21,1032 @@
 [00:06:34.446] Browser LOG     Attempt 1 result: {"chain":"eth","label":"Safe","reason":"This is the official contract for the Gnosis (GNO) token, a well-established infrastructure project with verified source code, no malicious tax or mint functions, and deep liquidity.","score":0,"signals_found":["Verified source code","Zero buy tax","Zero sell tax","Not a honeypot","No hidden owner","No blacklist function","High holder count","Locked/Renounced liquidity structures","No reports on Chainabuse"],"type":"token"}
 [00:06:34.446] Browser LOG     Got valid result!
 [00:06:34.446] Browser LOG     Scan complete: {"chain":"eth","label":"Safe","reason":"This is the official contract for the Gnosis (GNO) token, a well-established infrastructure project with verified source code, no malicious tax or mint functions, and deep liquidity.","score":0,"signals_found":["Verified source code","Zero buy tax","Zero sell tax","Not a honeypot","No hidden owner","No blacklist function","High holder count","Locked/Renounced liquidity structures","No reports on Chainabuse"],"type":"token"}
+[01:19:05.893] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:19:07.035] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head headCacheNode={{rsc:<Fragment>, ...}}>
+                    <__next_viewport_boundary__>
+                    <MetadataWrapper>
+                      <div
+                        hidden={true}
+-                       bis_skin_checked="1"
+                      >
+                    ...
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="/Downloads...">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" className="space_mono...">
+                          <body
+-                           __processed_baf6c73d-4dd6-4a2f-a2c4-a0de26e0a293__="true"
+-                           bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWll..."
+                          >
+                            ...
+                              <SegmentViewNode type="page" pagePath="/Downloads...">
+                                <SegmentTrieNode>
+                                <ClientPageRoot Component={function HomePage} serverProvidedParams={{...}}>
+                                  <HomePage params={Promise} searchParams={Promise}>
+                                    <div
+                                      className="min-h-screen flex flex-col"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <Navbar>
+                                        <header className="fixed top-..." style={{...}}>
+                                          <div
+                                            className="transition-all duration-500 ease-out"
+                                            style={{width:"100%",maxWidth:"100%",margin:"0 auto",borderRadius:"0px"}}
+-                                           bis_skin_checked="1"
+                                          >
+                                            <div
+                                              className="backdrop-blur-xl border transition-all duration-500 ease-out"
+                                              style={{borderColor:"oklch(0.14...",background:"linear-gra...",borderRadius:"0px", ...}}
+-                                             bis_skin_checked="1"
+                                            >
+                                              <div
+                                                className="px-6 transition-all duration-500 mx-auto"
+                                                style={{maxWidth:"112rem"}}
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="flex items-center justify-between transition-all duration..."
+                                                  style={{height:"64px"}}
+-                                                 bis_skin_checked="1"
+                                                >
+                                                  <div
+                                                    className="flex items-center gap-2"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                    <LogoMark size="md" className="flex md:hi...">
+                                                      <Logo size="md" className="flex md:hi..." showWordmark={false}>
+                                                        <div
+                                                          className="inline-flex items-center gap-2 flex md:hidden"
+-                                                         bis_skin_checked="1"
+                                                        >
+                                                    <Logo size="md" className="hidden md:...">
+                                                      <div
+                                                        className="inline-flex items-center gap-2 hidden md:flex"
+-                                                       bis_skin_checked="1"
+                                                      >
+                                                  <div
+                                                    className="hidden md:flex items-center gap-6 text-xs font-mono"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                    <div
+                                                      className="flex items-center gap-2 text-muted-foreground"
+-                                                     bis_skin_checked="1"
+                                                    >
+                                                    <div
+                                                      className="flex items-center gap-1.5 text-muted-foreground/50"
+-                                                     bis_skin_checked="1"
+                                                    >
+                                                  <div
+                                                    className="flex items-center gap-3"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                      <main className="flex-grow ...">
+                                        <div
+                                          className="max-w-3xl mx-auto"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="text-center mb-10 animate-fade-in"
+-                                           bis_skin_checked="1"
+                                          >
+                                            <div
+                                              className="inline-flex items-center gap-2 text-xs font-mono tracking-wid..."
+-                                             bis_skin_checked="1"
+                                            >
+                                            ...
+                                          <div
+                                            className="animate-slide-up"
+-                                           bis_skin_checked="1"
+                                          >
+                                            <ScanPanel>
+                                              <div
+                                                className="space-y-4"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="ts-card p-5"
+-                                                 bis_skin_checked="1"
+                                                >
+                                                  <div
+                                                    className="flex items-center gap-1 mb-4 flex-wrap"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                  <div
+                                                    className="flex gap-2"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                  <div
+                                                    className="flex items-center justify-between mt-3"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                          <div
+                                            className="animate-fade-in mt-8"
+                                            style={{animationDelay:"150ms"}}
+-                                           bis_skin_checked="1"
+                                          >
+                                          <div
+                                            className="mt-10 ts-card p-6 md:p-8 animate-fade-in"
+                                            style={{animationDelay:"250ms"}}
+-                                           bis_skin_checked="1"
+                                          >
+                                            <h2>
+                                            <div
+                                              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+-                                             bis_skin_checked="1"
+                                            >
+                                              <div
+                                                className="space-y-2"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="text-primary font-bold font-mono"
+-                                                 bis_skin_checked="1"
+                                                >
++                                                 01. Submit
+                                                ...
+                                              <div
+                                                className="space-y-2"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="text-primary font-bold font-mono"
+-                                                 bis_skin_checked="1"
+                                                >
++                                                 02. Analyze
+                                                ...
+                                              <div
+                                                className="space-y-2"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="text-primary font-bold font-mono"
+-                                                 bis_skin_checked="1"
+                                                >
++                                                 03. Decide
+                                                ...
+                                      <footer className="border-t b...">
+                                        <div
+                                          className="max-w-3xl mx-auto px-4 md:px-6"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="flex items-center justify-center gap-6 text-xs text-muted-foreg..."
+-                                           bis_skin_checked="1"
+                                          >
+                  ...
+
+[01:20:29.302] Browser LOG     Checking for existing scan...
+[01:20:31.117] Browser LOG     Existing result: null
+[01:20:31.117] Browser LOG     Submitting new scan...
+[01:20:31.117] Browser LOG     submitTarget attempt 1/3
+[01:20:34.834] Browser WARN    Error using provider for method eth_fillTransaction: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[01:20:34.834] Browser ERROR   unhandledRejection: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[01:20:42.916] Browser LOG     Transaction submitted: 0xef5ff4a22f45caf8cdffdfbf8f8732b86b5748c4f0650809128ce55a0d1bf3ad
+[01:20:42.916] Browser LOG     Waiting for confirmation...
+[01:22:49.007] Browser LOG     Transaction confirmed: {"activator":"0xFd9653dB22645953838c42fde8eb465ed28C003B","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"https://hub.konnex.world/points\",\"url\",\"eth\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"leader","node_config":{"address":"0xFd9653dB22645953838c42fde8eb465ed28C003B","primary_model":"[Object]","private_key":"0x04974885d484f492981667f55da0b77d7e9fd562838710acff19930c82be547c","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":null},{"calldata":{"readable":"{\"args\":[\"https://hub.konnex.world/points\",\"url\",\"eth\",]\"method\":\"submit_target\"}"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xFd9653dB22645953838c42fde8eb465ed28C003B","primary_model":"[Object]","private_key":"0x04974885d484f492981667f55da0b77d7e9fd562838710acff19930c82be547c","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":"agree"}],"validators":[{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x57d4528cC37364D95A23897A10EC5c4abfC92226","primary_model":"[Object]","private_key":"0x7da2b43169b58c9b81d73ea5ff1504a0aaf65657fd6e68f2c4f7a1ce3f574334","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xB1e212f6a3F5aC5815A0bF0BAdd2D303c8758586","primary_model":"[Object]","private_key":"0x440f344fe3c07aebf849933c85cd9bd3518cf8d0dcbdc2b40d82b9d279b751f6","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x44fF02fcafEDd7f6eACe2DCd00df74b6CdAd158a","primary_model":"[Object]","private_key":"0xf90888d00a7c7fa4a46b43001ec57c1344983dfeb38d35e8b40dc951082be064","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x8729F1e88f5b99CA5026c2947056f5BAB6c315ea","primary_model":"[Object]","private_key":"0x2ab4e2ed111a310c51f92edc57db000469561c29d30f222d3f606afbd067e3d8","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x44fF02fcafEDd7f6eACe2DCd00df74b6CdAd158a":"agree","0x57d4528cC37364D95A23897A10EC5c4abfC92226":"agree","0x8729F1e88f5b99CA5026c2947056f5BAB6c315ea":"agree","0xB1e212f6a3F5aC5815A0bF0BAdd2D303c8758586":"agree","0xFd9653dB22645953838c42fde8eb465ed28C003B":"agree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T13:25:53.761419+00:00","data":{"calldata":{"readable":"{\"args\":[\"https://hub.konnex.world/points\",\"url\",\"eth\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":200,"hash":"0xef5ff4a22f45caf8cdffdfbf8f8732b86b5748c4f0650809128ce55a0d1bf3ad","last_leader":"0xFd9653dB22645953838c42fde8eb465ed28C003B","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0xFd9653dB22645953838c42fde8eb465ed28C003B","0x57d4528cC37364D95A23897A10EC5c4abfC92226","0xB1e212f6a3F5aC5815A0bF0BAdd2D303c8758586","0x44fF02fcafEDd7f6eACe2DCd00df74b6CdAd158a","0x8729F1e88f5b99CA5026c2947056f5BAB6c315ea"],"validator_votes":[1,1,1,1,1],"validator_votes_hash":["0x1769e376ca4e8479159492462bbd1fb1f9839270cc1020a9b0ee0fb48f475ee1","0x75ecf4b7c396d452195ed43e167ae7aba25f0bb484891cdc182672b207903c3e","0xa9125922d9d7ed91ce4a39a190d8587308889c7e7b630ce8a31533946f9594ce","0x911976d4e9f5e0ac6689cbeff85f73568160c31ff494b2030860594c7c4eafc8","0x381501bb1ecabb6165ce4089191d662866b2fb70b15d9d68d412426202456bdf"],"validator_votes_name":["AGREE","AGREE","AGREE","AGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":200,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf9018b81c88084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9012427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000004af848b8451604617267731dfc0168747470733a2f2f6875622e6b6f6e6e65782e776f726c642f706f696e74731c75726c1c657468066d6574686f646c7375626d69745f74617267657400000000000000000000000000000000000000000000008301e482a07b74dbac87a7f49eb35effa96cc653632d94660485ffc74fce09f3fbb5293a7ca04793b4cc0c1a7320641503d48a96fa9d07582a848542b2c5c19ee0fe0c41c7be"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0xef5ff4a22f45caf8cdffdfbf8f8732b86b5748c4f0650809128ce55a0d1bf3ad","type":2}
+[01:22:49.008] Browser LOG     Transaction receipt: {"activator":"0xFd9653dB22645953838c42fde8eb465ed28C003B","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"https://hub.konnex.world/points\",\"url\",\"eth\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"leader","node_config":{"address":"0xFd9653dB22645953838c42fde8eb465ed28C003B","primary_model":"[Object]","private_key":"0x04974885d484f492981667f55da0b77d7e9fd562838710acff19930c82be547c","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":null},{"calldata":{"readable":"{\"args\":[\"https://hub.konnex.world/points\",\"url\",\"eth\",]\"method\":\"submit_target\"}"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xFd9653dB22645953838c42fde8eb465ed28C003B","primary_model":"[Object]","private_key":"0x04974885d484f492981667f55da0b77d7e9fd562838710acff19930c82be547c","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":"agree"}],"validators":[{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x57d4528cC37364D95A23897A10EC5c4abfC92226","primary_model":"[Object]","private_key":"0x7da2b43169b58c9b81d73ea5ff1504a0aaf65657fd6e68f2c4f7a1ce3f574334","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xB1e212f6a3F5aC5815A0bF0BAdd2D303c8758586","primary_model":"[Object]","private_key":"0x440f344fe3c07aebf849933c85cd9bd3518cf8d0dcbdc2b40d82b9d279b751f6","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x44fF02fcafEDd7f6eACe2DCd00df74b6CdAd158a","primary_model":"[Object]","private_key":"0xf90888d00a7c7fa4a46b43001ec57c1344983dfeb38d35e8b40dc951082be064","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x8729F1e88f5b99CA5026c2947056f5BAB6c315ea","primary_model":"[Object]","private_key":"0x2ab4e2ed111a310c51f92edc57db000469561c29d30f222d3f606afbd067e3d8","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x44fF02fcafEDd7f6eACe2DCd00df74b6CdAd158a":"agree","0x57d4528cC37364D95A23897A10EC5c4abfC92226":"agree","0x8729F1e88f5b99CA5026c2947056f5BAB6c315ea":"agree","0xB1e212f6a3F5aC5815A0bF0BAdd2D303c8758586":"agree","0xFd9653dB22645953838c42fde8eb465ed28C003B":"agree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T13:25:53.761419+00:00","data":{"calldata":{"readable":"{\"args\":[\"https://hub.konnex.world/points\",\"url\",\"eth\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":200,"hash":"0xef5ff4a22f45caf8cdffdfbf8f8732b86b5748c4f0650809128ce55a0d1bf3ad","last_leader":"0xFd9653dB22645953838c42fde8eb465ed28C003B","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0xFd9653dB22645953838c42fde8eb465ed28C003B","0x57d4528cC37364D95A23897A10EC5c4abfC92226","0xB1e212f6a3F5aC5815A0bF0BAdd2D303c8758586","0x44fF02fcafEDd7f6eACe2DCd00df74b6CdAd158a","0x8729F1e88f5b99CA5026c2947056f5BAB6c315ea"],"validator_votes":[1,1,1,1,1],"validator_votes_hash":["0x1769e376ca4e8479159492462bbd1fb1f9839270cc1020a9b0ee0fb48f475ee1","0x75ecf4b7c396d452195ed43e167ae7aba25f0bb484891cdc182672b207903c3e","0xa9125922d9d7ed91ce4a39a190d8587308889c7e7b630ce8a31533946f9594ce","0x911976d4e9f5e0ac6689cbeff85f73568160c31ff494b2030860594c7c4eafc8","0x381501bb1ecabb6165ce4089191d662866b2fb70b15d9d68d412426202456bdf"],"validator_votes_name":["AGREE","AGREE","AGREE","AGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":200,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf9018b81c88084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9012427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000004af848b8451604617267731dfc0168747470733a2f2f6875622e6b6f6e6e65782e776f726c642f706f696e74731c75726c1c657468066d6574686f646c7375626d69745f74617267657400000000000000000000000000000000000000000000008301e482a07b74dbac87a7f49eb35effa96cc653632d94660485ffc74fce09f3fbb5293a7ca04793b4cc0c1a7320641503d48a96fa9d07582a848542b2c5c19ee0fe0c41c7be"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0xef5ff4a22f45caf8cdffdfbf8f8732b86b5748c4f0650809128ce55a0d1bf3ad","type":2}
+[01:22:49.008] Browser LOG     Transaction hash: 0xef5ff4a22f45caf8cdffdfbf8f8732b86b5748c4f0650809128ce55a0d1bf3ad
+[01:22:49.008] Browser LOG     Starting fetch retry loop...
+[01:22:49.008] Browser LOG     Fetch attempt 1/50...
+[01:22:51.017] Browser LOG     Attempt 1 result: {"chain":"n/a","label":"Safe","reason":"The domain is associated with a legitimate project and shows no active flags across security databases, though the 'points' keyword is common in incentive-based Web3 sites.","score":10,"signals_found":["Suspicious keyword in URL (points)","Clean domain across major security engines","No reports on Chainabuse","GoPlus phishing flag is 0"],"type":"url"}
+[01:22:51.017] Browser LOG     Got valid result!
+[01:22:51.017] Browser LOG     Scan complete: {"chain":"n/a","label":"Safe","reason":"The domain is associated with a legitimate project and shows no active flags across security databases, though the 'points' keyword is common in incentive-based Web3 sites.","score":10,"signals_found":["Suspicious keyword in URL (points)","Clean domain across major security engines","No reports on Chainabuse","GoPlus phishing flag is 0"],"type":"url"}
+[01:23:51.305] Browser LOG     Checking for existing scan...
+[01:23:54.008] Browser LOG     Existing result: {"chain":"base","label":"Safe","reason":"The contract is verified on the explorer, shows no honeypot or high-risk flags from GoPlus, has low taxes, locked liquidity, and a high number of holders with no Chainabuse reports.","score":5,"signals_found":["verified source code","low buy/sell tax","locked liquidity","high holder count","no honeypot","no mintable","no owner privileges","zero Chainabuse reports"],"type":"token"}
+[01:24:09.670] Browser LOG     Checking for existing scan...
+[01:24:10.972] Browser LOG     Existing result: {"chain":"base","label":"Safe","reason":"The contract is verified on the explorer, shows no honeypot or high-risk flags from GoPlus, has low taxes, locked liquidity, and a high number of holders with no Chainabuse reports.","score":5,"signals_found":["verified source code","low buy/sell tax","locked liquidity","high holder count","no honeypot","no mintable","no owner privileges","zero Chainabuse reports"],"type":"token"}
+[07:53:10.966] Browser LOG     Checking for existing scan...
+[07:53:15.053] Browser LOG     Existing result: {"chain":"n/a","label":"Dangerous","reason":"The URL hides behind a redirector and impersonates a known crypto brand with misspelling, while GoPlus flags the final destination as a confirmed phishing site.","score":85,"signals_found":["Brand impersonation detected (misspelled known crypto project)","GoPlus is_phishing_site = 1"],"type":"url"}
+[07:59:47.045] Browser LOG     Checking for existing scan...
+[07:59:47.693] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[07:59:47.694] Browser ERROR   getFlags error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[07:59:47.694] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[07:59:47.695] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[07:59:47.695] Browser LOG     Existing result: null
+[07:59:47.695] Browser LOG     Submitting new scan...
+[07:59:47.695] Browser LOG     submitTarget attempt 1/3
+[07:59:47.695] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[07:59:47.695] Browser ERROR   getFlagCount error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[07:59:49.529] Browser WARN    Error using provider for method eth_fillTransaction: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[07:59:49.529] Browser ERROR   unhandledRejection: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[07:59:56.410] Browser LOG     Transaction submitted: 0x73f673a0067760d1e0ce216a78cd7295252c954aea8a164ede9ad13b4ba931b1
+[07:59:56.410] Browser LOG     Waiting for confirmation...
+[08:00:29.650] Browser LOG     Transaction confirmed: {"activator":"0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"https://app.beehiiv.com/subscription_change/confirm/ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SnpkV0p6WTNKcGNIUnBiMjVmWTJoaGJtZGxYMmxrSWpvaVlXUm1PR1ZtTVRFdE5EQTRNQzAwWVRKaUxUa3lZMk10WW1SbE1HWTNOVFptTVRBMUlpd2laWGh3SWpveE56Y3lOemt3TkRJeUxDSnBjM01pT2lKb2RIUndjem92TDJGd2NDNWlaV1ZvYVdsMkxtTnZiU0lzSW1saGRDSTZNVGMzTVRVNE1EZ3lNbjAudXNUUFl2aXN4MnhaQmRINUhfR1FWWFlRdUZvSGRQYnVWazFxTG5GeENxUQ==\",\"url\",\"base\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"leader","node_config":{"address":"0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F","primary_model":"[Object]","private_key":"0x2313d9cf80fc0081229aa15e6963997dacdbbd6af1993612f0fe0a6591e0f8b1","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":null},{"calldata":{"readable":"{\"args\":[\"https://app.beehiiv.com/subscription_change/confirm/ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SnpkV0p6WTNKcGNIUnBiMjVmWTJoaGJtZGxYMmxrSWpvaVlXUm1PR1ZtTVRFdE5EQTRNQzAwWVRKaUxUa3lZMk10WW1SbE1HWTNOVFptTVRBMUlpd2laWGh3SWpveE56Y3lOemt3TkRJeUxDSnBjM01pT2lKb2RIUndjem92TDJGd2NDNWlaV1ZvYVdsMkxtTnZiU0lzSW1saGRDSTZNVGMzTVRVNE1EZ3lNbjAudXNUUFl2aXN4MnhaQmRINUhfR1FWWFlRdUZvSGRQYnVWazFxTG5GeENxUQ==\",\"url\",\"base\",]\"method\":\"submit_target\"}"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F","primary_model":"[Object]","private_key":"0x2313d9cf80fc0081229aa15e6963997dacdbbd6af1993612f0fe0a6591e0f8b1","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":"agree"}],"validators":[{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x32131d4046C1aB61aF8FBecFa4A24D58361D9C93","primary_model":"[Object]","private_key":"0x33796a6bdc604e8f454ffbfe36f89ba75a760abe74d62c3b640b019a22252ab9","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xBDb4D35695149DBF40f0954b47F32811EfB00C77","primary_model":"[Object]","private_key":"0x2f6d2919fd54a815382c168a5547487d1b3bddb792799829ed9f3ea6f295076d","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xE93A3fc93E86751a27abDA74713b33c1647BD5B3","primary_model":"[Object]","private_key":"0x081395f2756db4bee97cf98cd62e6bd4ed324a67144d7dcf04f99ebd33869092","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xd1F0625a46c770B2Af41a349255Cb7A103993B3d","primary_model":"[Object]","private_key":"0xaf6413281873f322647665865c75fe8b9a6fc95ba1371744365fbab9bf99183f","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x32131d4046C1aB61aF8FBecFa4A24D58361D9C93":"agree","0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F":"agree","0xBDb4D35695149DBF40f0954b47F32811EfB00C77":"agree","0xE93A3fc93E86751a27abDA74713b33c1647BD5B3":"agree","0xd1F0625a46c770B2Af41a349255Cb7A103993B3d":"agree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T20:05:06.761593+00:00","data":{"calldata":{"readable":"{\"args\":[\"https://app.beehiiv.com/subscription_change/confirm/ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SnpkV0p6WTNKcGNIUnBiMjVmWTJoaGJtZGxYMmxrSWpvaVlXUm1PR1ZtTVRFdE5EQTRNQzAwWVRKaUxUa3lZMk10WW1SbE1HWTNOVFptTVRBMUlpd2laWGh3SWpveE56Y3lOemt3TkRJeUxDSnBjM01pT2lKb2RIUndjem92TDJGd2NDNWlaV1ZvYVdsMkxtTnZiU0lzSW1saGRDSTZNVGMzTVRVNE1EZ3lNbjAudXNUUFl2aXN4MnhaQmRINUhfR1FWWFlRdUZvSGRQYnVWazFxTG5GeENxUQ==\",\"url\",\"base\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":206,"hash":"0x73f673a0067760d1e0ce216a78cd7295252c954aea8a164ede9ad13b4ba931b1","last_leader":"0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F","0x32131d4046C1aB61aF8FBecFa4A24D58361D9C93","0xBDb4D35695149DBF40f0954b47F32811EfB00C77","0xE93A3fc93E86751a27abDA74713b33c1647BD5B3","0xd1F0625a46c770B2Af41a349255Cb7A103993B3d"],"validator_votes":[1,1,1,1,1],"validator_votes_hash":["0xfe9a5c4e53539c5535a2bbd25bdf88073af53d3fdefef8b58c1c1935793919dd","0x4dec9c4683e6996a11d2912d796c3e7c1eaba9c858805faac6e3739193cbed0e","0x149e4a22de6845c866e66371ec0386e2e9ecb8081ddfa066a29401cac9c4675b","0x9fcf08c9108d9be68db5e5309130f9da84dd637f58f8a56d67873098bb5e6e83","0xcf764f5e6fe6c754425c4231b3118e5c4e22101f4ac4f7024b64a4543e23970c"],"validator_votes_name":["AGREE","AGREE","AGREE","AGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":206,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf902eb81ce8084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9028427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000001baf901b7b901b31604617267731de41868747470733a2f2f6170702e626565686969762e636f6d2f737562736372697074696f6e5f6368616e67652f636f6e6669726d2f5a586c4b4d47565951576c506155704c566a465261557844536d686952324e7054326c4b535656365354464f61556f354c6d5635536e706b5630703657544e4b63474e49556e42694d6a566d57544a6f61474a745a4778594d6d78725357707661566c58556d315052315a7454565246644535455154524e517a41775756524b6155785561336c5a4d6b3130575731536245314857544e4f56467074545652424d556c7064326c6157476833535770766545353659336c4f656d7433546b524a65557844536e426a4d30317054326c4b62325249556e646a656d393254444a4764324e444e576c6156315a76595664734d6b7874546e5a6955306c7a535731736147524453545a4e56474d7a545652564e4531455a336c4e626a417564584e5555466c3261584e344d6e6861516d52494e5568665231465757466c5264555a7653475251596e5657617a46785447354765454e7855513d3d1c75726c2462617365066d6574686f646c7375626d69745f746172676574000000000000008301e481a012b50df1edcb106f77581fb4601400afc43c40208e7de17b9ad1aaf4e48bb502a0629c0c612aee742106af66592c23586459bf548c8e36333e05f8c380b62d6ebd"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0x73f673a0067760d1e0ce216a78cd7295252c954aea8a164ede9ad13b4ba931b1","type":2}
+[08:00:29.650] Browser LOG     Transaction receipt: {"activator":"0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"https://app.beehiiv.com/subscription_change/confirm/ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SnpkV0p6WTNKcGNIUnBiMjVmWTJoaGJtZGxYMmxrSWpvaVlXUm1PR1ZtTVRFdE5EQTRNQzAwWVRKaUxUa3lZMk10WW1SbE1HWTNOVFptTVRBMUlpd2laWGh3SWpveE56Y3lOemt3TkRJeUxDSnBjM01pT2lKb2RIUndjem92TDJGd2NDNWlaV1ZvYVdsMkxtTnZiU0lzSW1saGRDSTZNVGMzTVRVNE1EZ3lNbjAudXNUUFl2aXN4MnhaQmRINUhfR1FWWFlRdUZvSGRQYnVWazFxTG5GeENxUQ==\",\"url\",\"base\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"leader","node_config":{"address":"0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F","primary_model":"[Object]","private_key":"0x2313d9cf80fc0081229aa15e6963997dacdbbd6af1993612f0fe0a6591e0f8b1","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":null},{"calldata":{"readable":"{\"args\":[\"https://app.beehiiv.com/subscription_change/confirm/ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SnpkV0p6WTNKcGNIUnBiMjVmWTJoaGJtZGxYMmxrSWpvaVlXUm1PR1ZtTVRFdE5EQTRNQzAwWVRKaUxUa3lZMk10WW1SbE1HWTNOVFptTVRBMUlpd2laWGh3SWpveE56Y3lOemt3TkRJeUxDSnBjM01pT2lKb2RIUndjem92TDJGd2NDNWlaV1ZvYVdsMkxtTnZiU0lzSW1saGRDSTZNVGMzTVRVNE1EZ3lNbjAudXNUUFl2aXN4MnhaQmRINUhfR1FWWFlRdUZvSGRQYnVWazFxTG5GeENxUQ==\",\"url\",\"base\",]\"method\":\"submit_target\"}"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F","primary_model":"[Object]","private_key":"0x2313d9cf80fc0081229aa15e6963997dacdbbd6af1993612f0fe0a6591e0f8b1","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":"agree"}],"validators":[{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x32131d4046C1aB61aF8FBecFa4A24D58361D9C93","primary_model":"[Object]","private_key":"0x33796a6bdc604e8f454ffbfe36f89ba75a760abe74d62c3b640b019a22252ab9","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xBDb4D35695149DBF40f0954b47F32811EfB00C77","primary_model":"[Object]","private_key":"0x2f6d2919fd54a815382c168a5547487d1b3bddb792799829ed9f3ea6f295076d","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xE93A3fc93E86751a27abDA74713b33c1647BD5B3","primary_model":"[Object]","private_key":"0x081395f2756db4bee97cf98cd62e6bd4ed324a67144d7dcf04f99ebd33869092","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xd1F0625a46c770B2Af41a349255Cb7A103993B3d","primary_model":"[Object]","private_key":"0xaf6413281873f322647665865c75fe8b9a6fc95ba1371744365fbab9bf99183f","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x32131d4046C1aB61aF8FBecFa4A24D58361D9C93":"agree","0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F":"agree","0xBDb4D35695149DBF40f0954b47F32811EfB00C77":"agree","0xE93A3fc93E86751a27abDA74713b33c1647BD5B3":"agree","0xd1F0625a46c770B2Af41a349255Cb7A103993B3d":"agree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T20:05:06.761593+00:00","data":{"calldata":{"readable":"{\"args\":[\"https://app.beehiiv.com/subscription_change/confirm/ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SnpkV0p6WTNKcGNIUnBiMjVmWTJoaGJtZGxYMmxrSWpvaVlXUm1PR1ZtTVRFdE5EQTRNQzAwWVRKaUxUa3lZMk10WW1SbE1HWTNOVFptTVRBMUlpd2laWGh3SWpveE56Y3lOemt3TkRJeUxDSnBjM01pT2lKb2RIUndjem92TDJGd2NDNWlaV1ZvYVdsMkxtTnZiU0lzSW1saGRDSTZNVGMzTVRVNE1EZ3lNbjAudXNUUFl2aXN4MnhaQmRINUhfR1FWWFlRdUZvSGRQYnVWazFxTG5GeENxUQ==\",\"url\",\"base\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":206,"hash":"0x73f673a0067760d1e0ce216a78cd7295252c954aea8a164ede9ad13b4ba931b1","last_leader":"0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0x4c48B89E3007b4890e863FEf720f06EB67Aa5B3F","0x32131d4046C1aB61aF8FBecFa4A24D58361D9C93","0xBDb4D35695149DBF40f0954b47F32811EfB00C77","0xE93A3fc93E86751a27abDA74713b33c1647BD5B3","0xd1F0625a46c770B2Af41a349255Cb7A103993B3d"],"validator_votes":[1,1,1,1,1],"validator_votes_hash":["0xfe9a5c4e53539c5535a2bbd25bdf88073af53d3fdefef8b58c1c1935793919dd","0x4dec9c4683e6996a11d2912d796c3e7c1eaba9c858805faac6e3739193cbed0e","0x149e4a22de6845c866e66371ec0386e2e9ecb8081ddfa066a29401cac9c4675b","0x9fcf08c9108d9be68db5e5309130f9da84dd637f58f8a56d67873098bb5e6e83","0xcf764f5e6fe6c754425c4231b3118e5c4e22101f4ac4f7024b64a4543e23970c"],"validator_votes_name":["AGREE","AGREE","AGREE","AGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":206,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf902eb81ce8084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9028427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000001baf901b7b901b31604617267731de41868747470733a2f2f6170702e626565686969762e636f6d2f737562736372697074696f6e5f6368616e67652f636f6e6669726d2f5a586c4b4d47565951576c506155704c566a465261557844536d686952324e7054326c4b535656365354464f61556f354c6d5635536e706b5630703657544e4b63474e49556e42694d6a566d57544a6f61474a745a4778594d6d78725357707661566c58556d315052315a7454565246644535455154524e517a41775756524b6155785561336c5a4d6b3130575731536245314857544e4f56467074545652424d556c7064326c6157476833535770766545353659336c4f656d7433546b524a65557844536e426a4d30317054326c4b62325249556e646a656d393254444a4764324e444e576c6156315a76595664734d6b7874546e5a6955306c7a535731736147524453545a4e56474d7a545652564e4531455a336c4e626a417564584e5555466c3261584e344d6e6861516d52494e5568665231465757466c5264555a7653475251596e5657617a46785447354765454e7855513d3d1c75726c2462617365066d6574686f646c7375626d69745f746172676574000000000000008301e481a012b50df1edcb106f77581fb4601400afc43c40208e7de17b9ad1aaf4e48bb502a0629c0c612aee742106af66592c23586459bf548c8e36333e05f8c380b62d6ebd"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0x73f673a0067760d1e0ce216a78cd7295252c954aea8a164ede9ad13b4ba931b1","type":2}
+[08:00:29.650] Browser LOG     Transaction hash: 0x73f673a0067760d1e0ce216a78cd7295252c954aea8a164ede9ad13b4ba931b1
+[08:00:29.650] Browser LOG     Starting fetch retry loop...
+[08:00:29.651] Browser LOG     Fetch attempt 1/50...
+[08:00:30.161] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:00:30.161] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:00:30.161] Browser LOG     Attempt 1 result: null
+[08:00:30.161] Browser LOG     No result yet, waiting 5 seconds...
+[08:00:35.179] Browser LOG     Fetch attempt 2/50...
+[08:00:35.407] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:00:35.408] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:00:35.408] Browser LOG     Attempt 2 result: null
+[08:00:35.408] Browser LOG     No result yet, waiting 5 seconds...
+[08:00:40.413] Browser LOG     Fetch attempt 3/50...
+[08:00:40.645] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:00:40.645] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:00:40.647] Browser LOG     Attempt 3 result: null
+[08:00:40.647] Browser LOG     No result yet, waiting 5 seconds...
+[08:00:45.676] Browser LOG     Fetch attempt 4/50...
+[08:00:45.944] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:00:45.945] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:00:45.945] Browser LOG     Attempt 4 result: null
+[08:00:45.945] Browser LOG     No result yet, waiting 5 seconds...
+[08:00:50.962] Browser LOG     Fetch attempt 5/50...
+[08:00:51.523] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:00:51.523] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:00:51.523] Browser LOG     Attempt 5 result: null
+[08:00:51.523] Browser LOG     No result yet, waiting 5 seconds...
+[08:00:56.507] Browser LOG     Fetch attempt 6/50...
+[08:00:56.987] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:00:56.987] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:00:56.987] Browser LOG     Attempt 6 result: null
+[08:00:56.987] Browser LOG     No result yet, waiting 5 seconds...
+[08:01:01.986] Browser LOG     Fetch attempt 7/50...
+[08:01:02.626] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:01:02.626] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:01:02.626] Browser LOG     Attempt 7 result: null
+[08:01:02.626] Browser LOG     No result yet, waiting 5 seconds...
+[08:01:07.206] Browser LOG     Fetch attempt 8/50...
+[08:01:07.436] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:01:07.436] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:01:07.436] Browser LOG     Attempt 8 result: null
+[08:01:07.436] Browser LOG     No result yet, waiting 5 seconds...
+[08:01:07.806] Server  LOG     ✓ Compiled in 10s
+[08:01:12.439] Browser LOG     Fetch attempt 9/50...
+[08:01:12.790] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:01:12.790] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:01:12.790] Browser LOG     Attempt 9 result: null
+[08:01:12.790] Browser LOG     No result yet, waiting 5 seconds...
+[08:01:17.796] Browser LOG     Fetch attempt 10/50...
+[08:01:18.044] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:01:18.044] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:01:18.044] Browser LOG     Attempt 10 result: null
+[08:01:18.044] Browser LOG     No result yet, waiting 5 seconds...
+[08:01:23.051] Browser LOG     Fetch attempt 11/50...
+[08:01:23.334] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:01:23.334] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:01:23.334] Browser LOG     Attempt 11 result: null
+[08:01:23.334] Browser LOG     No result yet, waiting 5 seconds...
+[08:01:28.375] Browser LOG     Fetch attempt 12/50...
+[08:01:28.622] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:01:28.622] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:01:28.622] Browser LOG     Attempt 12 result: null
+[08:01:28.622] Browser LOG     No result yet, waiting 5 seconds...
+[08:01:30.462] Browser LOG     Checking for existing scan...
+[08:01:31.696] Browser LOG     Existing result: null
+[08:01:31.696] Browser LOG     Submitting new scan...
+[08:01:31.696] Browser LOG     submitTarget attempt 1/3
+[08:01:32.596] Browser WARN    Error using provider for method eth_fillTransaction: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[08:01:32.597] Browser ERROR   unhandledRejection: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[08:01:33.633] Browser LOG     Fetch attempt 13/50...
+[08:01:34.093] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:01:34.093] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:01:34.093] Browser LOG     Attempt 13 result: null
+[08:01:34.093] Browser LOG     No result yet, waiting 5 seconds...
+[08:01:40.789] Browser LOG     Fetch attempt 14/50...
+[08:01:40.789] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:01:40.789] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:01:40.789] Browser LOG     Attempt 14 result: null
+[08:01:40.789] Browser LOG     No result yet, waiting 5 seconds...
+[08:01:41.718] Browser LOG     Transaction submitted: 0x4a73f67d0fab61b73824fed948a90fec759ab34835d2dd01d08d1c7e3d6b0e79
+[08:01:41.718] Browser LOG     Waiting for confirmation...
+[08:01:44.419] Browser LOG     Fetch attempt 15/50...
+[08:01:44.667] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:01:44.668] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:01:44.668] Browser LOG     Attempt 15 result: null
+[08:01:44.668] Browser LOG     No result yet, waiting 5 seconds...
+[08:01:49.668] Browser LOG     Fetch attempt 16/50...
+[08:01:49.945] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:01:49.945] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:01:49.945] Browser LOG     Attempt 16 result: null
+[08:01:49.945] Browser LOG     No result yet, waiting 5 seconds...
+[08:01:54.945] Browser LOG     Fetch attempt 17/50...
+[08:01:55.190] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:01:55.190] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:01:55.190] Browser LOG     Attempt 17 result: null
+[08:01:55.190] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:00.193] Browser LOG     Fetch attempt 18/50...
+[08:02:00.430] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:00.430] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:00.430] Browser LOG     Attempt 18 result: null
+[08:02:00.430] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:05.445] Browser LOG     Fetch attempt 19/50...
+[08:02:05.673] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:05.673] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:05.673] Browser LOG     Attempt 19 result: null
+[08:02:05.673] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:10.735] Browser LOG     Fetch attempt 20/50...
+[08:02:10.962] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:10.962] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:10.962] Browser LOG     Attempt 20 result: null
+[08:02:10.962] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:15.014] Browser LOG     Transaction confirmed: {"activator":"0xC198490571729a637F673192180CE26Df5038704","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"uniswap-airdrop.net\",\"url\",\"eth\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"leader","node_config":{"address":"0xC198490571729a637F673192180CE26Df5038704","primary_model":"[Object]","private_key":"0xfb5c4906b3fbc73ae98cc57a6ab755ef0f2a5e567ebf413812e6ba8e392c5c3c","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":null},{"calldata":{"readable":"{\"args\":[\"uniswap-airdrop.net\",\"url\",\"eth\",]\"method\":\"submit_target\"}"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xC198490571729a637F673192180CE26Df5038704","primary_model":"[Object]","private_key":"0xfb5c4906b3fbc73ae98cc57a6ab755ef0f2a5e567ebf413812e6ba8e392c5c3c","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":"agree"}],"validators":[{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x38e6FA0b46B06F43a4431E0113e0967B67d1f080","primary_model":"[Object]","private_key":"0x76a00814d325844e17ec878c5192e7db1b3a56231e765798b690baca67168f5b","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x71E897027D2D707e81E7A8c2Ca4bC1f4cc157e29","primary_model":"[Object]","private_key":"0x6ac3d3a06e66d3ea07fca9b8ee9586becd75b371d56beccc60814ed7a727e71c","secondary_model":"[Object]","stake":100},"vote":"disagree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xe23F59e752eF1F69ca814F757D14fA6aAE92BE9B","primary_model":"[Object]","private_key":"0x0e0c108c6de590a1767500ef20536e62d50ea315b19334fd0c5c705558f9a216","secondary_model":"[Object]","stake":100},"vote":"disagree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x37033A687BC6f04C99A4c3ba455C489920e66e8B","primary_model":"[Object]","private_key":"0xa5b26461abdb164092411d6b90951260488a20efae3b63c684d662403a78b719","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x37033A687BC6f04C99A4c3ba455C489920e66e8B":"agree","0x38e6FA0b46B06F43a4431E0113e0967B67d1f080":"agree","0x71E897027D2D707e81E7A8c2Ca4bC1f4cc157e29":"disagree","0xC198490571729a637F673192180CE26Df5038704":"agree","0xe23F59e752eF1F69ca814F757D14fA6aAE92BE9B":"disagree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T20:06:51.914049+00:00","data":{"calldata":{"readable":"{\"args\":[\"uniswap-airdrop.net\",\"url\",\"eth\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":207,"hash":"0x4a73f67d0fab61b73824fed948a90fec759ab34835d2dd01d08d1c7e3d6b0e79","last_leader":"0xC198490571729a637F673192180CE26Df5038704","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0xC198490571729a637F673192180CE26Df5038704","0x38e6FA0b46B06F43a4431E0113e0967B67d1f080","0x71E897027D2D707e81E7A8c2Ca4bC1f4cc157e29","0xe23F59e752eF1F69ca814F757D14fA6aAE92BE9B","0x37033A687BC6f04C99A4c3ba455C489920e66e8B"],"validator_votes":[1,1,2,2,1],"validator_votes_hash":["0x3c78135e796d951ecc0d4b2301bcf4d80312cb128ebc6a08ce09a9a39d15f7a4","0xd0f762db50eadb59b84b36d586207adb9d1eafe15a83a4f05ba05b55095f9987","0x6e0f2997678c1d92659191ecf38f34e31ed6085de6176f55d33c5005d0a13ee0","0xc4cc13250430d633afd3a8bf119493a8fd51e7cf6a308b2328ca750fff587749","0xe0f589daa7aae1cad80ca0280887f345c0ffe638b0e71998831ffd3a25a044d9"],"validator_votes_name":["AGREE","AGREE","DISAGREE","DISAGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":207,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf9016b81cf8084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9010427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000003ef83cb8391604617267731d9c01756e69737761702d61697264726f702e6e65741c75726c1c657468066d6574686f646c7375626d69745f7461726765740000008301e481a0f7bf0d28cf7e74b2ba542aee6b2d19c93f39a06fd769c98b44641952d34c50d7a0114f98a9bc7efa900b421a9d7a5be3e14d9854386dbc651932f60e4ac90babe7"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0x4a73f67d0fab61b73824fed948a90fec759ab34835d2dd01d08d1c7e3d6b0e79","type":2}
+[08:02:15.014] Browser LOG     Transaction receipt: {"activator":"0xC198490571729a637F673192180CE26Df5038704","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"uniswap-airdrop.net\",\"url\",\"eth\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"leader","node_config":{"address":"0xC198490571729a637F673192180CE26Df5038704","primary_model":"[Object]","private_key":"0xfb5c4906b3fbc73ae98cc57a6ab755ef0f2a5e567ebf413812e6ba8e392c5c3c","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":null},{"calldata":{"readable":"{\"args\":[\"uniswap-airdrop.net\",\"url\",\"eth\",]\"method\":\"submit_target\"}"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xC198490571729a637F673192180CE26Df5038704","primary_model":"[Object]","private_key":"0xfb5c4906b3fbc73ae98cc57a6ab755ef0f2a5e567ebf413812e6ba8e392c5c3c","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":"agree"}],"validators":[{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x38e6FA0b46B06F43a4431E0113e0967B67d1f080","primary_model":"[Object]","private_key":"0x76a00814d325844e17ec878c5192e7db1b3a56231e765798b690baca67168f5b","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x71E897027D2D707e81E7A8c2Ca4bC1f4cc157e29","primary_model":"[Object]","private_key":"0x6ac3d3a06e66d3ea07fca9b8ee9586becd75b371d56beccc60814ed7a727e71c","secondary_model":"[Object]","stake":100},"vote":"disagree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xe23F59e752eF1F69ca814F757D14fA6aAE92BE9B","primary_model":"[Object]","private_key":"0x0e0c108c6de590a1767500ef20536e62d50ea315b19334fd0c5c705558f9a216","secondary_model":"[Object]","stake":100},"vote":"disagree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x37033A687BC6f04C99A4c3ba455C489920e66e8B","primary_model":"[Object]","private_key":"0xa5b26461abdb164092411d6b90951260488a20efae3b63c684d662403a78b719","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x37033A687BC6f04C99A4c3ba455C489920e66e8B":"agree","0x38e6FA0b46B06F43a4431E0113e0967B67d1f080":"agree","0x71E897027D2D707e81E7A8c2Ca4bC1f4cc157e29":"disagree","0xC198490571729a637F673192180CE26Df5038704":"agree","0xe23F59e752eF1F69ca814F757D14fA6aAE92BE9B":"disagree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T20:06:51.914049+00:00","data":{"calldata":{"readable":"{\"args\":[\"uniswap-airdrop.net\",\"url\",\"eth\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":207,"hash":"0x4a73f67d0fab61b73824fed948a90fec759ab34835d2dd01d08d1c7e3d6b0e79","last_leader":"0xC198490571729a637F673192180CE26Df5038704","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0xC198490571729a637F673192180CE26Df5038704","0x38e6FA0b46B06F43a4431E0113e0967B67d1f080","0x71E897027D2D707e81E7A8c2Ca4bC1f4cc157e29","0xe23F59e752eF1F69ca814F757D14fA6aAE92BE9B","0x37033A687BC6f04C99A4c3ba455C489920e66e8B"],"validator_votes":[1,1,2,2,1],"validator_votes_hash":["0x3c78135e796d951ecc0d4b2301bcf4d80312cb128ebc6a08ce09a9a39d15f7a4","0xd0f762db50eadb59b84b36d586207adb9d1eafe15a83a4f05ba05b55095f9987","0x6e0f2997678c1d92659191ecf38f34e31ed6085de6176f55d33c5005d0a13ee0","0xc4cc13250430d633afd3a8bf119493a8fd51e7cf6a308b2328ca750fff587749","0xe0f589daa7aae1cad80ca0280887f345c0ffe638b0e71998831ffd3a25a044d9"],"validator_votes_name":["AGREE","AGREE","DISAGREE","DISAGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":207,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf9016b81cf8084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9010427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000003ef83cb8391604617267731d9c01756e69737761702d61697264726f702e6e65741c75726c1c657468066d6574686f646c7375626d69745f7461726765740000008301e481a0f7bf0d28cf7e74b2ba542aee6b2d19c93f39a06fd769c98b44641952d34c50d7a0114f98a9bc7efa900b421a9d7a5be3e14d9854386dbc651932f60e4ac90babe7"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0x4a73f67d0fab61b73824fed948a90fec759ab34835d2dd01d08d1c7e3d6b0e79","type":2}
+[08:02:15.015] Browser LOG     Transaction hash: 0x4a73f67d0fab61b73824fed948a90fec759ab34835d2dd01d08d1c7e3d6b0e79
+[08:02:15.015] Browser LOG     Starting fetch retry loop...
+[08:02:15.015] Browser LOG     Fetch attempt 1/50...
+[08:02:15.972] Browser LOG     Fetch attempt 21/50...
+[08:02:16.837] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:16.837] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:16.837] Browser LOG     Attempt 21 result: null
+[08:02:16.837] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:16.838] Browser LOG     Attempt 1 result: {"chain":"n/a","label":"Dangerous","reason":"This URL impersonates the legitimate Uniswap brand and contains the suspicious keyword 'airdrop' commonly used in crypto phishing scams. The combination of brand impersonation and airdrop lure indicates a high-risk phishing attempt.","score":80,"signals_found":["brand_impersonation_uniswap","suspicious_keyword_airdrop","crypto_phishing_pattern"],"type":"url"}
+[08:02:16.838] Browser LOG     Got valid result!
+[08:02:16.838] Browser LOG     Scan complete: {"chain":"n/a","label":"Dangerous","reason":"This URL impersonates the legitimate Uniswap brand and contains the suspicious keyword 'airdrop' commonly used in crypto phishing scams. The combination of brand impersonation and airdrop lure indicates a high-risk phishing attempt.","score":80,"signals_found":["brand_impersonation_uniswap","suspicious_keyword_airdrop","crypto_phishing_pattern"],"type":"url"}
+[08:02:21.270] Browser LOG     Fetch attempt 22/50...
+[08:02:21.527] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:21.527] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:21.527] Browser LOG     Attempt 22 result: null
+[08:02:21.527] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:26.542] Browser LOG     Fetch attempt 23/50...
+[08:02:26.799] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:26.799] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:26.799] Browser LOG     Attempt 23 result: null
+[08:02:26.799] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:31.809] Browser LOG     Fetch attempt 24/50...
+[08:02:32.047] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:32.047] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:32.048] Browser LOG     Attempt 24 result: null
+[08:02:32.048] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:37.050] Browser LOG     Fetch attempt 25/50...
+[08:02:37.257] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:37.257] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:37.257] Browser LOG     Attempt 25 result: null
+[08:02:37.257] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:42.260] Browser LOG     Fetch attempt 26/50...
+[08:02:42.625] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:42.625] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:42.625] Browser LOG     Attempt 26 result: null
+[08:02:42.625] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:47.626] Browser LOG     Fetch attempt 27/50...
+[08:02:47.841] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:47.841] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:47.841] Browser LOG     Attempt 27 result: null
+[08:02:47.841] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:50.704] Browser LOG     Checking for existing scan...
+[08:02:51.947] Browser LOG     Existing result: null
+[08:02:51.947] Browser LOG     Submitting new scan...
+[08:02:51.947] Browser LOG     submitTarget attempt 1/3
+[08:02:52.851] Browser WARN    Error using provider for method eth_fillTransaction: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[08:02:52.851] Browser ERROR   unhandledRejection: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[08:02:52.851] Browser LOG     Fetch attempt 28/50...
+[08:02:53.525] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:53.525] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:53.525] Browser LOG     Attempt 28 result: null
+[08:02:53.525] Browser LOG     No result yet, waiting 5 seconds...
+[08:02:58.529] Browser LOG     Fetch attempt 29/50...
+[08:02:58.775] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:02:58.775] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:02:58.775] Browser LOG     Attempt 29 result: null
+[08:02:58.775] Browser LOG     No result yet, waiting 5 seconds...
+[08:03:02.076] Browser LOG     Transaction submitted: 0x62617a0477fc4d6a0dcd7114464f06b86cfe9a9c2aac8092d3caa77ae285ea70
+[08:03:02.076] Browser LOG     Waiting for confirmation...
+[08:03:03.804] Browser LOG     Fetch attempt 30/50...
+[08:03:04.037] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:03:04.037] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:03:04.037] Browser LOG     Attempt 30 result: null
+[08:03:04.037] Browser LOG     No result yet, waiting 5 seconds...
+[08:03:09.046] Browser LOG     Fetch attempt 31/50...
+[08:03:09.288] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:03:09.288] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:03:09.289] Browser LOG     Attempt 31 result: null
+[08:03:09.289] Browser LOG     No result yet, waiting 5 seconds...
+[08:03:14.313] Browser LOG     Fetch attempt 32/50...
+[08:03:14.706] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:03:14.706] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:03:14.706] Browser LOG     Attempt 32 result: null
+[08:03:14.706] Browser LOG     No result yet, waiting 5 seconds...
+[08:03:19.712] Browser LOG     Fetch attempt 33/50...
+[08:03:19.923] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:03:19.923] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:03:19.923] Browser LOG     Attempt 33 result: null
+[08:03:19.923] Browser LOG     No result yet, waiting 5 seconds...
+[08:03:24.946] Browser LOG     Fetch attempt 34/50...
+[08:03:25.245] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:03:25.246] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:03:25.246] Browser LOG     Attempt 34 result: null
+[08:03:25.246] Browser LOG     No result yet, waiting 5 seconds...
+[08:03:30.255] Browser LOG     Fetch attempt 35/50...
+[08:03:30.496] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:03:30.496] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:03:30.496] Browser LOG     Attempt 35 result: null
+[08:03:30.496] Browser LOG     No result yet, waiting 5 seconds...
+[08:03:35.513] Browser LOG     Fetch attempt 36/50...
+[08:03:35.778] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:03:35.778] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:03:35.778] Browser LOG     Attempt 36 result: null
+[08:03:35.778] Browser LOG     No result yet, waiting 5 seconds...
+[08:03:40.790] Browser LOG     Fetch attempt 37/50...
+[08:03:41.028] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:03:41.028] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:03:41.028] Browser LOG     Attempt 37 result: null
+[08:03:41.028] Browser LOG     No result yet, waiting 5 seconds...
+[08:03:46.019] Browser LOG     Fetch attempt 38/50...
+[08:03:46.251] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:03:46.251] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:03:46.251] Browser LOG     Attempt 38 result: null
+[08:03:46.251] Browser LOG     No result yet, waiting 5 seconds...
+[08:03:51.252] Browser LOG     Fetch attempt 39/50...
+[08:03:51.501] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:03:51.501] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:03:51.501] Browser LOG     Attempt 39 result: null
+[08:03:51.501] Browser LOG     No result yet, waiting 5 seconds...
+[08:03:56.506] Browser LOG     Fetch attempt 40/50...
+[08:03:56.735] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:03:56.735] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:03:56.735] Browser LOG     Attempt 40 result: null
+[08:03:56.735] Browser LOG     No result yet, waiting 5 seconds...
+[08:04:01.739] Browser LOG     Fetch attempt 41/50...
+[08:04:01.978] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:04:01.978] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:04:01.978] Browser LOG     Attempt 41 result: null
+[08:04:01.978] Browser LOG     No result yet, waiting 5 seconds...
+[08:04:06.985] Browser LOG     Fetch attempt 42/50...
+[08:04:07.256] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:04:07.256] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:04:07.256] Browser LOG     Attempt 42 result: null
+[08:04:07.256] Browser LOG     No result yet, waiting 5 seconds...
+[08:04:12.260] Browser LOG     Fetch attempt 43/50...
+[08:04:12.475] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:04:12.475] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:04:12.475] Browser LOG     Attempt 43 result: null
+[08:04:12.475] Browser LOG     No result yet, waiting 5 seconds...
+[08:04:17.496] Browser LOG     Fetch attempt 44/50...
+[08:04:17.706] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:04:17.706] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:04:17.706] Browser LOG     Attempt 44 result: null
+[08:04:17.706] Browser LOG     No result yet, waiting 5 seconds...
+[08:04:22.730] Browser LOG     Fetch attempt 45/50...
+[08:04:22.962] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:04:22.962] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:04:22.962] Browser LOG     Attempt 45 result: null
+[08:04:22.962] Browser LOG     No result yet, waiting 5 seconds...
+[08:04:27.975] Browser LOG     Fetch attempt 46/50...
+[08:04:28.195] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:04:28.195] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:04:28.195] Browser LOG     Attempt 46 result: null
+[08:04:28.196] Browser LOG     No result yet, waiting 5 seconds...
+[08:04:33.213] Browser LOG     Fetch attempt 47/50...
+[08:04:33.440] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:04:33.440] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:04:33.440] Browser LOG     Attempt 47 result: null
+[08:04:33.440] Browser LOG     No result yet, waiting 5 seconds...
+[08:04:38.452] Browser LOG     Fetch attempt 48/50...
+[08:04:38.701] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:04:38.701] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:04:38.701] Browser LOG     Attempt 48 result: null
+[08:04:38.701] Browser LOG     No result yet, waiting 5 seconds...
+[08:04:43.708] Browser LOG     Fetch attempt 49/50...
+[08:04:44.211] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:04:44.211] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:04:44.211] Browser LOG     Attempt 49 result: null
+[08:04:44.211] Browser LOG     No result yet, waiting 5 seconds...
+[08:04:49.218] Browser LOG     Fetch attempt 50/50...
+[08:04:50.335] Browser ERROR   Error fetching gen_call from GenLayer RPC
+[08:04:50.335] Browser ERROR   getRiskScore error: {"code":-32603,"details":"RLP string ends with 383 superfluous bytes","name":"InternalRpcError","shortMessage":"An internal error was received.","version":"2.47.5"}
+[08:04:50.335] Browser LOG     Attempt 50 result: null
+[08:04:50.335] Browser LOG     No result yet, waiting 5 seconds...
+[08:04:55.346] Browser ERROR   No result after all retries
+[08:04:55.346] Browser ERROR   Scan error: {}
+[08:07:04.396] Browser LOG     Transaction confirmed: {"activator":"0xf4AC1b0e51eb3a612729e928221be13b4D126DC8","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\",\"token\",\"eth\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"leader","node_config":{"address":"0xf4AC1b0e51eb3a612729e928221be13b4D126DC8","primary_model":"[Object]","private_key":"0xb973d73fe9b9392a4ee73c96d505a7bbbbc2d5f1336c09f156b200a9afb8dd9f","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":null},{"calldata":{"readable":"{\"args\":[\"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\",\"token\",\"eth\",]\"method\":\"submit_target\"}"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xf4AC1b0e51eb3a612729e928221be13b4D126DC8","primary_model":"[Object]","private_key":"0xb973d73fe9b9392a4ee73c96d505a7bbbbc2d5f1336c09f156b200a9afb8dd9f","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":"agree"}],"validators":[{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x9104E74ABB7B5F720179F7A861d8E6B5e42752cA","primary_model":"[Object]","private_key":"0x6931f68a35fa8b0835ef1f19cfc20e479485568b942472819dfcad18373d6569","secondary_model":"[Object]","stake":100},"vote":"disagree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x5d8E245c7021A9Eaac175FA42A82Ac140fa748d9","primary_model":"[Object]","private_key":"0xe44bf354bd1001c98e00c21058f5b3652b738c8bb03b39afa57ca54bbcf3fa04","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x1e92B7366bee53cEf071Cf0B5FdA66098Ad8149b","primary_model":"[Object]","private_key":"0x6f7c06f578ab893706cd5d0e33c264342c2136ac0358a4de2bfdc1588fb103b0","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x37033A687BC6f04C99A4c3ba455C489920e66e8B","primary_model":"[Object]","private_key":"0xa5b26461abdb164092411d6b90951260488a20efae3b63c684d662403a78b719","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x1e92B7366bee53cEf071Cf0B5FdA66098Ad8149b":"agree","0x37033A687BC6f04C99A4c3ba455C489920e66e8B":"agree","0x5d8E245c7021A9Eaac175FA42A82Ac140fa748d9":"agree","0x9104E74ABB7B5F720179F7A861d8E6B5e42752cA":"disagree","0xf4AC1b0e51eb3a612729e928221be13b4D126DC8":"agree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T20:08:12.660447+00:00","data":{"calldata":{"readable":"{\"args\":[\"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\",\"token\",\"eth\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":208,"hash":"0x62617a0477fc4d6a0dcd7114464f06b86cfe9a9c2aac8092d3caa77ae285ea70","last_leader":"0xf4AC1b0e51eb3a612729e928221be13b4D126DC8","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0xf4AC1b0e51eb3a612729e928221be13b4D126DC8","0x9104E74ABB7B5F720179F7A861d8E6B5e42752cA","0x5d8E245c7021A9Eaac175FA42A82Ac140fa748d9","0x1e92B7366bee53cEf071Cf0B5FdA66098Ad8149b","0x37033A687BC6f04C99A4c3ba455C489920e66e8B"],"validator_votes":[1,2,1,1,1],"validator_votes_hash":["0x364e3dad8aeb372c1889f6995c56a82bbe664a191edcd67d44930e8ff2732fe2","0xc9a7139eab6ad21a5eb569810c54661f537f0dd3e26b5856936f5777c6e1be98","0xaaa932d5568d5040e985bb399d18c5eddcb1e13f2a229b10e9536e722117e7c9","0x7743689f414d8f481c10dacb5c692c522a472ef215a59b30a36caeacd0f29819","0x0b5dbeaf851c21d5acd1f68082461f81bcd57810e1a9796eb5ca6bbf324d1145"],"validator_votes_name":["AGREE","DISAGREE","AGREE","AGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":208,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf9018b81d08084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9012427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000057f855b8521604617267731dd4023078613062383639393163363231386233366331643139643461326539656230636533363036656234382c746f6b656e1c657468066d6574686f646c7375626d69745f746172676574000000000000000000008301e481a05907e69b64f343d4cb56e5c34289d82f96902104aac5805336eaf14e37f8a8dca03c4e2d9f22c38ddaf9287da797873c6ea37dd7192201c2a3b9417dc03f1cce0c"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0x62617a0477fc4d6a0dcd7114464f06b86cfe9a9c2aac8092d3caa77ae285ea70","type":2}
+[08:07:04.396] Browser LOG     Transaction receipt: {"activator":"0xf4AC1b0e51eb3a612729e928221be13b4D126DC8","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\",\"token\",\"eth\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"leader","node_config":{"address":"0xf4AC1b0e51eb3a612729e928221be13b4D126DC8","primary_model":"[Object]","private_key":"0xb973d73fe9b9392a4ee73c96d505a7bbbbc2d5f1336c09f156b200a9afb8dd9f","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":null},{"calldata":{"readable":"{\"args\":[\"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\",\"token\",\"eth\",]\"method\":\"submit_target\"}"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xf4AC1b0e51eb3a612729e928221be13b4D126DC8","primary_model":"[Object]","private_key":"0xb973d73fe9b9392a4ee73c96d505a7bbbbc2d5f1336c09f156b200a9afb8dd9f","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":"agree"}],"validators":[{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x9104E74ABB7B5F720179F7A861d8E6B5e42752cA","primary_model":"[Object]","private_key":"0x6931f68a35fa8b0835ef1f19cfc20e479485568b942472819dfcad18373d6569","secondary_model":"[Object]","stake":100},"vote":"disagree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x5d8E245c7021A9Eaac175FA42A82Ac140fa748d9","primary_model":"[Object]","private_key":"0xe44bf354bd1001c98e00c21058f5b3652b738c8bb03b39afa57ca54bbcf3fa04","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x1e92B7366bee53cEf071Cf0B5FdA66098Ad8149b","primary_model":"[Object]","private_key":"0x6f7c06f578ab893706cd5d0e33c264342c2136ac0358a4de2bfdc1588fb103b0","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x37033A687BC6f04C99A4c3ba455C489920e66e8B","primary_model":"[Object]","private_key":"0xa5b26461abdb164092411d6b90951260488a20efae3b63c684d662403a78b719","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x1e92B7366bee53cEf071Cf0B5FdA66098Ad8149b":"agree","0x37033A687BC6f04C99A4c3ba455C489920e66e8B":"agree","0x5d8E245c7021A9Eaac175FA42A82Ac140fa748d9":"agree","0x9104E74ABB7B5F720179F7A861d8E6B5e42752cA":"disagree","0xf4AC1b0e51eb3a612729e928221be13b4D126DC8":"agree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T20:08:12.660447+00:00","data":{"calldata":{"readable":"{\"args\":[\"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\",\"token\",\"eth\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":208,"hash":"0x62617a0477fc4d6a0dcd7114464f06b86cfe9a9c2aac8092d3caa77ae285ea70","last_leader":"0xf4AC1b0e51eb3a612729e928221be13b4D126DC8","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0xf4AC1b0e51eb3a612729e928221be13b4D126DC8","0x9104E74ABB7B5F720179F7A861d8E6B5e42752cA","0x5d8E245c7021A9Eaac175FA42A82Ac140fa748d9","0x1e92B7366bee53cEf071Cf0B5FdA66098Ad8149b","0x37033A687BC6f04C99A4c3ba455C489920e66e8B"],"validator_votes":[1,2,1,1,1],"validator_votes_hash":["0x364e3dad8aeb372c1889f6995c56a82bbe664a191edcd67d44930e8ff2732fe2","0xc9a7139eab6ad21a5eb569810c54661f537f0dd3e26b5856936f5777c6e1be98","0xaaa932d5568d5040e985bb399d18c5eddcb1e13f2a229b10e9536e722117e7c9","0x7743689f414d8f481c10dacb5c692c522a472ef215a59b30a36caeacd0f29819","0x0b5dbeaf851c21d5acd1f68082461f81bcd57810e1a9796eb5ca6bbf324d1145"],"validator_votes_name":["AGREE","DISAGREE","AGREE","AGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":208,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf9018b81d08084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9012427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000057f855b8521604617267731dd4023078613062383639393163363231386233366331643139643461326539656230636533363036656234382c746f6b656e1c657468066d6574686f646c7375626d69745f746172676574000000000000000000008301e481a05907e69b64f343d4cb56e5c34289d82f96902104aac5805336eaf14e37f8a8dca03c4e2d9f22c38ddaf9287da797873c6ea37dd7192201c2a3b9417dc03f1cce0c"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0x62617a0477fc4d6a0dcd7114464f06b86cfe9a9c2aac8092d3caa77ae285ea70","type":2}
+[08:07:04.396] Browser LOG     Transaction hash: 0x62617a0477fc4d6a0dcd7114464f06b86cfe9a9c2aac8092d3caa77ae285ea70
+[08:07:04.396] Browser LOG     Starting fetch retry loop...
+[08:07:04.396] Browser LOG     Fetch attempt 1/50...
+[08:07:06.258] Browser LOG     Attempt 1 result: {"chain":"eth","label":"Safe","reason":"USDC is a verified, widely-used stablecoin with no honeypot indicators, zero buy/sell taxes, non-mintable by unauthorized parties, locked ownership controls, and a massive holder base. All security indicators from GoPlus and on-chain data show this is a legitimate, professionally audited token contract.","score":5,"signals_found":["verified_contract","open_source","no_honeypot","zero_buy_tax","zero_sell_tax","large_holder_base","high_transaction_volume","no_abuse_reports","established_token"],"type":"token"}
+[08:07:06.258] Browser LOG     Got valid result!
+[08:07:06.258] Browser LOG     Scan complete: {"chain":"eth","label":"Safe","reason":"USDC is a verified, widely-used stablecoin with no honeypot indicators, zero buy/sell taxes, non-mintable by unauthorized parties, locked ownership controls, and a massive holder base. All security indicators from GoPlus and on-chain data show this is a legitimate, professionally audited token contract.","score":5,"signals_found":["verified_contract","open_source","no_honeypot","zero_buy_tax","zero_sell_tax","large_holder_base","high_transaction_volume","no_abuse_reports","established_token"],"type":"token"}
+[08:07:57.794] Server  LOG     ✓ Compiled in 4.9s
+[08:08:52.610] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[08:08:53.442] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head headCacheNode={{rsc:<Fragment>, ...}}>
+                    <__next_viewport_boundary__>
+                    <MetadataWrapper>
+                      <div
+                        hidden={true}
+-                       bis_skin_checked="1"
+                      >
+                    ...
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="/Downloads...">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" className="space_mono...">
+                          <body
+-                           __processed_268be877-1537-4d56-b41c-c7604643b17c__="true"
+-                           bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWll..."
+                          >
+                            ...
+                              <SegmentViewNode type="page" pagePath="/Downloads...">
+                                <SegmentTrieNode>
+                                <ClientPageRoot Component={function HomePage} serverProvidedParams={{...}}>
+                                  <HomePage params={Promise} searchParams={Promise}>
+                                    <div
+                                      className="min-h-screen flex flex-col"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <Navbar>
+                                        <header className="fixed top-..." style={{...}}>
+                                          <div
+                                            className="transition-all duration-500 ease-out"
+                                            style={{width:"100%",maxWidth:"100%",margin:"0 auto",borderRadius:"0px"}}
+-                                           bis_skin_checked="1"
+                                          >
+                                            <div
+                                              className="backdrop-blur-xl border transition-all duration-500 ease-out"
+                                              style={{borderColor:"oklch(0.14...",background:"linear-gra...",borderRadius:"0px", ...}}
+-                                             bis_skin_checked="1"
+                                            >
+                                              <div
+                                                className="px-6 transition-all duration-500 mx-auto"
+                                                style={{maxWidth:"112rem"}}
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="flex items-center justify-between transition-all duration..."
+                                                  style={{height:"64px"}}
+-                                                 bis_skin_checked="1"
+                                                >
+                                                  <div
+                                                    className="flex items-center gap-2"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                    <LogoMark size="md" className="flex md:hi...">
+                                                      <Logo size="md" className="flex md:hi..." showWordmark={false}>
+                                                        <div
+                                                          className="inline-flex items-center gap-2 flex md:hidden"
+-                                                         bis_skin_checked="1"
+                                                        >
+                                                    <Logo size="md" className="hidden md:...">
+                                                      <div
+                                                        className="inline-flex items-center gap-2 hidden md:flex"
+-                                                       bis_skin_checked="1"
+                                                      >
+                                                  <div
+                                                    className="hidden md:flex items-center gap-6 text-xs font-mono"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                    <div
+                                                      className="flex items-center gap-2 text-muted-foreground"
+-                                                     bis_skin_checked="1"
+                                                    >
+                                                    <div
+                                                      className="flex items-center gap-1.5 text-muted-foreground/50"
+-                                                     bis_skin_checked="1"
+                                                    >
+                                                  <div
+                                                    className="flex items-center gap-3"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                      <main className="flex-grow ...">
+                                        <div
+                                          className="max-w-3xl mx-auto"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="text-center mb-10 animate-fade-in"
+-                                           bis_skin_checked="1"
+                                          >
+                                            <div
+                                              className="inline-flex items-center gap-2 text-xs font-mono tracking-wid..."
+-                                             bis_skin_checked="1"
+                                            >
+                                            ...
+                                          <div
+                                            className="animate-slide-up"
+-                                           bis_skin_checked="1"
+                                          >
+                                            <ScanPanel>
+                                              <div
+                                                className="space-y-4"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="ts-card p-5"
+-                                                 bis_skin_checked="1"
+                                                >
+                                                  <div
+                                                    className="flex items-center gap-1 mb-4 flex-wrap"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                  <div
+                                                    className="flex gap-2"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                  <div
+                                                    className="flex items-center gap-2 mt-3 flex-wrap"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                  <div
+                                                    className="flex items-center justify-between mt-2"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                          <div
+                                            className="animate-fade-in mt-8"
+                                            style={{animationDelay:"150ms"}}
+-                                           bis_skin_checked="1"
+                                          >
+                                          <div
+                                            className="mt-10 ts-card p-6 md:p-8 animate-fade-in"
+                                            style={{animationDelay:"250ms"}}
+-                                           bis_skin_checked="1"
+                                          >
+                                            <h2>
+                                            <div
+                                              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+-                                             bis_skin_checked="1"
+                                            >
+                                              <div
+                                                className="space-y-2"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="text-primary font-bold font-mono"
+-                                                 bis_skin_checked="1"
+                                                >
++                                                 01. Submit
+                                                ...
+                                              <div
+                                                className="space-y-2"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="text-primary font-bold font-mono"
+-                                                 bis_skin_checked="1"
+                                                >
++                                                 02. Analyze
+                                                ...
+                                              <div
+                                                className="space-y-2"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="text-primary font-bold font-mono"
+-                                                 bis_skin_checked="1"
+                                                >
++                                                 03. Decide
+                                                ...
+                                      <footer className="border-t b...">
+                                        <div
+                                          className="max-w-3xl mx-auto px-4 md:px-6"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="flex items-center justify-center gap-6 text-xs text-muted-foreg..."
+-                                           bis_skin_checked="1"
+                                          >
+                  ...
+
+[08:09:28.717] Browser LOG     Checking for existing scan...
+[08:09:30.252] Browser LOG     Existing result: null
+[08:09:30.252] Browser LOG     Submitting new scan...
+[08:09:30.252] Browser LOG     submitTarget attempt 1/3
+[08:09:31.467] Browser WARN    Error using provider for method eth_fillTransaction: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[08:09:31.467] Browser ERROR   unhandledRejection: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[08:09:39.173] Browser LOG     Transaction submitted: 0xa77800f2b2507ae922e11c7a36dd65080f3b040d1034d540b44042b26ad1c2b9
+[08:09:39.173] Browser LOG     Waiting for confirmation...
+[08:11:57.436] Browser LOG     Transaction confirmed: {"activator":"0x636d5410726872a5cb73857f63ad4A75542460ED","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"leader","node_config":{"address":"0x636d5410726872a5cb73857f63ad4A75542460ED","primary_model":"[Object]","private_key":"0xa87c990d174116e8238141be8b426311704ef1dfa543e3a9cd12836007b380ed","secondary_model":"[Object]","stake":100},"result":{"payload":"exit_code 1","status":"contract_error"},"vote":null},{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"},"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"validator","node_config":{"address":"0x636d5410726872a5cb73857f63ad4A75542460ED","primary_model":"[Object]","private_key":"0xa87c990d174116e8238141be8b426311704ef1dfa543e3a9cd12836007b380ed","secondary_model":"[Object]","stake":100},"result":{"payload":"exit_code 1","status":"contract_error"},"vote":"agree"}],"validators":[{"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"validator","node_config":{"address":"0x6E09762a7f49D20F4f2daf6D4C1d43c876472A80","primary_model":"[Object]","private_key":"0x356449d1f53801bbf3e38ec5e1a94d823e9297b7ccb0c74b97fdd10eb4c93c74","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"validator","node_config":{"address":"0xeBB533c27ab20922E67548330AE83059fd1c99e6","primary_model":"[Object]","private_key":"0x8efba9da1baafa706bc5e0e2a372b56ae5494583c129936977259558e14274eb","secondary_model":"[Object]","stake":100},"vote":"disagree"},{"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"validator","node_config":{"address":"0x3FDe19B18132da620d5E01AAC7F4BBE6667Ff75B","primary_model":"[Object]","private_key":"0x8ef2662b369c8bd123ca39d8d2c84e2cc1209665f6008b4e8a654c9637f1666d","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"validator","node_config":{"address":"0x83193B913081537261b5A730EE2429093a0bb6B3","primary_model":"[Object]","private_key":"0x71f1bd786e32010805738f6c351b3d3509416033ff8336a5d930318db31be249","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x3FDe19B18132da620d5E01AAC7F4BBE6667Ff75B":"agree","0x636d5410726872a5cb73857f63ad4A75542460ED":"agree","0x6E09762a7f49D20F4f2daf6D4C1d43c876472A80":"agree","0x83193B913081537261b5A730EE2429093a0bb6B3":"agree","0xeBB533c27ab20922E67548330AE83059fd1c99e6":"disagree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T20:14:49.767490+00:00","data":{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":209,"hash":"0xa77800f2b2507ae922e11c7a36dd65080f3b040d1034d540b44042b26ad1c2b9","last_leader":"0x636d5410726872a5cb73857f63ad4A75542460ED","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0x636d5410726872a5cb73857f63ad4A75542460ED","0x6E09762a7f49D20F4f2daf6D4C1d43c876472A80","0xeBB533c27ab20922E67548330AE83059fd1c99e6","0x3FDe19B18132da620d5E01AAC7F4BBE6667Ff75B","0x83193B913081537261b5A730EE2429093a0bb6B3"],"validator_votes":[1,1,2,1,1],"validator_votes_hash":["0x21bd4b83c4a8e9f69a1bca3577bbe7576de634c1a66441d24c02e00450c79b6f","0x09e4115d0bf6802135d4dff242a40d8c973040f743f5b1e5566a4ccd7207c209","0x28857718dba3f87ef41bf3295f50a53c98a66ae2818c4f8ef755e6345a799631","0xc38952efe30a59b9821d4cd107da069958c5ad795d6f5c7fbad37f2020250d08","0x657cf442d01bc28161e0ab3a691983cbac90395cf2b3f6bc57761c5c18a35186"],"validator_votes_name":["AGREE","AGREE","DISAGREE","AGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":209,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf9018b81d18084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9012427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000058f856b8531604617267731dd4023078373432643335636336363334633035333239323564613262366633616234623666346533653161613477616c6c65741c657468066d6574686f646c7375626d69745f7461726765740000000000000000008301e482a02c697de44024d99ad6dc452c724be11ad0ec7dc091a2755bca7deb0a0101bfb9a0493f36544216ebbd6ee0d245272209d7ac099de9399f01864f3a4c443b41fc14"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0xa77800f2b2507ae922e11c7a36dd65080f3b040d1034d540b44042b26ad1c2b9","type":2}
+[08:11:57.436] Browser LOG     Transaction receipt: {"activator":"0x636d5410726872a5cb73857f63ad4A75542460ED","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"leader","node_config":{"address":"0x636d5410726872a5cb73857f63ad4A75542460ED","primary_model":"[Object]","private_key":"0xa87c990d174116e8238141be8b426311704ef1dfa543e3a9cd12836007b380ed","secondary_model":"[Object]","stake":100},"result":{"payload":"exit_code 1","status":"contract_error"},"vote":null},{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"},"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"validator","node_config":{"address":"0x636d5410726872a5cb73857f63ad4A75542460ED","primary_model":"[Object]","private_key":"0xa87c990d174116e8238141be8b426311704ef1dfa543e3a9cd12836007b380ed","secondary_model":"[Object]","stake":100},"result":{"payload":"exit_code 1","status":"contract_error"},"vote":"agree"}],"validators":[{"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"validator","node_config":{"address":"0x6E09762a7f49D20F4f2daf6D4C1d43c876472A80","primary_model":"[Object]","private_key":"0x356449d1f53801bbf3e38ec5e1a94d823e9297b7ccb0c74b97fdd10eb4c93c74","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"validator","node_config":{"address":"0xeBB533c27ab20922E67548330AE83059fd1c99e6","primary_model":"[Object]","private_key":"0x8efba9da1baafa706bc5e0e2a372b56ae5494583c129936977259558e14274eb","secondary_model":"[Object]","stake":100},"vote":"disagree"},{"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"validator","node_config":{"address":"0x3FDe19B18132da620d5E01AAC7F4BBE6667Ff75B","primary_model":"[Object]","private_key":"0x8ef2662b369c8bd123ca39d8d2c84e2cc1209665f6008b4e8a654c9637f1666d","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"ERROR","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 180, in <module>\n    _handle_main()\n    ~~~~~~~~~~~~^^\n  File \"/py/libs/_genlayer_runner.py\", line 170, in _handle_main\n    _give_result(\n    ~~~~~~~~~~~~^\n    \tlambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 171, in <lambda>\n    lambda: meth2call(contract_instance, *cd.get('args', []), **cd.get('kwargs', {}))\n            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/contract.py\", line 37, in submit_target\n    self._scan_wallet(target)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"/contract.py\", line 211, in _scan_wallet\n    parsed = json.loads(result)\n  File \"/py/std/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/py/std/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/std/json/decoder.py\", line 363, in raw_decode\n    raise JSONDecodeError(\"Expecting value\", s, err.value) from None\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n","stdout":""},"mode":"validator","node_config":{"address":"0x83193B913081537261b5A730EE2429093a0bb6B3","primary_model":"[Object]","private_key":"0x71f1bd786e32010805738f6c351b3d3509416033ff8336a5d930318db31be249","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x3FDe19B18132da620d5E01AAC7F4BBE6667Ff75B":"agree","0x636d5410726872a5cb73857f63ad4A75542460ED":"agree","0x6E09762a7f49D20F4f2daf6D4C1d43c876472A80":"agree","0x83193B913081537261b5A730EE2429093a0bb6B3":"agree","0xeBB533c27ab20922E67548330AE83059fd1c99e6":"disagree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T20:14:49.767490+00:00","data":{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":209,"hash":"0xa77800f2b2507ae922e11c7a36dd65080f3b040d1034d540b44042b26ad1c2b9","last_leader":"0x636d5410726872a5cb73857f63ad4A75542460ED","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0x636d5410726872a5cb73857f63ad4A75542460ED","0x6E09762a7f49D20F4f2daf6D4C1d43c876472A80","0xeBB533c27ab20922E67548330AE83059fd1c99e6","0x3FDe19B18132da620d5E01AAC7F4BBE6667Ff75B","0x83193B913081537261b5A730EE2429093a0bb6B3"],"validator_votes":[1,1,2,1,1],"validator_votes_hash":["0x21bd4b83c4a8e9f69a1bca3577bbe7576de634c1a66441d24c02e00450c79b6f","0x09e4115d0bf6802135d4dff242a40d8c973040f743f5b1e5566a4ccd7207c209","0x28857718dba3f87ef41bf3295f50a53c98a66ae2818c4f8ef755e6345a799631","0xc38952efe30a59b9821d4cd107da069958c5ad795d6f5c7fbad37f2020250d08","0x657cf442d01bc28161e0ab3a691983cbac90395cf2b3f6bc57761c5c18a35186"],"validator_votes_name":["AGREE","AGREE","DISAGREE","AGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":209,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf9018b81d18084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9012427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000058f856b8531604617267731dd4023078373432643335636336363334633035333239323564613262366633616234623666346533653161613477616c6c65741c657468066d6574686f646c7375626d69745f7461726765740000000000000000008301e482a02c697de44024d99ad6dc452c724be11ad0ec7dc091a2755bca7deb0a0101bfb9a0493f36544216ebbd6ee0d245272209d7ac099de9399f01864f3a4c443b41fc14"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0xa77800f2b2507ae922e11c7a36dd65080f3b040d1034d540b44042b26ad1c2b9","type":2}
+[08:11:57.437] Browser LOG     Transaction hash: 0xa77800f2b2507ae922e11c7a36dd65080f3b040d1034d540b44042b26ad1c2b9
+[08:11:57.437] Browser LOG     Starting fetch retry loop...
+[08:11:57.437] Browser LOG     Fetch attempt 1/50...
+[08:11:58.895] Browser LOG     Attempt 1 result: null
+[08:11:58.895] Browser LOG     No result yet, waiting 5 seconds...
+[08:12:03.903] Browser LOG     Fetch attempt 2/50...
+[08:12:05.137] Browser LOG     Attempt 2 result: null
+[08:12:05.137] Browser LOG     No result yet, waiting 5 seconds...
+[08:12:10.136] Browser LOG     Fetch attempt 3/50...
+[08:12:11.380] Browser LOG     Attempt 3 result: null
+[08:12:11.380] Browser LOG     No result yet, waiting 5 seconds...
+[08:12:16.394] Browser LOG     Fetch attempt 4/50...
+[08:12:17.637] Browser LOG     Attempt 4 result: null
+[08:12:17.637] Browser LOG     No result yet, waiting 5 seconds...
+[08:12:22.637] Browser LOG     Fetch attempt 5/50...
+[08:12:23.877] Browser LOG     Attempt 5 result: null
+[08:12:23.877] Browser LOG     No result yet, waiting 5 seconds...
+[08:12:28.903] Browser LOG     Fetch attempt 6/50...
+[08:12:30.154] Browser LOG     Attempt 6 result: null
+[08:12:30.154] Browser LOG     No result yet, waiting 5 seconds...
+[08:12:35.153] Browser LOG     Fetch attempt 7/50...
+[08:12:36.387] Browser LOG     Attempt 7 result: null
+[08:12:36.387] Browser LOG     No result yet, waiting 5 seconds...
+[08:12:41.388] Browser LOG     Fetch attempt 8/50...
+[08:12:42.630] Browser LOG     Attempt 8 result: null
+[08:12:42.630] Browser LOG     No result yet, waiting 5 seconds...
+[08:12:47.636] Browser LOG     Fetch attempt 9/50...
+[08:12:48.864] Browser LOG     Attempt 9 result: null
+[08:12:48.864] Browser LOG     No result yet, waiting 5 seconds...
+[08:12:53.880] Browser LOG     Fetch attempt 10/50...
+[08:12:55.085] Browser LOG     Attempt 10 result: null
+[08:12:55.085] Browser LOG     No result yet, waiting 5 seconds...
+[08:13:00.096] Browser LOG     Fetch attempt 11/50...
+[08:13:01.328] Browser LOG     Attempt 11 result: null
+[08:13:01.328] Browser LOG     No result yet, waiting 5 seconds...
+[08:13:06.342] Browser LOG     Fetch attempt 12/50...
+[08:13:07.586] Browser LOG     Attempt 12 result: null
+[08:13:07.586] Browser LOG     No result yet, waiting 5 seconds...
+[08:13:12.586] Browser LOG     Fetch attempt 13/50...
+[08:13:13.821] Browser LOG     Attempt 13 result: null
+[08:13:13.821] Browser LOG     No result yet, waiting 5 seconds...
+[08:13:18.829] Browser LOG     Fetch attempt 14/50...
+[08:13:20.426] Browser LOG     Attempt 14 result: null
+[08:13:20.427] Browser LOG     No result yet, waiting 5 seconds...
+[08:13:25.453] Browser LOG     Fetch attempt 15/50...
+[08:13:26.670] Browser LOG     Attempt 15 result: null
+[08:13:26.670] Browser LOG     No result yet, waiting 5 seconds...
+[08:13:31.694] Browser LOG     Fetch attempt 16/50...
+[08:13:32.953] Browser LOG     Attempt 16 result: null
+[08:13:32.953] Browser LOG     No result yet, waiting 5 seconds...
+[08:13:37.964] Browser LOG     Fetch attempt 17/50...
+[08:13:39.203] Browser LOG     Attempt 17 result: null
+[08:13:39.203] Browser LOG     No result yet, waiting 5 seconds...
+[08:13:44.203] Browser LOG     Fetch attempt 18/50...
+[08:13:45.437] Browser LOG     Attempt 18 result: null
+[08:13:45.437] Browser LOG     No result yet, waiting 5 seconds...
+[08:13:50.439] Browser LOG     Fetch attempt 19/50...
+[08:13:51.654] Browser LOG     Attempt 19 result: null
+[08:13:51.654] Browser LOG     No result yet, waiting 5 seconds...
+[08:13:56.653] Browser LOG     Fetch attempt 20/50...
+[08:13:57.915] Browser LOG     Attempt 20 result: null
+[08:13:57.915] Browser LOG     No result yet, waiting 5 seconds...
+[08:14:02.929] Browser LOG     Fetch attempt 21/50...
+[08:14:04.903] Browser LOG     Attempt 21 result: null
+[08:14:04.903] Browser LOG     No result yet, waiting 5 seconds...
+[08:14:09.902] Browser LOG     Fetch attempt 22/50...
+[08:14:11.137] Browser LOG     Attempt 22 result: null
+[08:14:11.137] Browser LOG     No result yet, waiting 5 seconds...
+[08:14:18.607] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[08:14:19.890] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head headCacheNode={{rsc:<Fragment>, ...}}>
+                    <__next_viewport_boundary__>
+                    <MetadataWrapper>
+                      <div
+                        hidden={true}
+-                       bis_skin_checked="1"
+                      >
+                    ...
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="/Downloads...">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" className="space_mono...">
+                          <body
+-                           __processed_274a379e-2b8a-45a7-aa5c-0affc96b6644__="true"
+-                           bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWll..."
+                          >
+                            ...
+                              <SegmentViewNode type="page" pagePath="/Downloads...">
+                                <SegmentTrieNode>
+                                <ClientPageRoot Component={function HomePage} serverProvidedParams={{...}}>
+                                  <HomePage params={Promise} searchParams={Promise}>
+                                    <div
+                                      className="min-h-screen flex flex-col"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <Navbar>
+                                        <header className="fixed top-..." style={{...}}>
+                                          <div
+                                            className="transition-all duration-500 ease-out"
+                                            style={{width:"100%",maxWidth:"100%",margin:"0 auto",borderRadius:"0px"}}
+-                                           bis_skin_checked="1"
+                                          >
+                                            <div
+                                              className="backdrop-blur-xl border transition-all duration-500 ease-out"
+                                              style={{borderColor:"oklch(0.14...",background:"linear-gra...",borderRadius:"0px", ...}}
+-                                             bis_skin_checked="1"
+                                            >
+                                              <div
+                                                className="px-6 transition-all duration-500 mx-auto"
+                                                style={{maxWidth:"112rem"}}
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="flex items-center justify-between transition-all duration..."
+                                                  style={{height:"64px"}}
+-                                                 bis_skin_checked="1"
+                                                >
+                                                  <div
+                                                    className="flex items-center gap-2"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                    <LogoMark size="md" className="flex md:hi...">
+                                                      <Logo size="md" className="flex md:hi..." showWordmark={false}>
+                                                        <div
+                                                          className="inline-flex items-center gap-2 flex md:hidden"
+-                                                         bis_skin_checked="1"
+                                                        >
+                                                    <Logo size="md" className="hidden md:...">
+                                                      <div
+                                                        className="inline-flex items-center gap-2 hidden md:flex"
+-                                                       bis_skin_checked="1"
+                                                      >
+                                                  <div
+                                                    className="hidden md:flex items-center gap-6 text-xs font-mono"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                    <div
+                                                      className="flex items-center gap-2 text-muted-foreground"
+-                                                     bis_skin_checked="1"
+                                                    >
+                                                    <div
+                                                      className="flex items-center gap-1.5 text-muted-foreground/50"
+-                                                     bis_skin_checked="1"
+                                                    >
+                                                  <div
+                                                    className="flex items-center gap-3"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                      <main className="flex-grow ...">
+                                        <div
+                                          className="max-w-3xl mx-auto"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="text-center mb-10 animate-fade-in"
+-                                           bis_skin_checked="1"
+                                          >
+                                            <div
+                                              className="inline-flex items-center gap-2 text-xs font-mono tracking-wid..."
+-                                             bis_skin_checked="1"
+                                            >
+                                            ...
+                                          <div
+                                            className="animate-slide-up"
+-                                           bis_skin_checked="1"
+                                          >
+                                            <ScanPanel>
+                                              <div
+                                                className="space-y-4"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="ts-card p-5"
+-                                                 bis_skin_checked="1"
+                                                >
+                                                  <div
+                                                    className="flex items-center gap-1 mb-4 flex-wrap"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                  <div
+                                                    className="flex gap-2"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                  <div
+                                                    className="flex items-center gap-2 mt-3 flex-wrap"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                                  <div
+                                                    className="flex items-center justify-between mt-2"
+-                                                   bis_skin_checked="1"
+                                                  >
+                                          <div
+                                            className="animate-fade-in mt-8"
+                                            style={{animationDelay:"150ms"}}
+-                                           bis_skin_checked="1"
+                                          >
+                                          <div
+                                            className="mt-10 ts-card p-6 md:p-8 animate-fade-in"
+                                            style={{animationDelay:"250ms"}}
+-                                           bis_skin_checked="1"
+                                          >
+                                            <h2>
+                                            <div
+                                              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+-                                             bis_skin_checked="1"
+                                            >
+                                              <div
+                                                className="space-y-2"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="text-primary font-bold font-mono"
+-                                                 bis_skin_checked="1"
+                                                >
++                                                 01. Submit
+                                                ...
+                                              <div
+                                                className="space-y-2"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="text-primary font-bold font-mono"
+-                                                 bis_skin_checked="1"
+                                                >
++                                                 02. Analyze
+                                                ...
+                                              <div
+                                                className="space-y-2"
+-                                               bis_skin_checked="1"
+                                              >
+                                                <div
+                                                  className="text-primary font-bold font-mono"
+-                                                 bis_skin_checked="1"
+                                                >
++                                                 03. Decide
+                                                ...
+                                      <footer className="border-t b...">
+                                        <div
+                                          className="max-w-3xl mx-auto px-4 md:px-6"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="flex items-center justify-center gap-6 text-xs text-muted-foreg..."
+-                                           bis_skin_checked="1"
+                                          >
+                  ...
+
+[08:14:36.246] Browser LOG     Checking for existing scan...
+[08:14:37.487] Browser LOG     Existing result: null
+[08:14:37.487] Browser LOG     Submitting new scan...
+[08:14:37.487] Browser LOG     submitTarget attempt 1/3
+[08:14:38.608] Browser WARN    Error using provider for method eth_fillTransaction: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[08:14:38.608] Browser ERROR   unhandledRejection: {"code":-32601,"message":"Method not found: eth_fillTransaction"}
+[08:14:45.814] Browser LOG     Transaction submitted: 0xe0d8d731dc2b1e1aab8142a1a7c071d7ddd663a9b65fcd82f6b4f0e38bd3ac54
+[08:14:45.814] Browser LOG     Waiting for confirmation...
+[08:16:07.285] Browser LOG     Transaction confirmed: {"activator":"0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"leader","node_config":{"address":"0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6","primary_model":"[Object]","private_key":"0xf61dbac35fc67b5b0e2838dbf65f42cc23d61f689b7d6da5e73e6fcd6eeee77e","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":null},{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6","primary_model":"[Object]","private_key":"0xf61dbac35fc67b5b0e2838dbf65f42cc23d61f689b7d6da5e73e6fcd6eeee77e","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":"agree"}],"validators":[{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x7AF9D709A0549C09f8D1b79B62f858a0Ea874557","primary_model":"[Object]","private_key":"0xb3dede43f3ddd6aab5de4a4a725974c6fe73f5aa88f6c40f61130925e8252336","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xEDb9A2FCf21601b923e5ae91EB2A05d0D4FCE3ea","primary_model":"[Object]","private_key":"0x9cb418e5423c7d07ddab72d00c021b5b5eef450ef6fc521cc52e4ac7f4370485","secondary_model":"[Object]","stake":100},"vote":"disagree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xd5e10e32C9d6dF4B956f2F0667Dc3508300EDDb6","primary_model":"[Object]","private_key":"0xa5d87f6c5babfe0550b361bf3b242ec0b5766f8d1ddcbc1109d1c36f8d2548f4","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x3bc34056D39117B950985F4f5Be80772a66518Fd","primary_model":"[Object]","private_key":"0x8bf855a7fd44d1907a4df41d601776e9f775fe9503378b9a41a61550ccadba0c","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x3bc34056D39117B950985F4f5Be80772a66518Fd":"agree","0x7AF9D709A0549C09f8D1b79B62f858a0Ea874557":"agree","0xEDb9A2FCf21601b923e5ae91EB2A05d0D4FCE3ea":"disagree","0xd5e10e32C9d6dF4B956f2F0667Dc3508300EDDb6":"agree","0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6":"agree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T20:19:56.220371+00:00","data":{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":210,"hash":"0xe0d8d731dc2b1e1aab8142a1a7c071d7ddd663a9b65fcd82f6b4f0e38bd3ac54","last_leader":"0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6","0x7AF9D709A0549C09f8D1b79B62f858a0Ea874557","0xEDb9A2FCf21601b923e5ae91EB2A05d0D4FCE3ea","0xd5e10e32C9d6dF4B956f2F0667Dc3508300EDDb6","0x3bc34056D39117B950985F4f5Be80772a66518Fd"],"validator_votes":[1,1,2,1,1],"validator_votes_hash":["0x6b4dc69a03bf52776011064c8b72cc09bfdb6e707b3816f018fe464f33c9fd59","0x15ead03f71c94849e53b4faa12b439568e1c64643f567ac1e060dfd47b4a10eb","0xce9e5e1a67e82e90f4fbdf85568ec06b570a2b8b22db0ef3a924d9ea6c8f3364","0xd0533c43b81e0911addbf1c2939ed9fd14d7e9f4a4177e972e428165ac6f9123","0x4e1896bc5fe3881a13b78b9f5077047766b0282f04e1e4e68eade0d17733ffe3"],"validator_votes_name":["AGREE","AGREE","DISAGREE","AGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":210,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf9018b81d28084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9012427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000058f856b8531604617267731dd4023078373432643335636336363334633035333239323564613262366633616234623666346533653161613477616c6c65741c657468066d6574686f646c7375626d69745f7461726765740000000000000000008301e482a0ff684fdcbcf04f07dac6d1730d0483a050d997ee9bdac1648312b40702da6999a02a8667994501a3a146c40045c8793ed97ab70d40cb751dfef48433f2759e314e"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0xe0d8d731dc2b1e1aab8142a1a7c071d7ddd663a9b65fcd82f6b4f0e38bd3ac54","type":2}
+[08:16:07.285] Browser LOG     Transaction receipt: {"activator":"0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6","appeal_validators_timeout":false,"consensus_data":{"leader_receipt":[{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"},"eq_outputs":{"0":"[Object]"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"leader","node_config":{"address":"0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6","primary_model":"[Object]","private_key":"0xf61dbac35fc67b5b0e2838dbf65f42cc23d61f689b7d6da5e73e6fcd6eeee77e","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":null},{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"},"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6","primary_model":"[Object]","private_key":"0xf61dbac35fc67b5b0e2838dbf65f42cc23d61f689b7d6da5e73e6fcd6eeee77e","secondary_model":"[Object]","stake":100},"result":{"payload":"[Object]","status":"return"},"vote":"agree"}],"validators":[{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x7AF9D709A0549C09f8D1b79B62f858a0Ea874557","primary_model":"[Object]","private_key":"0xb3dede43f3ddd6aab5de4a4a725974c6fe73f5aa88f6c40f61130925e8252336","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xEDb9A2FCf21601b923e5ae91EB2A05d0D4FCE3ea","primary_model":"[Object]","private_key":"0x9cb418e5423c7d07ddab72d00c021b5b5eef450ef6fc521cc52e4ac7f4370485","secondary_model":"[Object]","stake":100},"vote":"disagree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0xd5e10e32C9d6dF4B956f2F0667Dc3508300EDDb6","primary_model":"[Object]","private_key":"0xa5d87f6c5babfe0550b361bf3b242ec0b5766f8d1ddcbc1109d1c36f8d2548f4","secondary_model":"[Object]","stake":100},"vote":"agree"},{"execution_result":"SUCCESS","genvm_result":{"error_code":null,"error_description":null,"raw_error":null,"stderr":"","stdout":""},"mode":"validator","node_config":{"address":"0x3bc34056D39117B950985F4f5Be80772a66518Fd","primary_model":"[Object]","private_key":"0x8bf855a7fd44d1907a4df41d601776e9f775fe9503378b9a41a61550ccadba0c","secondary_model":"[Object]","stake":100},"vote":"agree"}],"votes":{"0x3bc34056D39117B950985F4f5Be80772a66518Fd":"agree","0x7AF9D709A0549C09f8D1b79B62f858a0Ea874557":"agree","0xEDb9A2FCf21601b923e5ae91EB2A05d0D4FCE3ea":"disagree","0xd5e10e32C9d6dF4B956f2F0667Dc3508300EDDb6":"agree","0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6":"agree"}},"contract_snapshot":{"contract_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"},"created_at":"2026-03-19T20:19:56.220371+00:00","data":{"calldata":{"readable":"{\"args\":[\"0x742d35cc6634c0532925da2b6f3ab4b6f4e3e1aa\",\"wallet\",\"eth\",]\"method\":\"submit_target\"}"}},"execution_mode":"NORMAL","from_address":"0x1DcB045123730e606A88380BCe534332F50332d2","gaslimit":210,"hash":"0xe0d8d731dc2b1e1aab8142a1a7c071d7ddd663a9b65fcd82f6b4f0e38bd3ac54","last_leader":"0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6","last_round":{"appeal_bond":"0","leader_index":"0","result":6,"rotations_left":"3","round":"0","round_validators":["0xd6C63639cc6AD2fBeF93d89c84cA87c60190F3A6","0x7AF9D709A0549C09f8D1b79B62f858a0Ea874557","0xEDb9A2FCf21601b923e5ae91EB2A05d0D4FCE3ea","0xd5e10e32C9d6dF4B956f2F0667Dc3508300EDDb6","0x3bc34056D39117B950985F4f5Be80772a66518Fd"],"validator_votes":[1,1,2,1,1],"validator_votes_hash":["0x6b4dc69a03bf52776011064c8b72cc09bfdb6e707b3816f018fe464f33c9fd59","0x15ead03f71c94849e53b4faa12b439568e1c64643f567ac1e060dfd47b4a10eb","0xce9e5e1a67e82e90f4fbdf85568ec06b570a2b8b22db0ef3a924d9ea6c8f3364","0xd0533c43b81e0911addbf1c2939ed9fd14d7e9f4a4177e972e428165ac6f9123","0x4e1896bc5fe3881a13b78b9f5077047766b0282f04e1e4e68eade0d17733ffe3"],"validator_votes_name":["AGREE","AGREE","DISAGREE","AGREE","AGREE"],"votes_committed":"5","votes_revealed":"5"},"leader_only":false,"nonce":210,"num_of_rounds":"1","recipient":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","result":6,"result_name":"MAJORITY_AGREE","sender":"0x1DcB045123730e606A88380BCe534332F50332d2","sim_config":{"signed_rollup_transaction":"0xf9018b81d28084ffffffff94b7278a61aa25c888815afc32ad3cc52ff24fe57580b9012427241a990000000000000000000000001dcb045123730e606a88380bce534332f50332d20000000000000000000000009312fdc35e76cb6e4a9ec9f0d2548834ce525ec90000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000058f856b8531604617267731dd4023078373432643335636336363334633035333239323564613262366633616234623666346533653161613477616c6c65741c657468066d6574686f646c7375626d69745f7461726765740000000000000000008301e482a0ff684fdcbcf04f07dac6d1730d0483a050d997ee9bdac1648312b40702da6999a02a8667994501a3a146c40045c8793ed97ab70d40cb751dfef48433f2759e314e"},"status":5,"status_name":"ACCEPTED","to_address":"0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9","triggered_on":null,"tx_id":"0xe0d8d731dc2b1e1aab8142a1a7c071d7ddd663a9b65fcd82f6b4f0e38bd3ac54","type":2}
+[08:16:07.285] Browser LOG     Transaction hash: 0xe0d8d731dc2b1e1aab8142a1a7c071d7ddd663a9b65fcd82f6b4f0e38bd3ac54
+[08:16:07.285] Browser LOG     Starting fetch retry loop...
+[08:16:07.285] Browser LOG     Fetch attempt 1/50...
+[08:16:08.987] Browser LOG     Attempt 1 result: {"chain":"eth","label":"Safe","reason":"Based on the available on-chain and threat-intel sources queried, no explicit scam, phishing, mixer, or money-laundering flags were detected for this address, and its activity pattern is consistent with a long-lived, high-volume wallet rather than a short-lived drain or scam wallet. Residual risk comes only from normal on-chain usage and the possibility of incomplete external threat reporting.","score":10,"signals_found":["GoPlus malicious_address: 0","GoPlus phishing_activities: 0","GoPlus blacklist_doubt: 0","GoPlus mixer: 0","GoPlus darkweb_transactions: 0","GoPlus money_laundering: 0","GoPlus financial_crime: 0","No Chainabuse scam reports found for this address","Etherscan transaction history shows no obvious drain pattern (no sudden large inflow followed by rapid complete outflow in the latest 50 txs)","Wallet is not new; has a long and consistent transaction history","Failed transaction ratio in the latest history slice does not exceed 30%","No clearly flagged malicious contract interactions observed in the checked transactions","Clean history across queried data sources (assigned baseline low risk score)"],"type":"wallet"}
+[08:16:08.987] Browser LOG     Got valid result!
+[08:16:08.987] Browser LOG     Scan complete: {"chain":"eth","label":"Safe","reason":"Based on the available on-chain and threat-intel sources queried, no explicit scam, phishing, mixer, or money-laundering flags were detected for this address, and its activity pattern is consistent with a long-lived, high-volume wallet rather than a short-lived drain or scam wallet. Residual risk comes only from normal on-chain usage and the possibility of incomplete external threat reporting.","score":10,"signals_found":["GoPlus malicious_address: 0","GoPlus phishing_activities: 0","GoPlus blacklist_doubt: 0","GoPlus mixer: 0","GoPlus darkweb_transactions: 0","GoPlus money_laundering: 0","GoPlus financial_crime: 0","No Chainabuse scam reports found for this address","Etherscan transaction history shows no obvious drain pattern (no sudden large inflow followed by rapid complete outflow in the latest 50 txs)","Wallet is not new; has a long and consistent transaction history","Failed transaction ratio in the latest history slice does not exceed 30%","No clearly flagged malicious contract interactions observed in the checked transactions","Clean history across queried data sources (assigned baseline low risk score)"],"type":"wallet"}
+[08:31:14.174] Server  LOG     ✓ Compiled in 224ms
