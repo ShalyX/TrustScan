@@ -143,20 +143,30 @@ class TrustScan {
   // ─── WRITE METHODS ──────────────────────────────────────
 
   async submitTarget(
-    target: string,
-    targetType: ScanType,
-    chain: ChainType = "eth"
-  ): Promise<TransactionReceipt> {
-    if (!this.hasAccount) {
-      throw new Error("Wallet not connected. Please connect your wallet before scanning.");
-    }
+  target: string,
+  targetType: ScanType,
+  chain: ChainType = "eth"
+): Promise<TransactionReceipt> {
+  if (!this.hasAccount) {
+    throw new Error("Wallet not connected. Please connect your wallet before scanning.");
+  }
+  
+  let lastError: Error | null = null;
+  
+  // Retry up to 3 times
+  for (let attempt = 1; attempt <= 3; attempt++) {
     try {
+      console.log(`submitTarget attempt ${attempt}/3`);
+      
       const txHash = await this.client.writeContract({
         address: this.contractAddress,
         functionName: "submit_target",
         args: [target, targetType, chain],
         value: BigInt(0),
       });
+
+      console.log("Transaction submitted:", txHash);
+      console.log("Waiting for confirmation...");
 
       const receipt = await this.client.waitForTransactionReceipt({
         hash: txHash,
@@ -165,12 +175,23 @@ class TrustScan {
         interval: 5000,
       });
 
+      console.log("Transaction confirmed:", receipt);
       return receipt as TransactionReceipt;
-    } catch (e) {
-      console.error("submitTarget error:", e);
-      throw new Error("Scan failed. Please try again.");
+      
+    } catch (e: any) {
+      console.error(`Attempt ${attempt} failed:`, e);
+      lastError = e;
+      
+      // Wait before retrying
+      if (attempt < 3) {
+        await new Promise(r => setTimeout(r, 2000));
+      }
     }
   }
+  
+  throw new Error(`Scan failed after 3 attempts: ${lastError?.message || "Unknown error"}`);
+}
+
 
   async flagTarget(
     target: string,

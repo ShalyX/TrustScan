@@ -471,3 +471,6 @@ It can also happen if the client has a browser extension installed which messes 
 [15:49:03.684] Browser LOG     Fetch attempt 20/20...
 [15:49:04.694] Browser LOG     Attempt 20 result: null
 [15:49:04.694] Browser LOG     No result yet, waiting 5 seconds...
+[15:49:10.699] Browser ERROR   No result after all retries
+[15:49:10.699] Browser ERROR   Scan error: {}
+[16:03:18.928] Server  LOG     ✓ Compiled in 2.2s
