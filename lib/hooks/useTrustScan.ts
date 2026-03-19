@@ -32,75 +32,75 @@ export function useScan() {
   const [target, setTarget] = useState<string>("");
 
   const scan = useCallback(async ({ target: t, type, chain, address }: ScanParams) => {
-    if (!address || !/^0x[0-9a-fA-F]{40}$/.test(address)) {
-      toast.error("Wallet not connected", {
-        description: "Please connect your wallet before scanning.",
-      });
+  if (!address || !/^0x[0-9a-fA-F]{40}$/.test(address)) {
+    toast.error("Wallet not connected", {
+      description: "Please connect your wallet before scanning.",
+    });
+    return;
+  }
+
+  setIsScanning(true);
+  setResult(null);
+  setTarget(t);
+
+  const phases = [
+    "Checking existing results...",
+    "Submitting to GenLayer...",
+    "AI validators fetching data...",
+    "Cross-referencing sources...",
+    "Reaching consensus...",
+    "Finalizing...",
+  ];
+  let phaseIdx = 0;
+  setPhase(phases[0]);
+  const phaseInterval = setInterval(() => {
+    phaseIdx = Math.min(phaseIdx + 1, phases.length - 1);
+    setPhase(phases[phaseIdx]);
+  }, 20000);  // Changed from 18000 to 20000
+
+  try {
+    // Check if already scanned
+    const existing = await contract.getRiskScore(t);
+
+    if (existing && existing.label !== "Not Scanned") {
+      clearInterval(phaseInterval);
+      setResult(existing);
+      addScan({ ...existing, target: t, scannedAt: Date.now() });
+      toast.success("Loaded from chain.");
       return;
     }
 
-    setIsScanning(true);
-    setResult(null);
-    setTarget(t);
+    // Submit new scan
+    setPhase("Submitting to GenLayer...");
+    const scanContract = new TrustScan(address);
+    await scanContract.submitTarget(t, type, chain);
 
-    const phases = [
-      "Checking existing results...",
-      "Submitting to GenLayer...",
-      "AI validators fetching data...",
-      "Cross-referencing sources...",
-      "Reaching consensus...",
-      "Finalizing...",
-    ];
-    let phaseIdx = 0;
-    setPhase(phases[0]);
-    const phaseInterval = setInterval(() => {
-      phaseIdx = Math.min(phaseIdx + 1, phases.length - 1);
-      setPhase(phases[phaseIdx]);
-    }, 18000);
-
-    try {
-      // Check if already scanned
-      const existing = await contract.getRiskScore(t);
-
-      if (existing && existing.label !== "Not Scanned") {
-        clearInterval(phaseInterval);
-        setResult(existing);
-        addScan({ ...existing, target: t, scannedAt: Date.now() });
-        toast.success("Loaded from chain.");
-        return;
-      }
-
-      // Submit new scan
-      setPhase("Submitting to GenLayer...");
-      const scanContract = new TrustScan(address);
-      await scanContract.submitTarget(t, type, chain);
-
-      // Fetch result with retry
-      setPhase("Fetching result...");
-      let scanResult: ScanResult | null = null;
-      for (let i = 0; i < 8; i++) {
-        scanResult = await contract.getRiskScore(t);
-        if (scanResult && scanResult.label !== "Not Scanned") break;
-        await new Promise(r => setTimeout(r, 3000));
-      }
-
-      if (!scanResult) {
-        throw new Error("Result not ready. Transaction may still be processing.");
-      }
-
-      setResult(scanResult);
-      addScan({ ...scanResult, target: t, scannedAt: Date.now() });
-      toast.success("Scan complete.");
-
-    } catch (e: any) {
-      toast.error("Scan failed", { description: e.message || "Please try again." });
-      setResult(null);
-    } finally {
-      clearInterval(phaseInterval);
-      setPhase("");
-      setIsScanning(false);
+    // Fetch result with retry (increased timeout)
+    setPhase("Fetching result...");
+    let scanResult: ScanResult | null = null;
+    for (let i = 0; i < 20; i++) {  // Increased from 8 to 20
+      scanResult = await contract.getRiskScore(t);
+      if (scanResult && scanResult.label !== "Not Scanned") break;
+      await new Promise(r => setTimeout(r, 5000));  // Increased from 3000 to 5000
     }
-  }, [contract, addScan]);
+
+    if (!scanResult) {
+      throw new Error("Result not ready. GenLayer AI is still processing. Please try checking again in a minute.");
+    }
+
+    setResult(scanResult);
+    addScan({ ...scanResult, target: t, scannedAt: Date.now() });
+    toast.success("Scan complete.");
+
+  } catch (e: any) {
+    toast.error("Scan failed", { description: e.message || "Please try again." });
+    setResult(null);
+  } finally {
+    clearInterval(phaseInterval);
+    setPhase("");
+    setIsScanning(false);
+  }
+}, [contract, addScan]);
 
   return { scan, isScanning, phase, result, target };
 }

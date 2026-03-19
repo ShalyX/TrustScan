@@ -964,7 +964,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$no
 ;
 const STUDIO_URL = ("TURBOPACK compile-time value", "https://studio.genlayer.com/api") || "https://studio.genlayer.com/api";
 const CONTRACT_ADDRESS = ("TURBOPACK compile-time value", "0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9") || "0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9";
-// FIX: Validate a hex address string
 function isValidAddress(addr) {
     return /^0x[0-9a-fA-F]{40}$/.test(addr);
 }
@@ -974,7 +973,6 @@ class TrustScan {
     hasAccount;
     constructor(address){
         this.contractAddress = CONTRACT_ADDRESS;
-        // FIX: Track whether a valid account was provided
         this.hasAccount = !!address && isValidAddress(address);
         const config = {
             chain: __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$genlayer$2d$js$2f$dist$2f$chunk$2d$NOFMB7RP$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["studionet"],
@@ -987,7 +985,7 @@ class TrustScan {
     }
     updateAccount(address) {
         if (!isValidAddress(address)) {
-            console.warn("updateAccount: invalid address provided, skipping.");
+            console.warn("Invalid address provided");
             return;
         }
         this.hasAccount = true;
@@ -997,13 +995,11 @@ class TrustScan {
             account: address
         });
     }
-    // FIX: Guard — returns true only when contract address and client are ready
     isReady() {
         return isValidAddress(this.contractAddress);
     }
     // ─── READ METHODS ───────────────────────────────────────
     async getRiskScore(target) {
-        // FIX: Skip RPC call if client isn't ready — prevents gen_call errors
         if (!this.isReady()) return null;
         try {
             const result = await this.client.readContract({
@@ -1013,17 +1009,27 @@ class TrustScan {
                     target
                 ]
             });
-            if (!result || result.score === -1 || result.label === "Not Scanned") {
+            // Convert Map to plain object if needed
+            let data = result;
+            if (result instanceof Map) {
+                data = Object.fromEntries(result);
+            }
+            const score = data.score;
+            const label = data.label;
+            // Return null if not scanned yet
+            if (!data || score === -1 || score === -1n || label === "Not Scanned") {
                 return null;
             }
-            return result;
+            return {
+                ...data,
+                score: Number(score)
+            };
         } catch (e) {
             console.error("getRiskScore error:", e);
             return null;
         }
     }
     async getFlags(target) {
-        // FIX: Skip RPC call if client isn't ready
         if (!this.isReady()) return [];
         try {
             const result = await this.client.readContract({
@@ -1033,15 +1039,18 @@ class TrustScan {
                     target
                 ]
             });
-            if (!Array.isArray(result)) return [];
-            return result;
+            let data = result;
+            if (result instanceof Map) {
+                data = Object.fromEntries(result);
+            }
+            if (!Array.isArray(data)) return [];
+            return data;
         } catch (e) {
             console.error("getFlags error:", e);
             return [];
         }
     }
     async getFlagCount(target) {
-        // FIX: Skip RPC call if client isn't ready
         if (!this.isReady()) return 0;
         try {
             const result = await this.client.readContract({
@@ -1058,7 +1067,6 @@ class TrustScan {
         }
     }
     async getAllScanned() {
-        // FIX: Skip RPC call if client isn't ready
         if (!this.isReady()) return [];
         try {
             const result = await this.client.readContract({
@@ -1075,7 +1083,6 @@ class TrustScan {
     }
     // ─── WRITE METHODS ──────────────────────────────────────
     async submitTarget(target, targetType, chain = "eth") {
-        // FIX: Require a connected wallet for write operations
         if (!this.hasAccount) {
             throw new Error("Wallet not connected. Please connect your wallet before scanning.");
         }
@@ -1103,7 +1110,6 @@ class TrustScan {
         }
     }
     async flagTarget(target, evidence) {
-        // FIX: Require a connected wallet for write operations
         if (!this.hasAccount) {
             throw new Error("Wallet not connected. Please connect your wallet before flagging.");
         }
@@ -1169,7 +1175,6 @@ function useScan() {
     const [result, setResult] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [target, setTarget] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const scan = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(async ({ target: t, type, chain, address })=>{
-        // FIX: Validate wallet address before doing anything
         if (!address || !/^0x[0-9a-fA-F]{40}$/.test(address)) {
             __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].error("Wallet not connected", {
                 description: "Please connect your wallet before scanning."
@@ -1194,9 +1199,9 @@ function useScan() {
             setPhase(phases[phaseIdx]);
         }, 18000);
         try {
-            // Check cache first
+            // Check if already scanned
             const existing = await contract.getRiskScore(t);
-            if (existing) {
+            if (existing && existing.label !== "Not Scanned") {
                 clearInterval(phaseInterval);
                 setResult(existing);
                 addScan({
@@ -1207,7 +1212,7 @@ function useScan() {
                 __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].success("Loaded from chain.");
                 return;
             }
-            // Submit new scan — use validated address
+            // Submit new scan
             setPhase("Submitting to GenLayer...");
             const scanContract = new __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$lib$2f$contracts$2f$TrustScan$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"](address);
             await scanContract.submitTarget(t, type, chain);
@@ -1216,7 +1221,7 @@ function useScan() {
             let scanResult = null;
             for(let i = 0; i < 8; i++){
                 scanResult = await contract.getRiskScore(t);
-                if (scanResult) break;
+                if (scanResult && scanResult.label !== "Not Scanned") break;
                 await new Promise((r)=>setTimeout(r, 3000));
             }
             if (!scanResult) {
@@ -1230,7 +1235,6 @@ function useScan() {
             });
             __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].success("Scan complete.");
         } catch (e) {
-            console.error("Scan error:", e);
             __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].error("Scan failed", {
                 description: e.message || "Please try again."
             });
@@ -1240,7 +1244,6 @@ function useScan() {
             setPhase("");
             setIsScanning(false);
         }
-    // FIX: Added addScan to dependency array to avoid stale closure
     }, [
         contract,
         addScan
@@ -1258,7 +1261,6 @@ function useFlag() {
     const [isSuccess, setIsSuccess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const flag = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(async ({ target, evidence, address })=>{
-        // FIX: Validate wallet address before flagging
         if (!address || !/^0x[0-9a-fA-F]{40}$/.test(address)) {
             __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].error("Wallet not connected", {
                 description: "Please connect your wallet before submitting a flag."
@@ -1276,7 +1278,6 @@ function useFlag() {
                 description: "Community report recorded on-chain."
             });
         } catch (e) {
-            console.error("Flag error:", e);
             const msg = e.message || "Flag submission failed.";
             setError(msg);
             __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].error("Flag failed", {
@@ -1314,7 +1315,6 @@ function useRecentScansStore() {
 function useRecentScans() {
     const [scans, setScans] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(_scans);
     const [selected, setSelected] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
-    // FIX: useEffect (not useMemo) for subscriptions so cleanup actually runs
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$TrustScan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const listener = ()=>setScans([
                 ..._scans
