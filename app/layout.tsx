@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Space_Mono, Syne } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { GridBackground } from "@/components/GridBackground";
 
 const spaceMono = Space_Mono({
   subsets: ["latin"],
@@ -49,8 +50,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceMono.variable} ${syne.variable} dark`}>
-      <body>
-        <Providers>{children}</Providers>
+      <body className="antialiased">
+        <Providers>
+          <GridBackground />
+          <div className="relative z-10">
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );

@@ -63,7 +63,6 @@ class TrustScan {
         args: [target],
       });
 
-      // Convert Map to plain object if needed
       let data: any = result;
       if (result instanceof Map) {
         data = Object.fromEntries(result);
@@ -72,7 +71,6 @@ class TrustScan {
       const score = data.score;
       const label = data.label;
 
-      // Return null if not scanned yet
       if (!data || score === -1 || score === -1n || label === "Not Scanned") {
         return null;
       }
@@ -84,6 +82,43 @@ class TrustScan {
     } catch (e) {
       console.error("getRiskScore error:", e);
       return null;
+    }
+  }
+
+  async getMultipleScores(
+    targets: string[]
+  ): Promise<Record<string, ScanResult | null>> {
+    if (!this.isReady()) return {};
+    try {
+      const result: any = await this.client.readContract({
+        address: this.contractAddress,
+        functionName: "get_multiple_scores",
+        args: [targets],
+      });
+
+      // Result is a dict/Map of target -> scan result
+      let data: Record<string, any> = {};
+      if (result instanceof Map) {
+        data = Object.fromEntries(result);
+      } else if (typeof result === "object" && result !== null) {
+        data = result;
+      }
+
+      // Normalize each entry
+      const normalized: Record<string, ScanResult | null> = {};
+      for (const [target, raw] of Object.entries(data)) {
+        let entry: any = raw;
+        if (raw instanceof Map) entry = Object.fromEntries(raw);
+        if (!entry || entry.score === -1 || entry.score === -1n || entry.label === "Not Scanned") {
+          normalized[target] = null;
+        } else {
+          normalized[target] = { ...entry, score: Number(entry.score) } as ScanResult;
+        }
+      }
+      return normalized;
+    } catch (e) {
+      console.error("getMultipleScores error:", e);
+      return {};
     }
   }
 
@@ -143,55 +178,91 @@ class TrustScan {
   // ─── WRITE METHODS ──────────────────────────────────────
 
   async submitTarget(
-  target: string,
-  targetType: ScanType,
-  chain: ChainType = "eth"
-): Promise<TransactionReceipt> {
-  if (!this.hasAccount) {
-    throw new Error("Wallet not connected. Please connect your wallet before scanning.");
+    target: string,
+    targetType: ScanType,
+    chain: ChainType = "eth"
+  ): Promise<TransactionReceipt> {
+    if (!this.hasAccount) {
+      throw new Error("Wallet not connected. Please connect your wallet before scanning.");
+    }
+
+    let lastError: Error | null = null;
+
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        console.log(`submitTarget attempt ${attempt}/3`);
+
+        const txHash = await this.client.writeContract({
+          address: this.contractAddress,
+          functionName: "submit_target",
+          args: [target, targetType, chain],
+          value: BigInt(0),
+        });
+
+        console.log("Transaction submitted:", txHash);
+        console.log("Waiting for confirmation...");
+
+        const receipt = await this.client.waitForTransactionReceipt({
+          hash: txHash,
+          status: "ACCEPTED" as any,
+          retries: 80,
+          interval: 5000,
+        });
+
+        console.log("Transaction confirmed:", receipt);
+        return receipt as TransactionReceipt;
+
+      } catch (e: any) {
+        console.error(`Attempt ${attempt} failed:`, e);
+        lastError = e;
+        if (attempt < 3) {
+          await new Promise(r => setTimeout(r, 2000));
+        }
+      }
+    }
+
+    throw new Error(`Scan failed after 3 attempts: ${lastError?.message || "Unknown error"}`);
   }
-  
-  let lastError: Error | null = null;
-  
-  // Retry up to 3 times
-  for (let attempt = 1; attempt <= 3; attempt++) {
+
+  async scanMultiple(
+    targets: string[],
+    targetType: ScanType,
+    chain: ChainType = "eth"
+  ): Promise<TransactionReceipt> {
+    if (!this.hasAccount) {
+      throw new Error("Wallet not connected. Please connect your wallet before scanning.");
+    }
+
+    if (targets.length === 0) throw new Error("At least one target required.");
+    if (targets.length > 10) throw new Error("Maximum 10 targets per batch scan.");
+
     try {
-      console.log(`submitTarget attempt ${attempt}/3`);
-      
+      console.log(`scanMultiple: ${targets.length} targets`);
+
       const txHash = await this.client.writeContract({
         address: this.contractAddress,
-        functionName: "submit_target",
-        args: [target, targetType, chain],
+        functionName: "scan_multiple",
+        args: [targets, targetType, chain],
         value: BigInt(0),
       });
 
-      console.log("Transaction submitted:", txHash);
-      console.log("Waiting for confirmation...");
+      console.log("Batch scan submitted:", txHash);
 
       const receipt = await this.client.waitForTransactionReceipt({
         hash: txHash,
         status: "ACCEPTED" as any,
-        retries: 80,
+        retries: 120,   // batch scans take longer — up to 10 minutes
         interval: 5000,
       });
 
-      console.log("Transaction confirmed:", receipt);
+      console.log("Batch scan confirmed:", receipt);
       return receipt as TransactionReceipt;
-      
+
     } catch (e: any) {
-      console.error(`Attempt ${attempt} failed:`, e);
-      lastError = e;
-      
-      // Wait before retrying
-      if (attempt < 3) {
-        await new Promise(r => setTimeout(r, 2000));
-      }
+      console.error("scanMultiple error:", e);
+      throw new Error(`Batch scan failed: ${e.message || "Unknown error"}`);
     }
   }
-  
-  throw new Error(`Scan failed after 3 attempts: ${lastError?.message || "Unknown error"}`);
-}
-
 
   async flagTarget(
     target: string,

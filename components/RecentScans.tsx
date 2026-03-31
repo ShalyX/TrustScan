@@ -1,31 +1,33 @@
 "use client";
 
-import { Clock, Shield, AlertTriangle, XCircle, ChevronRight } from "lucide-react";
-import { useRecentScans } from "@/lib/hooks/useTrustScan";
+import { useState } from "react";
+import { Clock, Shield, AlertTriangle, XCircle, ChevronRight, Globe, User, RefreshCw, Loader2, Flag } from "lucide-react";
+import { useRecentScans, useGlobalScans } from "@/lib/hooks/useTrustScan";
+import { useSeenFlags } from "@/lib/hooks/useNotificationSystem";
 import { useWallet } from "@/lib/genlayer/wallet";
 import { AddressDisplay } from "./AddressDisplay";
-import type { ScanResult } from "@/lib/contracts/types";
+import type { ScanResult, ScanRecord } from "@/lib/contracts/types";
 
 const LABEL_CONFIG = {
   Safe: {
-    color: "text-primary",
-    bg: "bg-primary/8",
-    border: "border-primary/20",
-    dot: "bg-primary",
+    color: "text-safe",
+    bg: "bg-safe/8",
+    border: "border-safe/20",
+    dot: "bg-safe",
     icon: <Shield className="w-3.5 h-3.5" />,
   },
   Suspicious: {
-    color: "text-yellow-400",
-    bg: "bg-yellow-400/8",
-    border: "border-yellow-400/20",
-    dot: "bg-yellow-400",
+    color: "text-suspicious",
+    bg: "bg-suspicious/8",
+    border: "border-suspicious/20",
+    dot: "bg-suspicious",
     icon: <AlertTriangle className="w-3.5 h-3.5" />,
   },
   Dangerous: {
-    color: "text-destructive",
+    color: "text-dangerous",
     bg: "bg-destructive/8",
     border: "border-destructive/20",
-    dot: "bg-destructive",
+    dot: "bg-dangerous",
     icon: <XCircle className="w-3.5 h-3.5" />,
   },
 };
@@ -43,65 +45,189 @@ function shortTarget(t: string) {
 
 export function RecentScans() {
   const { scans, selectScan } = useRecentScans();
-  const { address } = useWallet();
+  const { globalScans, isLoading: isLoadingGlobal, refresh: refreshGlobal } = useGlobalScans();
+  const seenFlags = useSeenFlags();
+  const [view, setView] = useState<"local" | "global">("local");
+  const [expandedTarget, setExpandedTarget] = useState<string | null>(null);
 
-  if (!scans.length) return null;
+  const currentScans = view === "local" ? scans : globalScans;
+  const isEmpty = currentScans.length === 0;
+
+  const toggleExpand = (target: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpandedTarget(expandedTarget === target ? null : target);
+  };
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-2">
-        <Clock className="w-3.5 h-3.5 text-muted-foreground" />
-        <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-          Recent Scans
-        </h2>
-        <span className="text-xs font-mono text-muted-foreground bg-muted/30 border border-border px-2 py-0.5 rounded-full">
-          {scans.length}
-        </span>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-muted/10 border border-border/40 w-fit backdrop-blur-md">
+          <button
+            onClick={() => { setView("local"); setExpandedTarget(null); }}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all ${
+              view === "local"
+                ? "bg-card border border-border text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <User className="w-3.5 h-3.5" />
+            My Scans
+            {scans.length > 0 && <span className="opacity-40 ml-1">({scans.length})</span>}
+          </button>
+          <button
+            onClick={() => { setView("global"); setExpandedTarget(null); }}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all ${
+              view === "global"
+                ? "bg-card border border-border text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <Globe className="w-3.5 h-3.5" />
+            Network Feed
+          </button>
+        </div>
+
+        {view === "global" && (
+          <button
+            onClick={refreshGlobal}
+            disabled={isLoadingGlobal}
+            className="p-2.5 rounded-xl hover:bg-muted/30 text-muted-foreground hover:text-primary transition-all border border-transparent hover:border-border/40"
+          >
+            <RefreshCw className={`w-4 h-4 ${isLoadingGlobal ? "animate-spin" : ""}`} />
+          </button>
+        )}
       </div>
 
-      <div className="space-y-1">
-        {scans.map((scan, i) => {
-          const cfg = LABEL_CONFIG[scan.label as keyof typeof LABEL_CONFIG];
-          if (!cfg) return null;
-
-          return (
-            <button
-              key={i}
-              onClick={() => selectScan(scan)}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg border border-transparent hover:border-border hover:bg-card/60 transition-all text-left group"
-            >
-              {/* Dot */}
-              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${cfg.dot} shadow-[0_0_6px_currentColor]`} />
-
-              {/* Target + type */}
-              <div className="flex-1 min-w-0 space-y-0.5">
-                <p className="text-xs font-mono text-foreground/80 truncate">
-                  {shortTarget(scan.target)}
+      <div className="space-y-3">
+        {isEmpty ? (
+          <div className="ts-card p-16 flex flex-col items-center justify-center gap-4 border-dashed opacity-40 bg-transparent">
+            {isLoadingGlobal && view === "global" ? (
+              <>
+                <Loader2 className="w-8 h-8 animate-spin text-primary/30" />
+                <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Syncing with GenLayer...</p>
+              </>
+            ) : (
+              <>
+                <Clock className="w-8 h-8 text-muted-foreground/20" />
+                <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+                  {view === "local" ? "Archive is empty." : "No global threat data found."}
                 </p>
-                <p className="text-xs font-mono text-muted-foreground uppercase tracking-wide">
-                  {scan.type ?? "scan"} · {scan.chain !== "n/a" ? scan.chain : "web"}
-                </p>
-              </div>
+              </>
+            )}
+          </div>
+        ) : (
+          currentScans.map((scan, i) => {
+            const cfg = LABEL_CONFIG[scan.label as keyof typeof LABEL_CONFIG];
+            if (!cfg) return null;
 
-              {/* Label + score */}
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <span className={`text-xs font-bold font-mono ${cfg.color}`}>
-                  {scan.label}
-                </span>
-                <span className={`text-sm font-bold font-mono ${cfg.color}`}>
-                  {scan.score}
-                </span>
-                <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 group-hover:text-muted-foreground transition-colors" />
-              </div>
+            const flagCount = seenFlags[scan.target] || 0;
+            const isExpanded = expandedTarget === scan.target;
 
-              {/* Time */}
-              <span className="text-xs font-mono text-muted-foreground/50 flex-shrink-0 hidden sm:block">
-                {timeAgo(scan.scannedAt)}
-              </span>
-            </button>
-          );
-        })}
+            return (
+              <div
+                key={`${scan.target}-${i}`}
+                className="group relative overflow-hidden rounded-2xl ts-glass border border-border/40 hover:border-border transition-all"
+              >
+                {/* Header Toggle */}
+                <div
+                  onClick={(e) => toggleExpand(scan.target, e)}
+                  className="w-full flex items-center gap-4 p-4 cursor-pointer hover:bg-muted/5 transition-all text-left"
+                >
+                  {/* Glow Background */}
+                  <div className={`absolute -left-12 top-0 w-24 h-full blur-[40px] opacity-[0.03] transition-opacity group-hover:opacity-[0.08] ${cfg.dot}`} />
+
+                  {/* Dot with pulse (only if not expanded) */}
+                  <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${cfg.dot} shadow-[0_0_8px_currentColor]`} />
+
+                  {/* Target + metadata */}
+                  <div className="flex-1 min-w-0 space-y-1">
+                    <p className={`text-sm font-mono truncate font-bold transition-colors ${isExpanded ? 'text-primary' : 'text-white'}`}>
+                      {shortTarget(scan.target)}
+                    </p>
+                    <div className="flex items-center gap-2 label-mono">
+                      <span className="opacity-80">{scan.type ?? "scan"}</span>
+                      <span className="opacity-30">/</span>
+                      <span className="opacity-80">{scan.chain && scan.chain !== "n/a" ? scan.chain : "web"}</span>
+                      {view === "global" && (
+                        <>
+                          <span className="opacity-30">/</span>
+                          <span className="text-primary opacity-100">Live Proof</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Label + Score + Flag Count */}
+                  <div className="flex items-center gap-4 flex-shrink-0">
+                    {flagCount > 0 && (
+                      <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-destructive/10 border border-destructive/20 text-destructive animate-pulse-slow">
+                        <Flag className="w-3 h-3" />
+                        <span className="text-[10px] font-black font-mono">{flagCount}</span>
+                      </div>
+                    )}
+                    <div className="flex flex-col items-end">
+                      <span className={`text-[10px] font-black font-mono tracking-widest uppercase ${cfg.color}`}>
+                        {scan.label}
+                      </span>
+                      <span className={`text-sm font-black font-mono leading-none ${cfg.color} tracking-tighter`}>
+                        {scan.score}<span className="text-[10px] opacity-30 ml-0.5">/100</span>
+                      </span>
+                    </div>
+                    <div className={`transition-transform duration-300 ${isExpanded ? 'rotate-180 text-primary' : 'text-muted-foreground/20 group-hover:text-primary'}`}>
+                      <ChevronRight className="w-5 h-5 rotate-90" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Expanded Content */}
+                <div className={`transition-all duration-500 ease-in-out border-t border-border/10 bg-muted/5 overflow-hidden ${isExpanded ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 invisible'}`}>
+                  <div className="p-5 space-y-4">
+                    {/* Full target for convenience */}
+                    <div className="flex items-center justify-between gap-4">
+                       <p className="text-[10px] font-mono text-muted-foreground break-all bg-muted/10 p-2 rounded border border-border/20">
+                          {scan.target}
+                       </p>
+                       <span className="text-[9px] font-mono opacity-20 uppercase tracking-[2px] flex-shrink-0">
+                          {timeAgo(scan.scannedAt)}
+                       </span>
+                    </div>
+
+                    <div className="space-y-3">
+                       <p className="label-mono opacity-100 text-foreground/40">AI Summary Proof</p>
+                       <p className="text-xs leading-relaxed text-muted-foreground bg-card/40 p-4 rounded-xl border border-border/20">
+                          {scan.reason || "No summary available for this historical record."}
+                       </p>
+                    </div>
+
+                    {scan.signals_found && scan.signals_found.length > 0 && (
+                       <div className="space-y-3">
+                          <p className="label-mono opacity-100 text-foreground/40">Attack Vectors Detected</p>
+                          <div className="flex flex-wrap gap-2">
+                             {scan.signals_found.map((sig, idx) => (
+                                <span key={idx} className="text-[10px] px-2.5 py-1 rounded-lg bg-destructive/5 border border-destructive/20 text-destructive/80 font-black font-mono tracking-widest uppercase">
+                                   {sig}
+                                </span>
+                             ))}
+                          </div>
+                       </div>
+                    )}
+
+                    <div className="flex justify-end pt-2">
+                       <button
+                          onClick={() => selectScan(scan)}
+                          className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-primary-foreground transition-all flex items-center gap-2"
+                       >
+                          View Full Deep Report
+                          <ChevronRight className="w-3.5 h-3.5" />
+                       </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          })
+        )}
       </div>
     </div>
   );
-}
+}

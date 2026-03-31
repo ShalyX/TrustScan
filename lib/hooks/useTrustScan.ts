@@ -43,7 +43,6 @@ export function useScan() {
     setResult(null);
     setTarget(t);
 
-    // Normalize: wallet + token addresses are stored lowercase in the contract
     const normalizedTarget = (type === "wallet" || type === "token")
       ? t.toLowerCase()
       : t;
@@ -64,7 +63,6 @@ export function useScan() {
     }, 20000);
 
     try {
-      // Check cache with normalized target
       console.log("Checking for existing scan...");
       const existing = await contract.getRiskScore(normalizedTarget);
       console.log("Existing result:", existing);
@@ -77,7 +75,6 @@ export function useScan() {
         return;
       }
 
-      // Submit new scan with normalized target
       console.log("Submitting new scan...");
       setPhase("Submitting to GenLayer...");
       const scanContract = new TrustScan(address);
@@ -86,7 +83,6 @@ export function useScan() {
       console.log("Transaction receipt:", receipt);
       console.log("Transaction hash:", receipt?.hash);
 
-      // Fetch result with retry using normalized target
       console.log("Starting fetch retry loop...");
       setPhase("Fetching result...");
       let scanResult: ScanResult | null = null;
@@ -194,14 +190,20 @@ function saveScans(scans: ScanRecord[]): void {
   } catch {}
 }
 
-// In-memory cache — always synced with localStorage
 let _scans: ScanRecord[] = [];
+let _selectedScan: ScanRecord | null = null;
 const _listeners = new Set<() => void>();
+const _selectedListeners = new Set<() => void>();
 
 function notifyListeners() {
   _listeners.forEach(fn => fn());
 }
 
+function notifySelected() {
+  _selectedListeners.forEach(fn => fn());
+}
+
+// Internal store used by useScan — not exported
 function useRecentScansStore() {
   const addScan = useCallback((scan: ScanRecord) => {
     const current = loadScans();
@@ -218,22 +220,93 @@ export function useRecentScans() {
   const [selected, setSelected] = useState<ScanRecord | null>(null);
 
   useEffect(() => {
-    // Always load fresh from localStorage on mount
     const stored = loadScans();
     _scans = stored;
     setScans(stored);
+    setSelected(_selectedScan);
 
     const listener = () => setScans([..._scans]);
+    const selectedListener = () => setSelected(_selectedScan);
+    
     _listeners.add(listener);
-    return () => { _listeners.delete(listener); };
+    _selectedListeners.add(selectedListener);
+
+    const storageListener = (e: StorageEvent) => {
+      if (e.key === LS_SCANS_KEY) {
+        const updated = loadScans();
+        _scans = updated;
+        setScans(updated);
+      }
+    };
+    window.addEventListener("storage", storageListener);
+
+    return () => {
+      _listeners.delete(listener);
+      _selectedListeners.delete(selectedListener);
+      window.removeEventListener("storage", storageListener);
+    };
   }, []);
 
-  const selectScan = useCallback((scan: ScanRecord) => {
-    setSelected(scan);
-    setTimeout(() => {
-      document.getElementById("scan-result")?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+  const addScan = useCallback((scan: ScanRecord) => {
+    const current = loadScans();
+    const updated = [scan, ...current.filter(s => s.target !== scan.target)].slice(0, MAX_SCANS);
+    _scans = updated;
+    saveScans(updated);
+    notifyListeners();
   }, []);
 
-  return { scans, selected, selectScan };
+  const selectScan = useCallback((scan: ScanRecord | null) => {
+    _selectedScan = scan;
+    notifySelected();
+    if (scan) {
+      setTimeout(() => {
+        document.getElementById("scan-result")?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  }, []);
+
+  return { scans, selected, selectScan, addScan };
+}
+
+export function useGlobalScans() {
+  const contract = useTrustScanContract();
+  const [globalScans, setGlobalScans] = useState<ScanRecord[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const refresh = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const targets = await contract.getAllScanned();
+      // Reverse to get newest first, limit to 20
+      const recentTargets = targets.slice(-20).reverse();
+
+      if (recentTargets.length === 0) {
+        setGlobalScans([]);
+        return;
+      }
+
+      const scores = await contract.getMultipleScores(recentTargets);
+      const records: ScanRecord[] = recentTargets
+        .map(t => {
+          const s = scores[t];
+          if (!s) return null;
+          return { ...s, target: t, scannedAt: Date.now() } as ScanRecord;
+        })
+        .filter((r): r is ScanRecord => r !== null);
+
+      setGlobalScans(records);
+    } catch (e) {
+      console.error("Failed to fetch global scans:", e);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [contract]);
+
+  useEffect(() => {
+    refresh();
+    const interval = setInterval(refresh, 30000); // refresh every 30s
+    return () => clearInterval(interval);
+  }, [refresh]);
+
+  return { globalScans, isLoading, refresh };
 }

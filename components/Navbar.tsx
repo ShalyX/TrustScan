@@ -52,27 +52,22 @@ export function Navbar() {
         }}
       >
         <div
-          className="backdrop-blur-xl border transition-all duration-500 ease-out"
+          className="transition-all duration-500 ease-out"
           style={{
-            borderColor: `oklch(0.14 0.03 220 / ${0.4 + scrollProgress * 0.4})`,
-            background: `linear-gradient(135deg,
-              oklch(0.05 0.01 220 / ${0.1 + scrollProgress * 0.5}) 0%,
-              oklch(0.08 0.02 220 / ${0.05 + scrollProgress * 0.4}) 100%)`,
+            borderColor: isScrolled ? `var(--border)` : "transparent",
+            background: isScrolled ? `var(--card)` : "transparent",
             borderRadius: `${borderRadius}px`,
             borderWidth: "1px",
-            borderLeftWidth: isScrolled ? "1px" : "0px",
-            borderRightWidth: isScrolled ? "1px" : "0px",
-            borderTopWidth: isScrolled ? "1px" : "0px",
             boxShadow: isScrolled
-              ? "0 16px 48px 0 rgba(0,0,0,0.4), inset 0 1px 0 0 oklch(0.82 0.18 155 / 0.05)"
+              ? "0 20px 40px -12px rgba(0,0,0,0.5), inset 0 1px 0 0 var(--inner-border)"
               : "none",
-            backdropFilter: "blur(16px) saturate(180%)",
-            WebkitBackdropFilter: "blur(16px) saturate(180%)",
+            backdropFilter: isScrolled ? "blur(20px) saturate(180%)" : "none",
+            WebkitBackdropFilter: isScrolled ? "blur(20px) saturate(180%)" : "none",
           }}
         >
           <div
             className="px-6 transition-all duration-500 mx-auto"
-            style={{ maxWidth: isScrolled ? "80rem" : "112rem" }}
+            style={{ maxWidth: isScrolled ? "75rem" : "112rem" }}
           >
             <div
               className="flex items-center justify-between transition-all duration-500"
@@ -80,25 +75,24 @@ export function Navbar() {
             >
               {/* Left: Logo */}
               <div className="flex items-center gap-2">
-                <LogoMark size="md" className="flex md:hidden" />
-                <Logo size="md" className="hidden md:flex" />
+                <Logo size="md" />
               </div>
 
-              {/* Center: Stats */}
-              <div className="hidden md:flex items-center gap-6 text-xs font-mono">
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <span>Scans</span>
-                  <span className="text-primary font-bold">{totalScans}</span>
+              {/* Center: Stats pills */}
+              <div className="hidden md:flex items-center gap-2 text-[10px] font-mono font-bold tracking-wider uppercase">
+                <div className="flex items-center gap-2 py-1.5 px-3 rounded-full bg-muted/20 border border-border/40 text-muted-foreground transition-all hover:bg-muted/30">
+                  <span className="opacity-50">Scans</span>
+                  <span className="text-primary">{totalScans}</span>
                 </div>
                 {dangerousScans > 0 && (
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <span>Dangerous</span>
-                    <span className="text-destructive font-bold">{dangerousScans}</span>
+                  <div className="flex items-center gap-2 py-1.5 px-3 rounded-full bg-destructive/10 border border-destructive/20 text-destructive transition-all hover:bg-destructive/20">
+                    <span className="opacity-50">Threats</span>
+                    <span>{dangerousScans}</span>
                   </div>
                 )}
-                <div className="flex items-center gap-1.5 text-muted-foreground/50">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                  <span>GenLayer Testnet</span>
+                <div className="flex items-center gap-2 py-1.5 px-3 rounded-full bg-primary/5 border border-primary/10 text-primary/80 transition-all hover:bg-primary/10 ml-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_var(--primary)]" />
+                  <span>GenLayer Studionet</span>
                 </div>
               </div>
 

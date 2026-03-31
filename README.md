@@ -1,84 +1,53 @@
-# GenLayer Football Market
+# TrustScan
 
-Next.js frontend for GenLayer Football Market - AI-powered football match predictions on GenLayer blockchain.
+**TrustScan** is an AI-powered security scanner for GenLayer. It allows users to scan wallet addresses, URLs, and token contracts to identify potential risks before interacting with them.
 
-## Setup
+## Overview
 
-1. Install dependencies:
-
-**Using bun:**
-```bash
-bun install
-```
-
-**Using npm:**
-```bash
-npm install
-```
-
-2. Create `.env` file:
-```bash
-cp .env.example .env
-```
-
-3. Configure environment variables:
-   - `NEXT_PUBLIC_CONTRACT_ADDRESS` - GenLayer Football Betting contract address
-   - `NEXT_PUBLIC_STUDIO_URL` - GenLayer Studio URL (default: https://studio.genlayer.com/api)
-
-## Development
-
-**Using bun:**
-```bash
-bun dev
-```
-
-**Using npm:**
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Build
-
-**Using bun:**
-```bash
-bun run build
-bun start
-```
-
-**Using npm:**
-```bash
-npm run build
-npm start
-```
-
-## Tech Stack
-
-- **Next.js 15** - React framework with App Router
-- **TypeScript** - Type safety
-- **Tailwind CSS v4** - Styling with custom glass-morphism theme
-- **genlayer-js** - GenLayer blockchain SDK
-- **TanStack Query (React Query)** - Data fetching and caching
-- **Radix UI** - Accessible component primitives
-- **shadcn/ui** - Pre-built UI components
-
-## Wallet Management
-
-The app uses GenLayer's account system:
-- **Create Account**: Generate a new private key
-- **Import Account**: Import existing private key
-- **Export Account**: Export your private key (secured)
-- **Disconnect**: Clear stored account data
-
-Accounts are stored in browser's localStorage for development convenience.
+TrustScan uses GenLayer's AI validator system to cross-reference multiple security data sources (Etherscan, GoPlus, Chainabuse) and provides a comprehensive risk score and easy-to-understand labels.
 
 ## Features
 
-- **Create Bets**: Create football match predictions with team names, game date, and predicted winner (Team 1, Team 2, or Draw)
-- **View Bets**: Real-time bet table with match details, predictions, status, and owners
-- **Resolve Bets**: Bet owners can resolve matches using GenLayer's AI to verify actual results
-- **Leaderboard**: Track top players by points earned from correct predictions
-- **Player Stats**: View your points and ranking in the community
-- **Glass-morphism UI**: Premium dark theme with OKLCH colors, backdrop blur effects, and smooth animations
-- **Real-time Updates**: Automatic data fetching with 3-second polling intervals via TanStack Query
+- **Wallet / URL / Token Scanning**: Instantly get a risk profile for any target.
+- **AI-Powered Labels**: Clear labels (Safe, Suspicious, Dangerous) determined by AI consensus.
+- **Batch Scanning**: Scan up to 10 targets in a single transaction for efficiency.
+- **Flagging System**: Users can flag malicious actors with evidence, contributing to the global threat intelligence.
+- **Premium UI**: Dark mode with glass-morphism, built on Next.js 16 and Tailwind CSS v4.
+
+## Setup
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Configure environment variables:**
+   - Copy `.env.example` to `.env`.
+   - Update `NEXT_PUBLIC_CONTRACT_ADDRESS` if you've deployed your own contract.
+
+3. **Run for development:**
+   ```bash
+   npm run dev
+   ```
+
+## GenLayer Account Management
+
+The app includes a built-in wallet management system:
+- **Generate Private Key**: New users can generate a secure key.
+- **Import Private Key**: Import an existing GenLayer account.
+- **Persistent Sessions**: Your session is stored securely in the browser's local storage.
+
+## Smart Contract
+
+The core logic resides in the `TrustScan` intelligent contract on the GenLayer Studionet.
+
+- **Contract Address**: `0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9`
+- **Network**: GenLayer Studionet (Chain ID: 61999)
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Styling**: Tailwind CSS v4
+- **Blockchain SDK**: `genlayer-js`
+- **State Management**: TanStack Query (React Query)
+- **UI Components**: shadcn/ui & Radix UI
