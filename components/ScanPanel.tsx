@@ -354,13 +354,17 @@ export function ScanPanel() {
       const readContract = new TrustScan();
       let results: Record<string, ScanResult | null> = {};
 
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 20; i++) {
         results = await readContract.getMultipleScores(normalized);
+        setBatchResults({ ...results });
+        
+        const count = Object.values(results).filter(r => r !== null).length;
+        setBatchPhase(`Fetching AI results (${count}/${normalized.length})...`);
+        
         if (normalized.every(t => results[t] !== null)) break;
-        await new Promise(r => setTimeout(r, 4000));
+        await new Promise(r => setTimeout(r, 2500));
       }
 
-      setBatchResults(results);
       setBatchPhase("Checking flags...");
       const flagCounts: Record<string, number> = {};
       await Promise.all(normalized.map(async (t) => {
@@ -462,6 +466,15 @@ export function ScanPanel() {
                 ))
               )}
             </div>
+
+            <div className="flex items-center gap-1.5 flex-wrap ml-auto">
+               <span className="label-mono mr-2">Network</span>
+               {CHAINS.map(c => (
+                 <button key={c.value} onClick={() => setChain(c.value)} disabled={isScanning} className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all ${chain === c.value ? "bg-primary/20 border border-primary/40 text-primary shadow-[0_0_15px_rgba(0,0,0,0.2)]" : "text-muted-foreground hover:text-foreground hover:bg-muted/30 border border-transparent"}`}>
+                   {c.label}
+                 </button>
+               ))}
+            </div>
             
             {mode === "audit" && (
                <div className="hidden sm:flex items-center gap-2">
@@ -507,10 +520,19 @@ export function ScanPanel() {
 
       {mode === "batch" && (
         <div className="ts-card p-6">
-          <div className="flex items-center gap-1.5 mb-4">
-             {SCAN_TYPES.map(t => (
-               <button key={t.value} onClick={() => setBatchType(t.value)} className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all ${batchType === t.value ? "bg-primary/20 text-primary" : "text-muted-foreground"}`}>{t.label}</button>
-             ))}
+          <div className="flex items-center gap-6 mb-4">
+             <div className="flex items-center gap-1.5">
+                <span className="label-mono mr-2">Type</span>
+                {SCAN_TYPES.map(t => (
+                  <button key={t.value} onClick={() => setBatchType(t.value)} className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all ${batchType === t.value ? "bg-primary/20 text-primary" : "text-muted-foreground hover:text-foreground"}`}>{t.label}</button>
+                ))}
+             </div>
+             <div className="flex items-center gap-1.5">
+                <span className="label-mono mr-2">Network</span>
+                {CHAINS.map(c => (
+                  <button key={c.value} onClick={() => setBatchChain(c.value)} className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all ${batchChain === c.value ? "bg-primary/20 text-primary" : "text-muted-foreground hover:text-foreground"}`}>{c.label}</button>
+                ))}
+             </div>
           </div>
           <textarea value={batchInput} onChange={e => setBatchInput(e.target.value)} placeholder={`Targets (one per line)...\n\ngoogle.com\nphishing-site.net`} disabled={isBatchScanning} rows={5} className="ts-input w-full px-4 py-3 text-sm font-mono resize-none leading-relaxed" />
           <div className="flex items-center justify-between mt-4">

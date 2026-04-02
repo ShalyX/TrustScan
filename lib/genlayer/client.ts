@@ -43,11 +43,10 @@ export function getStudioUrl(): string {
   );
 }
 
+export const TRUSTSCAN_CONTRACT_ADDRESS = (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "0xbab6447741f3f7a6f93c92AC4470093562b771b4") as `0x${string}`;
+
 export function getContractAddress(): string {
-  return (
-    process.env.NEXT_PUBLIC_CONTRACT_ADDRESS ||
-    "0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9"
-  );
+  return TRUSTSCAN_CONTRACT_ADDRESS;
 }
 
 export function isMetaMaskInstalled(): boolean {

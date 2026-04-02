@@ -112,7 +112,7 @@ export function useScan() {
           break;
         }
 
-        await new Promise(r => setTimeout(r, auditMode ? 8000 : 5000));
+        await new Promise(r => setTimeout(r, auditMode ? 4000 : 2500));
       }
 
       if (!scanResult) {

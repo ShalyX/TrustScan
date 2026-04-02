@@ -1,13 +1,12 @@
 import { createClient } from "genlayer-js";
 import { studionet } from "genlayer-js/chains";
+import { TRUSTSCAN_CONTRACT_ADDRESS } from "../genlayer/client";
 import type { ScanResult, FlagResult, ScanType, ChainType, TransactionReceipt } from "./types";
 
 const STUDIO_URL =
   process.env.NEXT_PUBLIC_GENLAYER_RPC_URL || "https://studio.genlayer.com/api";
 
-const CONTRACT_ADDRESS =
-  (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`) ||
-  "0x9312Fdc35E76Cb6e4a9ec9F0D2548834ce525eC9";
+const CONTRACT_ADDRESS = TRUSTSCAN_CONTRACT_ADDRESS;
 
 function isValidAddress(addr: string): boolean {
   return /^0x[0-9a-fA-F]{40}$/.test(addr);
