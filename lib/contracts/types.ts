@@ -14,6 +14,7 @@ export interface ScanResult {
 export interface ScanRecord extends ScanResult {
   target: string;
   scannedAt: number;
+  isAudit?: boolean;
 }
 
 export interface FlagResult {

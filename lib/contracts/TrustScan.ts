@@ -88,34 +88,48 @@ class TrustScan {
   async getMultipleScores(
     targets: string[]
   ): Promise<Record<string, ScanResult | null>> {
-    if (!this.isReady()) return {};
+    if (!this.isReady() || targets.length === 0) return {};
+    
+    const BATCH_SIZE = 5;
+    const allResults: Record<string, ScanResult | null> = {};
+    
     try {
-      const result: any = await this.client.readContract({
-        address: this.contractAddress,
-        functionName: "get_multiple_scores",
-        args: [targets],
-      });
+      // Process in chunks of 5 to avoid RPC memory limits/RLP decoding errors
+      for (let i = 0; i < targets.length; i += BATCH_SIZE) {
+        const chunk = targets.slice(i, i + BATCH_SIZE);
+        console.log(`[TrustScan] Fetching batch ${Math.floor(i / BATCH_SIZE) + 1} (${chunk.length} items)...`);
+        
+        try {
+          const result: any = await this.client.readContract({
+            address: this.contractAddress,
+            functionName: "get_multiple_scores",
+            args: [chunk],
+          });
 
-      // Result is a dict/Map of target -> scan result
-      let data: Record<string, any> = {};
-      if (result instanceof Map) {
-        data = Object.fromEntries(result);
-      } else if (typeof result === "object" && result !== null) {
-        data = result;
-      }
+          let data: Record<string, any> = {};
+          if (result instanceof Map) {
+            data = Object.fromEntries(result);
+          } else if (typeof result === "object" && result !== null) {
+            data = result;
+          }
 
-      // Normalize each entry
-      const normalized: Record<string, ScanResult | null> = {};
-      for (const [target, raw] of Object.entries(data)) {
-        let entry: any = raw;
-        if (raw instanceof Map) entry = Object.fromEntries(raw);
-        if (!entry || entry.score === -1 || entry.score === -1n || entry.label === "Not Scanned") {
-          normalized[target] = null;
-        } else {
-          normalized[target] = { ...entry, score: Number(entry.score) } as ScanResult;
+          for (const [target, raw] of Object.entries(data)) {
+            let entry: any = raw;
+            if (raw instanceof Map) entry = Object.fromEntries(raw);
+            if (!entry || entry.score === -1 || entry.score === -1n || entry.label === "Not Scanned") {
+              allResults[target] = null;
+            } else {
+              allResults[target] = { ...entry, score: Number(entry.score) } as ScanResult;
+            }
+          }
+        } catch (chunkError: any) {
+          console.error(`[TrustScan] Chunk error (${i}-${i+BATCH_SIZE}):`, chunkError.message);
+          // Fill chunk with nulls on error to prevent partial data issues
+          chunk.forEach(t => allResults[t] = null);
         }
       }
-      return normalized;
+      
+      return allResults;
     } catch (e) {
       console.error("getMultipleScores error:", e);
       return {};
@@ -200,21 +214,32 @@ class TrustScan {
         });
 
         console.log("Transaction submitted:", txHash);
-        console.log("Waiting for confirmation...");
-
+        console.log("Waiting for confirmation (ACCEPTED)...");
+        
         const receipt = await this.client.waitForTransactionReceipt({
           hash: txHash,
+          // We wait for ACCEPTED by default, but we'll catch errors if it fails
           status: "ACCEPTED" as any,
-          retries: 80,
+          retries: 120, // Increased from 80 for more stability
           interval: 5000,
         });
+
+        if (receipt.status !== "ACCEPTED" && receipt.status !== "FINALIZED") {
+          throw new Error(`Transaction failed with status: ${receipt.status}`);
+        }
 
         console.log("Transaction confirmed:", receipt);
         return receipt as TransactionReceipt;
 
       } catch (e: any) {
         console.error(`Attempt ${attempt} failed:`, e);
-        lastError = e;
+        
+        // Better error message if we know the status
+        if (e.message && e.message.includes("Transaction status is")) {
+           lastError = new Error(`GenLayer Consensus: ${e.message}`);
+        } else {
+           lastError = e;
+        }
         if (attempt < 3) {
           await new Promise(r => setTimeout(r, 2000));
         }

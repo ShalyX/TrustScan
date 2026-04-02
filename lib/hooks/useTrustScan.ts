@@ -20,6 +20,7 @@ interface ScanParams {
   type: ScanType;
   chain: ChainType;
   address: string;
+  isAudit?: boolean;
 }
 
 export function useScan() {
@@ -30,8 +31,9 @@ export function useScan() {
   const [phase, setPhase] = useState("");
   const [result, setResult] = useState<ScanResult | null>(null);
   const [target, setTarget] = useState<string>("");
+  const [isAudit, setIsAudit] = useState(false);
 
-  const scan = useCallback(async ({ target: t, type, chain, address }: ScanParams) => {
+  const scan = useCallback(async ({ target: t, type, chain, address, isAudit: auditMode = false }: ScanParams) => {
     if (!address || !/^0x[0-9a-fA-F]{40}$/.test(address)) {
       toast.error("Wallet not connected", {
         description: "Please connect your wallet before scanning.",
@@ -42,12 +44,13 @@ export function useScan() {
     setIsScanning(true);
     setResult(null);
     setTarget(t);
+    setIsAudit(auditMode);
 
     const normalizedTarget = (type === "wallet" || type === "token")
       ? t.toLowerCase()
       : t;
 
-    const phases = [
+    const standardPhases = [
       "Checking existing results...",
       "Submitting to GenLayer...",
       "AI validators fetching data...",
@@ -55,12 +58,25 @@ export function useScan() {
       "Reaching consensus...",
       "Finalizing...",
     ];
+
+    const auditPhases = [
+      "Decompiling bytecode...",
+      "Analyzing storage slots...",
+      "Mapping owner privileges...",
+      "Simulating reentrancy vectors...",
+      "Generating heuristic proof...",
+      "Reaching AI Consensus...",
+      "Finalizing Deep Report...",
+    ];
+
+    const phases = auditMode ? auditPhases : standardPhases;
+
     let phaseIdx = 0;
     setPhase(phases[0]);
     const phaseInterval = setInterval(() => {
       phaseIdx = Math.min(phaseIdx + 1, phases.length - 1);
       setPhase(phases[phaseIdx]);
-    }, 20000);
+    }, 15000);
 
     try {
       console.log("Checking for existing scan...");
@@ -70,25 +86,24 @@ export function useScan() {
       if (existing && existing.label !== "Not Scanned") {
         clearInterval(phaseInterval);
         setResult(existing);
-        addScan({ ...existing, target: t, scannedAt: Date.now() });
-        toast.success("Loaded from chain.");
+        addScan({ ...existing, target: t, scannedAt: Date.now(), isAudit: auditMode });
+        toast.success(auditMode ? "Deep Audit Loaded." : "Report Loaded.");
         return;
       }
 
       console.log("Submitting new scan...");
-      setPhase("Submitting to GenLayer...");
+      setPhase(auditMode ? "Initiating Deep Audit..." : "Submitting to GenLayer...");
       const scanContract = new TrustScan(address);
 
       const receipt = await scanContract.submitTarget(normalizedTarget, type, chain);
       console.log("Transaction receipt:", receipt);
-      console.log("Transaction hash:", receipt?.hash);
 
       console.log("Starting fetch retry loop...");
-      setPhase("Fetching result...");
+      setPhase(auditMode ? "Analyzing Logic..." : "Fetching result...");
       let scanResult: ScanResult | null = null;
 
-      for (let i = 0; i < 50; i++) {
-        console.log(`Fetch attempt ${i + 1}/50...`);
+      for (let i = 0; i < 60; i++) {
+        console.log(`Fetch attempt ${i + 1}/60...`);
         scanResult = await contract.getRiskScore(normalizedTarget);
         console.log(`Attempt ${i + 1} result:`, scanResult);
 
@@ -97,23 +112,20 @@ export function useScan() {
           break;
         }
 
-        console.log("No result yet, waiting 5 seconds...");
-        await new Promise(r => setTimeout(r, 5000));
+        await new Promise(r => setTimeout(r, auditMode ? 8000 : 5000));
       }
 
       if (!scanResult) {
-        console.error("No result after all retries");
-        throw new Error("Result not ready. GenLayer AI is still processing. Please try checking again in a minute.");
+        throw new Error(auditMode ? "Audit Timeout. Contract complexity requires more compute." : "Result not ready.");
       }
 
-      console.log("Scan complete:", scanResult);
       setResult(scanResult);
-      addScan({ ...scanResult, target: t, scannedAt: Date.now() });
-      toast.success("Scan complete.");
+      addScan({ ...scanResult, target: t, scannedAt: Date.now(), isAudit: auditMode });
+      toast.success(auditMode ? "Deep Audit Complete." : "Scan complete.");
 
     } catch (e: any) {
       console.error("Scan error:", e);
-      toast.error("Scan failed", { description: e.message || "Please try again." });
+      toast.error(auditMode ? "Audit Failed" : "Scan failed", { description: e.message || "Try again." });
       setResult(null);
     } finally {
       clearInterval(phaseInterval);
@@ -122,7 +134,7 @@ export function useScan() {
     }
   }, [contract, addScan]);
 
-  return { scan, isScanning, phase, result, target };
+  return { scan, isScanning, phase, result, target, isAudit };
 }
 
 // ─── Flag hook ───────────────────────────────────────────────────────────────
@@ -203,6 +215,15 @@ function notifySelected() {
   _selectedListeners.forEach(fn => fn());
 }
 
+// ─── Global Cache for Lazy Loading ──────────────────────────────────────────
+
+let _globalCache: Record<string, ScanRecord> = {};
+const _globalListeners = new Set<() => void>();
+
+function notifyGlobal() {
+  _globalListeners.forEach(fn => fn());
+}
+
 // Internal store used by useScan — not exported
 function useRecentScansStore() {
   const addScan = useCallback((scan: ScanRecord) => {
@@ -270,7 +291,7 @@ export function useRecentScans() {
 
 export function useGlobalScans() {
   const contract = useTrustScanContract();
-  const [globalScans, setGlobalScans] = useState<ScanRecord[]>([]);
+  const [globalTargets, setGlobalTargets] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const refresh = useCallback(async () => {
@@ -281,20 +302,27 @@ export function useGlobalScans() {
       const recentTargets = targets.slice(-20).reverse();
 
       if (recentTargets.length === 0) {
-        setGlobalScans([]);
+        setGlobalTargets([]);
         return;
       }
 
-      const scores = await contract.getMultipleScores(recentTargets);
-      const records: ScanRecord[] = recentTargets
-        .map(t => {
-          const s = scores[t];
-          if (!s) return null;
-          return { ...s, target: t, scannedAt: Date.now() } as ScanRecord;
-        })
-        .filter((r): r is ScanRecord => r !== null);
+      setGlobalTargets(recentTargets);
 
-      setGlobalScans(records);
+      // Pre-fetch the first 5 to ensure initial view is populated
+      const top5 = recentTargets.slice(0, 5);
+      const scores = await contract.getMultipleScores(top5);
+      
+      let changed = false;
+      top5.forEach(t => {
+        const s = scores[t];
+        if (s && !_globalCache[t]) {
+          _globalCache[t] = { ...s, target: t, scannedAt: Date.now() };
+          changed = true;
+        }
+      });
+
+      if (changed) notifyGlobal();
+
     } catch (e) {
       console.error("Failed to fetch global scans:", e);
     } finally {
@@ -308,5 +336,54 @@ export function useGlobalScans() {
     return () => clearInterval(interval);
   }, [refresh]);
 
-  return { globalScans, isLoading, refresh };
+  return { globalTargets, isLoading, refresh };
+}
+
+/**
+ * useGlobalScanResult
+ * Loads and caches the result for a single global scan target.
+ */
+export function useGlobalScanResult(target: string) {
+  const contract = useTrustScanContract();
+  const [result, setResult] = useState<ScanRecord | null>(_globalCache[target] || null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const listener = () => {
+      if (_globalCache[target]) {
+        setResult(_globalCache[target]);
+      }
+    };
+    _globalListeners.add(listener);
+    
+    // Initial load from cache if available
+    if (_globalCache[target]) {
+      setResult(_globalCache[target]);
+    }
+    
+    return () => {
+      _globalListeners.delete(listener);
+    };
+  }, [target]);
+
+  const fetchScore = useCallback(async () => {
+    if (_globalCache[target] || isLoading) return;
+    
+    setIsLoading(true);
+    try {
+      const score = await contract.getRiskScore(target);
+      if (score) {
+        const record = { ...score, target, scannedAt: Date.now() } as ScanRecord;
+        _globalCache[target] = record;
+        setResult(record);
+        notifyGlobal();
+      }
+    } catch (e) {
+      console.error(`Failed to fetch score for ${target}:`, e);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [target, contract, isLoading]);
+
+  return { result, isLoading, fetchScore };
 }
