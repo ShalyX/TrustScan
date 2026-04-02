@@ -664,7 +664,7 @@ export function ScanPanel() {
       {mode === "batch" && hasBatchResults && (
         <div className="space-y-4 animate-slide-up">
            <div className="flex items-center justify-between px-2">
-              <span className="label-mono">{batchResults.length} Units Analyzed</span>
+              <span className="label-mono">{Object.keys(batchResults).length} Units Analyzed</span>
               <button onClick={handleBatchShare} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest"><Download className="w-3.5 h-3.5" /> Export HD Report</button>
            </div>
            <div ref={batchShareRef} className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 bg-[#080b0f] rounded-2xl border border-border/40">
