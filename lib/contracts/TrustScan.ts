@@ -223,7 +223,13 @@ class TrustScan {
           interval: 5000,
         });
 
-        if (receipt.status !== "ACCEPTED" && receipt.status !== "FINALIZED") {
+        const isConfirmed = 
+          receipt.status === "ACCEPTED" || 
+          receipt.status === "FINALIZED" || 
+          receipt.status === 4 || 
+          receipt.status === 5;
+
+        if (!isConfirmed) {
           throw new Error(`Transaction failed with status: ${receipt.status}`);
         }
 
@@ -278,6 +284,16 @@ class TrustScan {
         retries: 120,   // batch scans take longer — up to 10 minutes
         interval: 5000,
       });
+
+      const isConfirmed = 
+        receipt.status === "ACCEPTED" || 
+        receipt.status === "FINALIZED" || 
+        receipt.status === 4 || 
+        receipt.status === 5;
+
+      if (!isConfirmed) {
+        throw new Error(`Batch transaction failed with status: ${receipt.status}`);
+      }
 
       console.log("Batch scan confirmed:", receipt);
       return receipt as TransactionReceipt;

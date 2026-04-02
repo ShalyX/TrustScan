@@ -240,7 +240,7 @@ export function ScanPanel() {
   const [mode, setMode] = useState<"single" | "batch" | "audit">("single");
   const [type, setType]     = useState<ScanType>("wallet");
   const [target, setTarget] = useState("");
-  const [chain, setChain]   = useState<ChainType>("eth");
+  const [targetChain, setTargetChain]   = useState<ChainType>("eth");
   
   const [copied, setCopied] = useState(false);
   const [sharing, setSharing] = useState(false);
@@ -252,7 +252,7 @@ export function ScanPanel() {
 
   const [batchInput, setBatchInput]   = useState("");
   const [batchType, setBatchType]     = useState<ScanType>("url");
-  const [batchChain, setBatchChain]   = useState<ChainType>("eth");
+  const [targetBatchChain, setTargetBatchChain]   = useState<ChainType>("eth");
   const [isBatchScanning, setIsBatchScanning] = useState(false);
   const [batchPhase, setBatchPhase]   = useState("");
   const [batchResults, setBatchResults] = useState<Record<string, ScanResult | null>>({});
@@ -323,7 +323,7 @@ export function ScanPanel() {
     scan({ 
       target: scanTarget, 
       type: isAudit ? "token" : type, 
-      chain, 
+      chain: targetChain, 
       address,
       isAudit
     });
@@ -347,7 +347,7 @@ export function ScanPanel() {
       const scanContract = new TrustScan(address);
       const normalized = targets.map(t => batchType !== "url" ? t.toLowerCase() : t);
       
-      await scanContract.scanMultiple(normalized, batchType, batchChain);
+      await scanContract.scanMultiple(normalized, batchType, targetBatchChain);
       setRemaining(consumeScan(targets.length));
 
       setBatchPhase("Fetching AI results...");
@@ -355,7 +355,17 @@ export function ScanPanel() {
       let results: Record<string, ScanResult | null> = {};
 
       for (let i = 0; i < 20; i++) {
-        results = await readContract.getMultipleScores(normalized);
+        const rawResults = await readContract.getMultipleScores(normalized);
+        
+        // Filter by matching parameters
+        Object.entries(rawResults).forEach(([t, r]) => {
+          const isMatch = r && 
+            r.type === batchType && 
+            (batchType === "url" ? true : r.chain === targetBatchChain);
+          
+          results[t] = isMatch ? r : null;
+        });
+
         setBatchResults({ ...results });
         
         const count = Object.values(results).filter(r => r !== null).length;
@@ -470,7 +480,7 @@ export function ScanPanel() {
             <div className="flex items-center gap-1.5 flex-wrap ml-auto">
                <span className="label-mono mr-2">Network</span>
                {CHAINS.map(c => (
-                 <button key={c.value} onClick={() => setChain(c.value)} disabled={isScanning} className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all ${chain === c.value ? "bg-primary/20 border border-primary/40 text-primary shadow-[0_0_15px_rgba(0,0,0,0.2)]" : "text-muted-foreground hover:text-foreground hover:bg-muted/30 border border-transparent"}`}>
+                 <button key={c.value} onClick={() => setTargetChain(c.value)} disabled={isScanning} className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all ${targetChain === c.value ? "bg-primary/20 border border-primary/40 text-primary shadow-[0_0_15px_rgba(0,0,0,0.2)]" : "text-muted-foreground hover:text-foreground hover:bg-muted/30 border border-transparent"}`}>
                    {c.label}
                  </button>
                ))}
@@ -530,7 +540,7 @@ export function ScanPanel() {
              <div className="flex items-center gap-1.5">
                 <span className="label-mono mr-2">Network</span>
                 {CHAINS.map(c => (
-                  <button key={c.value} onClick={() => setBatchChain(c.value)} className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all ${batchChain === c.value ? "bg-primary/20 text-primary" : "text-muted-foreground hover:text-foreground"}`}>{c.label}</button>
+                  <button key={c.value} onClick={() => setTargetBatchChain(c.value)} className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all ${targetBatchChain === c.value ? "bg-primary/20 text-primary" : "text-muted-foreground hover:text-foreground"}`}>{c.label}</button>
                 ))}
              </div>
           </div>

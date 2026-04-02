@@ -83,7 +83,13 @@ export function useScan() {
       const existing = await contract.getRiskScore(normalizedTarget);
       console.log("Existing result:", existing);
 
-      if (existing && existing.label !== "Not Scanned") {
+      const requestType = auditMode ? "token" : type;
+      const isMatch = existing && 
+        existing.label !== "Not Scanned" && 
+        existing.type === requestType &&
+        (type === "url" ? true : existing.chain === chain);
+
+      if (isMatch) {
         clearInterval(phaseInterval);
         setResult(existing);
         addScan({ ...existing, target: t, scannedAt: Date.now(), isAudit: auditMode });
