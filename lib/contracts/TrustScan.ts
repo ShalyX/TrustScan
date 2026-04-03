@@ -56,11 +56,32 @@ class TrustScan {
     if (!this.isReady()) return null;
 
     try {
-      const result: any = await this.client.readContract({
-        address: this.contractAddress,
-        functionName: "get_risk_score",
-        args: [target],
-      });
+      let lastReadError: any = null;
+      let result: any = null;
+
+      // Retry up to 3 times for transient RPC/Extension errors
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          result = await this.client.readContract({
+            address: this.contractAddress,
+            functionName: "get_risk_score",
+            args: [target],
+          });
+          break; // Success
+        } catch (e: any) {
+          lastReadError = e;
+          const isExtensionError = e.message?.includes("Extension context invalidated");
+          console.warn(`getRiskScore read attempt ${attempt} failed:`, e.message);
+          
+          if (isExtensionError && attempt < 3) {
+            await new Promise(r => setTimeout(r, 1000));
+            continue;
+          }
+          throw e; // Rethrow if not a retryable error or last attempt
+        }
+      }
+
+      console.log(`[TrustScan] Raw score data for ${target}:`, result);
 
       let data: any = result;
       if (result instanceof Map) {
@@ -246,7 +267,7 @@ class TrustScan {
            lastError = e;
         }
         if (attempt < 3) {
-          await new Promise(r => setTimeout(r, 2000));
+           await new Promise(r => setTimeout(r, 2000));
         }
       }
     }

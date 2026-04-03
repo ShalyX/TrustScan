@@ -46,9 +46,19 @@ export function useScan() {
     setTarget(t);
     setIsAudit(auditMode);
 
-    const normalizedTarget = (type === "wallet" || type === "token")
-      ? t.toLowerCase()
-      : t;
+    const normalizedTarget = (t: string, type: ScanType) => {
+      let val = t.trim();
+      if (type === "url") {
+        // Strip protocols and trailing slashes for URLs, then lowercase
+        val = val.replace(/^https?:\/\//i, "").replace(/\/+$/, "").toLowerCase();
+      } else if (type === "wallet" || type === "token") {
+        // Lowercase addresses
+        val = val.toLowerCase();
+      }
+      return val;
+    };
+
+    const targetKey = normalizedTarget(t, type);
 
     const standardPhases = [
       "Checking existing results...",
@@ -76,11 +86,11 @@ export function useScan() {
     const phaseInterval = setInterval(() => {
       phaseIdx = Math.min(phaseIdx + 1, phases.length - 1);
       setPhase(phases[phaseIdx]);
-    }, 15000);
+    }, 8000);
 
     try {
-      console.log("Checking for existing scan...");
-      const existing = await contract.getRiskScore(normalizedTarget);
+      console.log(`Checking for existing scan for "${targetKey}"...`);
+      const existing = await contract.getRiskScore(targetKey);
       console.log("Existing result:", existing);
 
       const requestType = auditMode ? "token" : type;
@@ -101,16 +111,18 @@ export function useScan() {
       setPhase(auditMode ? "Initiating Deep Audit..." : "Submitting to GenLayer...");
       const scanContract = new TrustScan(address);
 
-      const receipt = await scanContract.submitTarget(normalizedTarget, type, chain);
+      const receipt = await scanContract.submitTarget(targetKey, type, chain);
       console.log("Transaction receipt:", receipt);
 
       console.log("Starting fetch retry loop...");
       setPhase(auditMode ? "Analyzing Logic..." : "Fetching result...");
       let scanResult: ScanResult | null = null;
 
-      for (let i = 0; i < 60; i++) {
-        console.log(`Fetch attempt ${i + 1}/60...`);
-        scanResult = await contract.getRiskScore(normalizedTarget);
+      for (let i = 0; i < 120; i++) {
+        console.log(`Fetch attempt ${i + 1}/120 for ${targetKey}...`);
+        setPhase(auditMode ? `Analyzing Logic (Attempt ${i + 1}/120)...` : `Fetching result (Attempt ${i + 1}/120)...`);
+        
+        scanResult = await contract.getRiskScore(targetKey);
         console.log(`Attempt ${i + 1} result:`, scanResult);
 
         if (scanResult && scanResult.label !== "Not Scanned") {

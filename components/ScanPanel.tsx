@@ -345,17 +345,28 @@ export function ScanPanel() {
 
     try {
       const scanContract = new TrustScan(address);
-      const normalized = targets.map(t => batchType !== "url" ? t.toLowerCase() : t);
+      const normalizedTarget = (t: string, type: ScanType) => {
+        let val = t.trim();
+        if (type === "url") {
+          val = val.replace(/^https?:\/\//i, "").replace(/\/+$/, "").toLowerCase();
+        } else if (type === "wallet" || type === "token") {
+          val = val.toLowerCase();
+        }
+        return val;
+      };
+
+      const normalizedBatch = targets.map(t => normalizedTarget(t, batchType));
       
-      await scanContract.scanMultiple(normalized, batchType, targetBatchChain);
+      await scanContract.scanMultiple(normalizedBatch, batchType, targetBatchChain);
       setRemaining(consumeScan(targets.length));
 
-      setBatchPhase("Fetching AI results...");
+      setBatchPhase("Fetching AI results (Attempt 1/100)...");
       const readContract = new TrustScan();
       let results: Record<string, ScanResult | null> = {};
 
-      for (let i = 0; i < 20; i++) {
-        const rawResults = await readContract.getMultipleScores(normalized);
+      for (let i = 0; i < 100; i++) {
+        setBatchPhase(`Fetching AI results (${i + 1}/100)...`);
+        const rawResults = await readContract.getMultipleScores(normalizedBatch);
         
         // Filter by matching parameters
         Object.entries(rawResults).forEach(([t, r]) => {
@@ -369,10 +380,10 @@ export function ScanPanel() {
         setBatchResults({ ...results });
         
         const count = Object.values(results).filter(r => r !== null).length;
-        setBatchPhase(`Fetching AI results (${count}/${normalized.length})...`);
+        setBatchPhase(`Fetching AI results (${count}/${normalizedBatch.length} found, attempt ${i+1}/100)...`);
         
-        if (normalized.every(t => results[t] !== null)) break;
-        await new Promise(r => setTimeout(r, 2500));
+        if (normalizedBatch.every(t => results[t] !== null)) break;
+        await new Promise(r => setTimeout(r, 3000));
       }
 
       setBatchPhase("Checking flags...");
