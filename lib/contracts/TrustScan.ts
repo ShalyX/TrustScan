@@ -70,11 +70,13 @@ class TrustScan {
           break; // Success
         } catch (e: any) {
           lastReadError = e;
-          const isExtensionError = e.message?.includes("Extension context invalidated");
-          console.warn(`getRiskScore read attempt ${attempt} failed:`, e.message);
+          const msg = e.message || "";
+          const isRetryable = msg.includes("Extension context invalidated") || msg.includes("Server busy");
+          console.warn(`getRiskScore read attempt ${attempt} failed:`, msg);
           
-          if (isExtensionError && attempt < 3) {
-            await new Promise(r => setTimeout(r, 1000));
+          if (isRetryable && attempt < 3) {
+            console.log(`[TrustScan] Retrying read due to congestion/extension error (Attempt ${attempt+1}/3)...`);
+            await new Promise(r => setTimeout(r, 1500));
             continue;
           }
           throw e; // Rethrow if not a retryable error or last attempt

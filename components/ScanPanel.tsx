@@ -388,7 +388,7 @@ export function ScanPanel() {
 
       setBatchPhase("Checking flags...");
       const flagCounts: Record<string, number> = {};
-      await Promise.all(normalized.map(async (t) => {
+      await Promise.all(normalizedBatch.map(async (t: string) => {
         flagCounts[t] = await readContract.getFlagCount(t);
       }));
       setBatchFlagCounts(flagCounts);
