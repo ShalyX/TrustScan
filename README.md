@@ -41,7 +41,7 @@ The app includes a built-in wallet management system:
 
 The core logic resides in the `TrustScan` intelligent contract on the GenLayer Studionet.
 
-- **Contract Address**: `0xbab6447741f3f7a6f93c92AC4470093562b771b4`
+- **Contract Address**: `0x6fE2Ce79D46F161b12A0CFC8e0e54a03Ddf2cF62`
 - **Network**: GenLayer Studionet (Chain ID: 61999)
 
 ## Tech Stack

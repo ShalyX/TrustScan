@@ -27,8 +27,8 @@ TrustScan solves Web3's "black box" risk using GenLayer's AI consensus. While ol
 ---
 
 ### **4. Links**
-- **GitHub Repo:** [Insert Your GitHub URL Here]
-- **Project Website:** [Insert Vercel/Deployment URL Here]
+- **GitHub Repo:** https://github.com/ShalyX/TrustScan
+- **Project Website:** https://trustscan-5w97x9qqe-shalyxs-projects.vercel.app (or your custom Vercel domain)
 - **Demo Video:** [Insert YouTube Link Here - See script below]
 
 ---
