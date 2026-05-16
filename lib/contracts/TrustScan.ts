@@ -86,20 +86,24 @@ class TrustScan {
       console.log(`[TrustScan] Raw score data for ${target}:`, result);
 
       let data: any = result;
-      if (result instanceof Map) {
+      if (typeof result === "string") {
+        try {
+          data = JSON.parse(result);
+        } catch (e) {
+          console.error("[TrustScan] Failed to parse score JSON:", result);
+          return null;
+        }
+      } else if (result instanceof Map) {
         data = Object.fromEntries(result);
       }
 
-      const score = data.score;
-      const label = data.label;
-
-      if (!data || score === -1 || score === -1n || label === "Not Scanned") {
+      if (!data || data.score === -1 || data.score === -1n || data.label === "Not Scanned") {
         return null;
       }
 
       return {
         ...data,
-        score: Number(score),
+        score: Number(data.score),
       } as ScanResult;
     } catch (e) {
       console.error("getRiskScore error:", e);
@@ -129,7 +133,14 @@ class TrustScan {
           });
 
           let data: Record<string, any> = {};
-          if (result instanceof Map) {
+          
+          if (typeof result === "string") {
+            try {
+              data = JSON.parse(result);
+            } catch (e) {
+              console.error("[TrustScan] Failed to parse batch JSON:", result);
+            }
+          } else if (result instanceof Map) {
             data = Object.fromEntries(result);
           } else if (typeof result === "object" && result !== null) {
             data = result;
@@ -137,7 +148,12 @@ class TrustScan {
 
           for (const [target, raw] of Object.entries(data)) {
             let entry: any = raw;
-            if (raw instanceof Map) entry = Object.fromEntries(raw);
+            if (typeof raw === "string") {
+               try { entry = JSON.parse(raw); } catch {}
+            } else if (raw instanceof Map) {
+               entry = Object.fromEntries(raw);
+            }
+            
             if (!entry || entry.score === -1 || entry.score === -1n || entry.label === "Not Scanned") {
               allResults[target] = null;
             } else {
@@ -168,7 +184,14 @@ class TrustScan {
       });
 
       let data = result;
-      if (result instanceof Map) {
+      if (typeof result === "string") {
+        try {
+          data = JSON.parse(result);
+        } catch (e) {
+          console.error("[TrustScan] Failed to parse flags JSON:", result);
+          return [];
+        }
+      } else if (result instanceof Map) {
         data = Object.fromEntries(result);
       }
 
@@ -203,8 +226,17 @@ class TrustScan {
         functionName: "get_all_scanned",
         args: [],
       });
-      if (!Array.isArray(result)) return [];
-      return result as string[];
+      let data = result;
+      if (typeof result === "string") {
+        try {
+          data = JSON.parse(result);
+        } catch (e) {
+          console.error("[TrustScan] Failed to parse scanned list JSON:", result);
+          return [];
+        }
+      }
+      if (!Array.isArray(data)) return [];
+      return data as string[];
     } catch (e) {
       console.error("getAllScanned error:", e);
       return [];
