@@ -88,9 +88,15 @@ class TrustScan {
       let data: any = result;
       if (typeof result === "string") {
         try {
-          // Strip Markdown code blocks if present
-          const cleaned = result.replace(/```json\n?|```/g, "").trim();
-          data = JSON.parse(cleaned);
+          // Robust JSON extraction: find first '{' and last '}'
+          const start = result.indexOf("{");
+          const end = result.lastIndexOf("}");
+          if (start !== -1 && end !== -1 && end > start) {
+            const cleaned = result.substring(start, end + 1);
+            data = JSON.parse(cleaned);
+          } else {
+            data = JSON.parse(result); // Fallback to full string
+          }
         } catch (e) {
           console.error("[TrustScan] Failed to parse score JSON:", result);
           return null;
@@ -138,8 +144,14 @@ class TrustScan {
           
           if (typeof result === "string") {
             try {
-              const cleaned = result.replace(/```json\n?|```/g, "").trim();
-              data = JSON.parse(cleaned);
+              const start = result.indexOf("{");
+              const end = result.lastIndexOf("}");
+              if (start !== -1 && end !== -1 && end > start) {
+                const cleaned = result.substring(start, end + 1);
+                data = JSON.parse(cleaned);
+              } else {
+                data = JSON.parse(result);
+              }
             } catch (e) {
               console.error("[TrustScan] Failed to parse batch JSON:", result);
             }
@@ -153,8 +165,14 @@ class TrustScan {
             let entry: any = raw;
             if (typeof raw === "string") {
                try { 
-                 const cleaned = raw.replace(/```json\n?|```/g, "").trim();
-                 entry = JSON.parse(cleaned); 
+                 const start = raw.indexOf("{");
+                 const end = raw.lastIndexOf("}");
+                 if (start !== -1 && end !== -1 && end > start) {
+                   const cleaned = raw.substring(start, end + 1);
+                   entry = JSON.parse(cleaned); 
+                 } else {
+                   entry = JSON.parse(raw);
+                 }
                } catch {}
             } else if (raw instanceof Map) {
                entry = Object.fromEntries(raw);
@@ -192,8 +210,14 @@ class TrustScan {
       let data = result;
       if (typeof result === "string") {
         try {
-          const cleaned = result.replace(/```json\n?|```/g, "").trim();
-          data = JSON.parse(cleaned);
+          const start = result.indexOf("[");
+          const end = result.lastIndexOf("]");
+          if (start !== -1 && end !== -1 && end > start) {
+            const cleaned = result.substring(start, end + 1);
+            data = JSON.parse(cleaned);
+          } else {
+            data = JSON.parse(result);
+          }
         } catch (e) {
           console.error("[TrustScan] Failed to parse flags JSON:", result);
           return [];
@@ -236,8 +260,14 @@ class TrustScan {
       let data = result;
       if (typeof result === "string") {
         try {
-          const cleaned = result.replace(/```json\n?|```/g, "").trim();
-          data = JSON.parse(cleaned);
+          const start = result.indexOf("[");
+          const end = result.lastIndexOf("]");
+          if (start !== -1 && end !== -1 && end > start) {
+            const cleaned = result.substring(start, end + 1);
+            data = JSON.parse(cleaned);
+          } else {
+            data = JSON.parse(result);
+          }
         } catch (e) {
           console.error("[TrustScan] Failed to parse scanned list JSON:", result);
           return [];
