@@ -88,7 +88,9 @@ class TrustScan {
       let data: any = result;
       if (typeof result === "string") {
         try {
-          data = JSON.parse(result);
+          // Strip Markdown code blocks if present
+          const cleaned = result.replace(/```json\n?|```/g, "").trim();
+          data = JSON.parse(cleaned);
         } catch (e) {
           console.error("[TrustScan] Failed to parse score JSON:", result);
           return null;
@@ -136,7 +138,8 @@ class TrustScan {
           
           if (typeof result === "string") {
             try {
-              data = JSON.parse(result);
+              const cleaned = result.replace(/```json\n?|```/g, "").trim();
+              data = JSON.parse(cleaned);
             } catch (e) {
               console.error("[TrustScan] Failed to parse batch JSON:", result);
             }
@@ -149,7 +152,10 @@ class TrustScan {
           for (const [target, raw] of Object.entries(data)) {
             let entry: any = raw;
             if (typeof raw === "string") {
-               try { entry = JSON.parse(raw); } catch {}
+               try { 
+                 const cleaned = raw.replace(/```json\n?|```/g, "").trim();
+                 entry = JSON.parse(cleaned); 
+               } catch {}
             } else if (raw instanceof Map) {
                entry = Object.fromEntries(raw);
             }
@@ -186,7 +192,8 @@ class TrustScan {
       let data = result;
       if (typeof result === "string") {
         try {
-          data = JSON.parse(result);
+          const cleaned = result.replace(/```json\n?|```/g, "").trim();
+          data = JSON.parse(cleaned);
         } catch (e) {
           console.error("[TrustScan] Failed to parse flags JSON:", result);
           return [];
@@ -229,7 +236,8 @@ class TrustScan {
       let data = result;
       if (typeof result === "string") {
         try {
-          data = JSON.parse(result);
+          const cleaned = result.replace(/```json\n?|```/g, "").trim();
+          data = JSON.parse(cleaned);
         } catch (e) {
           console.error("[TrustScan] Failed to parse scanned list JSON:", result);
           return [];
