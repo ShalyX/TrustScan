@@ -43,7 +43,7 @@ export function getStudioUrl(): string {
   );
 }
 
-export const TRUSTSCAN_CONTRACT_ADDRESS = (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "0x6fE2Ce79D46F161b12A0CFC8e0e54a03Ddf2cF62") as `0x${string}`;
+export const TRUSTSCAN_CONTRACT_ADDRESS = (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "0x6b203Bb2b0c88588668bF7eF6dD12db67e99a348") as `0x${string}`;
 
 export function getContractAddress(): string {
   return TRUSTSCAN_CONTRACT_ADDRESS;
