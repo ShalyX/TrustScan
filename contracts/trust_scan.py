@@ -21,9 +21,7 @@ class TrustScan(gl.Contract):
     flags: TreeMap[str, str]        # normalised_target -> JSON list[FlagEntry]
 
     def __init__(self) -> None:
-        self.scores = TreeMap()
-        self.scanned_list = DynArray()
-        self.flags = TreeMap()
+        pass # TreeMap / DynArray are auto-initialised by the GenLayer runtime
 
     # ── Helpers ───────────────────────────────────────────────────────────────
 
