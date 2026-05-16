@@ -21,7 +21,9 @@ class TrustScan(gl.Contract):
     flags: TreeMap[str, str]        # normalised_target -> JSON list[FlagEntry]
 
     def __init__(self) -> None:
-        pass  # TreeMap / DynArray are auto-initialised by the GenLayer runtime
+        self.scores = TreeMap()
+        self.scanned_list = DynArray()
+        self.flags = TreeMap()
 
     # ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -432,6 +434,9 @@ You MUST add up the points step by step. Do not estimate."""
     @gl.public.view
     def get_risk_score(self, target: str) -> str:
         """Returns the stored risk score as a JSON string, or a sentinel if not scanned."""
+        return self._get_risk_score(target)
+
+    def _get_risk_score(self, target: str) -> str:
         normalised = self._normalise(target)
         raw = self.scores.get(normalised, None)
         if raw is None:
@@ -450,12 +455,18 @@ You MUST add up the points step by step. Do not estimate."""
         """Returns a JSON string mapping target -> score_dict."""
         result = {}
         for t in targets:
-            result[t] = json.loads(self.get_risk_score(t))
+            try:
+                result[t] = json.loads(self._get_risk_score(t))
+            except:
+                continue
         return json.dumps(result)
 
     @gl.public.view
     def get_flags(self, target: str) -> str:
         """Returns verified community flags as a JSON string."""
+        return self._get_flags(target)
+
+    def _get_flags(self, target: str) -> str:
         normalised = self._normalise(target)
         return self.flags.get(normalised, "[]")
 
@@ -463,11 +474,14 @@ You MUST add up the points step by step. Do not estimate."""
     def get_flag_count(self, target: str) -> int:
         """Returns the number of verified community flags."""
         try:
-            return len(json.loads(self.get_flags(target)))
-        except json.JSONDecodeError:
+            return len(json.loads(self._get_flags(target)))
+        except:
             return 0
 
     @gl.public.view
     def get_all_scanned(self) -> str:
         """Returns the full ordered list of all scanned targets as a JSON string."""
-        return json.dumps([self.scanned_list[i] for i in range(len(self.scanned_list))])
+        try:
+            return json.dumps([self.scanned_list[i] for i in range(len(self.scanned_list))])
+        except:
+            return "[]"
