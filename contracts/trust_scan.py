@@ -321,13 +321,13 @@ You MUST add up the points step by step. Do not estimate."""
                 "Produce JSON with keys: "
                 "score (int 0-100, calculated by adding points), "
                 "label (Safe|Suspicious|Dangerous based on score), "
-                "reason (1-2 sentences citing specific evidence found), "
+                "reason (a professional, human-readable summary of the findings in 1-2 sentences), "
+                "point_calculation (the step-by-step point addition), "
                 "signals_found (list of risk signals detected), "
                 "sources_checked (list of data sources consulted), "
                 "type (string), "
                 "chain (string). "
-                "\n\nCRITICAL: Show your point calculation in the reason field. "
-                "Example: 'GoPlus flagged phishing_site=1 (+45), 1 Chainabuse report (+20) = 65 total'"
+                "\n\nCRITICAL: The reason should sound like a security analyst's conclusion (e.g., 'No malicious activity detected across multiple threat intelligence databases. The domain appears clean and has a valid SSL configuration.')."
             ),
         )
 
