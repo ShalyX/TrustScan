@@ -61,4 +61,4 @@ TrustScan uses GenLayer's **Equivalence Principle** to allow AI validators (LLMs
 ---
 
 ### **6. Social Links**
-*Choose at least one (e.g., X/Twitter, Discord, or GitHub profile).*
+
